@@ -20,7 +20,6 @@ The purpose of this project is to provide:
    - Integrate multiple Terraform IBM modules through Terragrunt  
    - Manage dependencies between modules (e.g., VPC depends on Resource Group, OCP depends on VPC)  
    - Promote best practices for multi-layer cloud deployments  
-4. **A scalable foundation** for teams adopting IBM Cloud Landing Zone principles and OpenShift workloads.
 
 This project can be used as a baseline for production deployments or adapted for learning and testing environments.
 
@@ -41,8 +40,6 @@ The architecture includes:
 ---
 
 ## Assumptions
-
-### Cloud & Account Prerequisites
 
 - This documentation is meant to be used for illustrative and learning purposes primarily.
 - This document expects the reader to have a basic level of understanding of network infrastructure, compute, Terraform and Terragrunt.
@@ -79,19 +76,17 @@ The architecture includes:
 ### Functional Limitations
 
 - The provided VPC example only provisions **one subnet in zone-1**.  
-  - Additional subnets must be manually added for multi-zone HA deployments.
+  - Additional subnets must be manually added for multi-zone deployments.
 - The OpenShift module is configured with **a single worker pool** and **fixed machine type** (`bx2.8x32`).  
 - `ocp_version`, addons, and entitlement parameters are set to **null**, meaning default versioning behavior applies.
 
-### Architecture Limitations
+### Limitations
 
-- This template does **not** include:
+- This project does **not** include:
   - VPN, Transit Gateway, or Direct Link connectivity  
   - Load balancers external to the OCP cluster  
   - Security groups (only ACLs are used)  
   - LogDNA, Monitoring, Key Protect, or Secrets Manager integrations  
-
-### Limitations
 
 - Running Terragrunt **inside individual module folders** may produce dependency errors; all commands should be executed from the root folder using:  
 
