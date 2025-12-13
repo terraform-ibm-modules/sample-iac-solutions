@@ -12,14 +12,38 @@ include "variables" {
 
 dependency "resource_group" {
   config_path = "../resource_group"
+
+  # Permit planning before the resource group is created.
+  mock_outputs = {
+    resource_group_id = "00000000-0000-0000-0000-000000000000"
+  }
+  # Shallow merge: prefer real state where available, use mock only if missing.
+  mock_outputs_merge_strategy_with_state = "shallow"
 }
 
 dependency "vpc" {
   config_path = "../vpc"
+
+  # Permit planning before the VPC is created.
+  mock_outputs = {
+    vpc_id            = "00000000-0000-0000-0000-000000000000"
+    subnet_detail_map = {
+      "zone-1" = [
+        {
+          id         = "subnet-mock-0001"
+          zone       = "us-south-1"
+          cidr_block = "10.10.10.0/24"
+          crn        = "crn:v1:bluemix:public:is:us-south:a/1234567890abcdef::subnet:subnet-mock-0001"
+        }
+      ]
+    }
+  }
+  # Shallow merge: prefer real state where available, use mock only if missing.
+  mock_outputs_merge_strategy_with_state = "shallow"
 }
 
 locals {
-  prefix = "tg"
+  prefix = "vipin-tg"
 }
 
 inputs = {

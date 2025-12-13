@@ -11,7 +11,7 @@ terraform {
 }
 
 locals {
-  resource_group_name = "tg-rg"
+  resource_group_name = "vipn-tg-rg"
 }
 
 inputs = {

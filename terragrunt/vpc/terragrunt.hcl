@@ -12,10 +12,17 @@ terraform {
 
 dependency "resource_group" {
   config_path = "../resource_group"
+
+  # Allow planning before resource group is applied by supplying placeholder outputs.
+  mock_outputs = {
+    resource_group_id = "00000000-0000-0000-0000-000000000000"
+  }
+  # Use shallow merge so real state wins where present; mocks fill gaps pre-apply.
+  mock_outputs_merge_strategy_with_state = "shallow"
 }
 
 locals {
-  prefix = "tg"
+  prefix = "vipin-tg"
 }
 
 inputs = {
