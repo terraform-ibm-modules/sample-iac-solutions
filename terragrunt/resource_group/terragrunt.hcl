@@ -3,7 +3,8 @@ include "ibm_provider" {
 }
 
 include "variables" {
-  path = find_in_parent_folders("variables-terragrunt.hcl")
+  path   = find_in_parent_folders("variables-terragrunt.hcl")
+  expose = true
 }
 
 terraform {
@@ -11,7 +12,8 @@ terraform {
 }
 
 locals {
-  resource_group_name = "vipn-tg-rg"
+  prefix              = include.variables.locals.prefix
+  resource_group_name = "${local.prefix}-rg"
 }
 
 inputs = {

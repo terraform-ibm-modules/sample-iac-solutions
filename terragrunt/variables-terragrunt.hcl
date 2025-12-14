@@ -5,6 +5,10 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 
+locals {
+  prefix = "temp-tg"
+}
+
 generate "variables" {
   path      = "variables-terragrunt.tf"
   if_exists = "overwrite"
