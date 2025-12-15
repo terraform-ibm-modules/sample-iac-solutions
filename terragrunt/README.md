@@ -53,10 +53,18 @@ The architecture includes:
 
 ### Tools & Runtime
 
-- Terraform **v1.5 or higher**  
-- Terragrunt **v0.54 or higher**  
-- IBM Cloud CLI installed and authenticated  
-- Git access to fetch Terraform modules  
+- Terraform **v1.9 or higher**  
+- Terragrunt **v0.94 or higher**  
+
+Set TERRAGRUNT_TFPATH to the location of your Terraform binary to confirm which executable Terragrunt should use for all operations.
+
+```bash
+# Mac/Linux
+export TERRAGRUNT_TFPATH=/usr/local/bin/terraform
+
+# Windows
+set TERRAGRUNT_TFPATH="C:\Program Files\Terraform\terraform.exe"
+```
 
 ### Network & Region Assumptions
 
