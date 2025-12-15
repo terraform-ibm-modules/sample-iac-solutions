@@ -56,7 +56,7 @@ The architecture includes:
 - Terraform **v1.9 or higher**  
 - Terragrunt **v0.94 or higher**  
 
-Set TERRAGRUNT_TFPATH to the location of your Terraform binary to confirm which executable Terragrunt should use for all operations.
+Set TERRAGRUNT_TFPATH to the location of your Terraform binary to confirm which executable Terragrunt should use for all operations. This can be different on your machine so ensure to set it to the correct path.
 
 ```bash
 # Mac/Linux
