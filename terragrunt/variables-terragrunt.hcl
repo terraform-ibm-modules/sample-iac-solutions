@@ -6,7 +6,8 @@
 
 
 locals {
-  prefix = "temp-tg"
+  prefix = "ocp-tg"
+  region = "eu-de"
 }
 
 generate "variables" {

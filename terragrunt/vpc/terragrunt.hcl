@@ -24,12 +24,13 @@ dependency "resource_group" {
 
 locals {
   prefix = include.variables.locals.prefix
+  region = include.variables.locals.region
 }
 
 inputs = {
   name              = "vpc"
   prefix            = local.prefix
-  region            = "us-south"
+  region            = local.region
   resource_group_id = dependency.resource_group.outputs.resource_group_id
 
   subnets = {

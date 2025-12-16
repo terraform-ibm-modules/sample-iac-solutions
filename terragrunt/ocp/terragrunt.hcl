@@ -45,12 +45,13 @@ dependency "vpc" {
 
 locals {
   prefix = include.variables.locals.prefix
+  region = include.variables.locals.region
 }
 
 inputs = {
   cluster_name = local.prefix
 
-  region            = "us-south"
+  region            = local.region
   resource_group_id = dependency.resource_group.outputs.resource_group_id
 
   vpc_id      = dependency.vpc.outputs.vpc_id
