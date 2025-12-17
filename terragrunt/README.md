@@ -109,7 +109,7 @@ To create multiple worker pools or change worker pool configuration, you can mod
 
 You can customize the deployment by modifying the `prefix` and `region` values in locals block in `variables-terragrunt.hcl` to select the target region and ensure unique resource naming.
 
-To deploy the solution, run the following commands from the root directory:
+To deploy the solution, run the following commands from the root of terragrunt folder in this repository:
 
 ```bash
 terragrunt run --all plan
