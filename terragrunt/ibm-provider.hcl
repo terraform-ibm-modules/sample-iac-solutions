@@ -14,7 +14,7 @@ generate "provider" {
   if_exists = "overwrite"
   contents  = <<EOF
 provider "ibm" {
-  ibmcloud_api_key = var.ibmcloud_api_key  #pragma: allowlist secret
+  ibmcloud_api_key = var.ibmcloud_api_key
   region           = "${local.region}"
 }
 EOF
