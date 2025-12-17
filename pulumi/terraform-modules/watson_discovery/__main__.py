@@ -6,7 +6,7 @@ In order to use a Terraform module in Pulumi, first add it to your project using
 
 This will generate a local SDK which can be imported in the Pulumi program. So, the Watson discovery and resource group packages can be added as: 
   pulumi package add terraform-module terraform-ibm-modules/watsonx-discovery/ibm 1.11.1 wx_discovery
-  pulumi package add terraform-module terraform-ibm-modules/resource-group/ibm 1.2.1 ibm_rg_module
+  pulumi package add terraform-module terraform-ibm-modules/resource-group/ibm 1.4.6 ibm_rg_module
 '''
 
 

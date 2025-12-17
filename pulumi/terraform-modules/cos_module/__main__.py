@@ -2,7 +2,7 @@
 
 # Import local SDKs as shown : 
 # pulumi package add terraform-module terraform-ibm-modules/cos/ibm 10.1.14 ibm_cos_module
-# pulumi package add terraform-module terraform-ibm-modules/resource-group/ibm 1.2.1 ibm_rg_module
+# pulumi package add terraform-module terraform-ibm-modules/resource-group/ibm 1.4.6 ibm_rg_module
 
 import pulumi
 import pulumi_ibm_rg_module as rgmod
