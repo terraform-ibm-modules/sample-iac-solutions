@@ -6,5 +6,5 @@ import (
 )
 
 func TestIacSolution1(t *testing.T) {
-  t.Skip("Skipping until solution added to repo")
+	t.Skip("Skipping until solution added to repo")
 }
