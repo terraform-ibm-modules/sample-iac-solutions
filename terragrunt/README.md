@@ -29,7 +29,7 @@ This solution can be used as a baseline for production deployments or adapted fo
 
 The following diagram represents the conceptual architecture for this deployment. It illustrates the relationships between the Resource Group, VPC, subnets, and the OpenShift cluster.
 
-![Architecture Overview](https://raw.githubusercontent.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc/refs/heads/main/reference-architectures/deployable-architecture-ocp-cluster-qs.svg)
+![Architecture Overview](https://raw.githubusercontent.com/terraform-ibm-modules/sample-iac-solutions/refs/heads/main/reference-architectures/deployable-architecture-ocp-tg.svg)
 
 The architecture includes:
 
