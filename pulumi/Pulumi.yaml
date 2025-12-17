@@ -1,0 +1,17 @@
+name: pulumi-demo
+description: Simple demo of Pulumi program
+runtime:
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: python
+packages:
+  ibm:
+    source: terraform-provider
+    version: 0.12.0
+    parameters:
+      - ibm-cloud/ibm
