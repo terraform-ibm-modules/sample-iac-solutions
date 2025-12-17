@@ -5,7 +5,7 @@ This solution provides an opinionated, Terragrunt-based framework for deploying 
 Terragrunt is used to orchestrate module dependencies, manage shared provider settings, enforce variable inheritance, and structure the deployment into logical layers. This repository includes three deployable units:
 
 - **Resource Group** – Logical grouping used to organize, manage, and apply access policies to IBM Cloud resources
-- **VPC** – Virtual Private Cloud with subnets, ACLs, and public gateway configuration  
+- **VPC** – Virtual Private Cloud with subnets, ACLs, and public gateway configuration
 - **OCP** – Red Hat OpenShift cluster deployed within the VPC
 
 ---
@@ -14,12 +14,12 @@ Terragrunt is used to orchestrate module dependencies, manage shared provider se
 
 The purpose of this solution is to provide:
 
-1. **A repeatable, automated deployment model** for IBM Cloud environments using Terragrunt.  
-2. **A modular infrastructure structure** separating the Resource Group, VPC, and OpenShift layers into clear Terragrunt modules.  
-3. **A reference implementation** that demonstrates how to:  
-   - Integrate multiple Terraform IBM modules through Terragrunt  
-   - Manage dependencies between modules (e.g., VPC depends on Resource Group, OCP depends on VPC)  
-   - Promote best practices for multi-layer cloud deployments  
+1. **A repeatable, automated deployment model** for IBM Cloud environments using Terragrunt.
+2. **A modular infrastructure structure** separating the Resource Group, VPC, and OpenShift layers into clear Terragrunt modules.
+3. **A reference implementation** that demonstrates how to:
+   - Integrate multiple Terraform IBM modules through Terragrunt
+   - Manage dependencies between modules (e.g., VPC depends on Resource Group, OCP depends on VPC)
+   - Promote best practices for multi-layer cloud deployments
 
 This solution can be used as a baseline for production deployments or adapted for learning and testing environments.
 
@@ -33,7 +33,7 @@ The following diagram represents the conceptual architecture for this deployment
 
 The architecture includes:
 
-- A **Resource Group** to isolate cloud resources  
+- A **Resource Group** to isolate cloud resources
 - A **VPC** with subnet, ACLs, and a public gateway
 - An **OpenShift cluster**
 
@@ -44,8 +44,8 @@ This architecture is suitable for:
 - **Learning & Experimentation**: Understanding Terraform modules and Terragrunt workflows on IBM Cloud.
 
 This configuration by default is designed for a single-zone deployment:
-- Provisions **one subnet in zone-1**.  
-- Deploys OpenShift with **a single worker pool** and **fixed machine type** (`bx2.8x32`).  
+- Provisions **one subnet in zone-1**.
+- Deploys OpenShift with **a single worker pool** and **fixed machine type** (`bx2.8x32`).
 - Uses default versioning for OpenShift (no specific version pinned).
 
 (See [Network & Zone Configuration](#network--zone-configuration) for customization details)
@@ -54,18 +54,18 @@ This configuration by default is designed for a single-zone deployment:
 
 ## Pre-requisites
 
-- You have an **IBM Cloud account** with required permissions to create VPC, Subnets, ACLs, and OpenShift clusters.  
-- An **IBM Cloud API key** is available and exported as an environment variable.  
+- You have an **IBM Cloud account** with required permissions to create VPC, Subnets, ACLs, and OpenShift clusters.
+- An **IBM Cloud API key** is available and exported as an environment variable.
 - The account has quota available for:
-  - VPC creation  
-  - Public gateways  
-  - Subnets  
-  - Worker nodes for OpenShift  
+  - VPC creation
+  - Public gateways
+  - Subnets
+  - Worker nodes for OpenShift
 
 ### Tools & Runtime
 
-- Terraform **v1.9 or higher**  
-- Terragrunt **v0.94 or higher**  
+- Terraform **v1.9 or higher**
+- Terragrunt **v0.94 or higher**
 
 Set TERRAGRUNT_TFPATH to the location of your Terraform binary to confirm which executable Terragrunt should use for all operations. This can be different on your machine so ensure to set it to the correct path.
 
@@ -89,19 +89,19 @@ To create multiple worker pools or change worker pool configuration, you can mod
 
 ### Module Dependencies
 
-- Resource Group must exist before VPC creation.  
-- VPC must exist before OCP cluster deployment.  
-- `terragrunt run --all` commands will handle dependency ordering automatically.  
+- Resource Group must exist before VPC creation.
+- VPC must exist before OCP cluster deployment.
+- `terragrunt run --all` commands will handle dependency ordering automatically.
 
 ---
 
 ## Solution Scope
 
 - This solution does **not** include:
-  - VPN, Transit Gateway, or Direct Link connectivity  
-  - Load balancers external to the OCP cluster  
-  - Security groups (only ACLs are used)  
-  - Cloud Logs, Monitoring, Key Protect, or Secrets Manager integrations  
+  - VPN, Transit Gateway, or Direct Link connectivity
+  - Load balancers external to the OCP cluster
+  - Security groups (only ACLs are used)
+  - Cloud Logs, Monitoring, Key Protect, or Secrets Manager integrations
 
 - Running Terragrunt **inside individual module folders** may produce dependency errors; all commands should be executed from the root folder.
 
