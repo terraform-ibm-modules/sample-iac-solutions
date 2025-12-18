@@ -103,3 +103,4 @@ htmlcov/
 
 # Type checking
 .mypy_cache/
+Pulumi.pul-ibm-demo.yaml
