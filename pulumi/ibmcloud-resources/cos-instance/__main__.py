@@ -1,8 +1,9 @@
 # Example : Simple Cloud Object Storage Instance
 
 
-import pulumi
 import pulumi_ibm as ibm
+
+import pulumi
 
 config = pulumi.Config()
 resource_group = config.get("resource-group") or "Default"
@@ -15,7 +16,7 @@ cos_instance = ibm.ResourceInstance(
     plan="lite",
     location="global",
     resource_group_id=resource_group,
-    tags=["environment:dev", "managed-by:pulumi"]
+    tags=["environment:dev", "managed-by:pulumi"],
 )
 
 # Create a COS bucket
@@ -25,7 +26,7 @@ cos_bucket = ibm.CosBucket(
     resource_instance_id=cos_instance.id,
     region_location="us-south",
     storage_class="standard",
-    endpoint_type="public"
+    endpoint_type="public",
 )
 
 # Output the details
