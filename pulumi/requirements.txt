@@ -1,6 +1,1 @@
 pulumi>=3.0.0,<4.0.0
-sdks/ibm_rg_module
-sdks/ibm
-sdks/wx_discovery
-sdks/ibm_kms_module
-sdks/ibm_cos_module

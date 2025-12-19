@@ -18,7 +18,7 @@ c) An [IBM Cloud API key](https://cloud.ibm.com/docs/account?topic=account-usera
 
 d) [Git](https://git-scm.com/install/) installed
 
-## Setup
+## Steps
 
 1. Clone the repository
 
@@ -27,7 +27,13 @@ d) [Git](https://git-scm.com/install/) installed
     cd sample-iac-solutions/pulumi-egs/pulumi
     ```
 
-2. Install dependencies
+2. Log in to Pulumi (either you can create an account in Pulumi or use local-only mode).
+
+   ```sh
+   pulumi login --local
+   ```
+
+3. Install dependencies
 
     (a) Add pulumi IBM provider package to the project :
 
@@ -53,14 +59,14 @@ d) [Git](https://git-scm.com/install/) installed
     pulumi package add terraform-module terraform-ibm-modules/watsonx-discovery/ibm 1.11.1 wx_discovery
    ```
 
-3. Configure IBM Cloud credentials
+4. Configure IBM Cloud credentials
     Export your API key:
 
     ```sh
     export IBMCLOUD_API_KEY=<your_ibmcloud_api_key> # pragma: allowlist secret
     ```
 
-4. Set Pulumi stack config
+5. Set Pulumi stack config
     Define region, prefix, resource group and access group:
 
     ```sh
@@ -70,19 +76,19 @@ d) [Git](https://git-scm.com/install/) installed
     pulumi config set access_group "Public Access" # Replace with Access group of your choice.
     ```
 
-5. Preview the changes
+6. Preview the changes
 
     ```sh
     pulumi preview
     ```
 
-6. Apply the changes
+7. Apply the changes
 
     ```sh
     pulumi up
     ```
 
-7. Destroy the resources
+8. Destroy the resources
 
     ```sh
     pulumi down
