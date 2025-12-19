@@ -27,7 +27,24 @@ import pulumi
 STATIC_DIR = os.path.join(os.path.dirname(__file__), STATIC_DIR_NAME)
 
 
-def create_cos_instance(rg, kms_instance):
+def create_cos_instance(rg):
+    """Provision COS instance and bucket."""
+    cos = cosmod.Module(
+        "cos_instance_bucket",
+        resource_group_id=rg.resource_group_id,
+        region=REGION,
+        cos_instance_name=f"{PREFIX}-{COS_INSTANCE_NAME}",
+        bucket_name=f"{PREFIX}-{BUCKET_NAME}-{generate_suffix()}",
+        create_cos_instance=True,
+        create_cos_bucket=True,
+        bucket_storage_class=BUCKET_STORAGE_CLASS,
+        kms_encryption_enabled=False,
+    )
+
+    return cos
+
+
+def create_cos_instance_with_key_protect_enabled(rg, kms_instance):
     """Provision COS instance and bucket."""
     cos = cosmod.Module(
         "cos_instance_bucket",

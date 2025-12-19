@@ -9,7 +9,6 @@
 
 
 from constants import COS_ENDPOINT
-from terraform_ibm_modules.kms import create_kms_instance
 from terraform_ibm_modules.object_storage import (
     configure_bucket_website,
     configure_public_access,
@@ -25,17 +24,25 @@ import pulumi
 def main():
     """Main method to provision resources."""
 
+    # Resource Group
     rg = create_resource_group()
-    kms_instance = create_kms_instance(rg)
-    cos = create_cos_instance(rg, kms_instance)
+
+    # Cloud Object Storage
+    cos = create_cos_instance(rg)
     configure_public_access(cos)
     upload_static_files(cos)
     configure_bucket_website(cos)
+
+    # Uncomment below to use Key Protect and COS with Key protect enabled
+    # kms_instance = create_kms_instance(rg)
+    # cos = create_cos_instance(rg, kms_instance)
+
+    # Watson Discovery
     watson_discovery = create_watson_discovery(rg)
 
     # Export outputs
     pulumi.export("resource_group_name", rg.resource_group_name)
-    pulumi.export("kms_instance_crn", kms_instance.key_protect_crn)
+    # pulumi.export("kms_instance_crn", kms_instance.key_protect_crn) # Uncomment if provisioning Key Protect.
     pulumi.export("bucket_name", cos.bucket_name)
     pulumi.export("cos_instance_name", cos.cos_instance_name)
     pulumi.export(

@@ -1,0 +1,6 @@
+2025-12-19 23:30:12 INFO  [AuthService] User login successful: user_id=12345
+2025-12-19 23:30:15 WARN  [PaymentService] Payment gateway response delayed for transaction_id=98765
+2025-12-19 23:30:18 ERROR [OrderService] Failed to create order: order_id=54321, reason=Inventory shortage
+2025-12-19 23:30:22 INFO  [NotificationService] Email sent to customer: email=prateek.sharma@example.com
+2025-12-19 23:30:25 DEBUG [CacheManager] Cache miss for key=session_abc123
+2025-12-19 23:30:30 INFO  [SystemMonitor] CPU usage at 72%, memory usage at 65%
