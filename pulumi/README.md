@@ -1,10 +1,6 @@
 # Description
 
-This Pulumi examples will demonstrate how to provision Resource Group, Key Protect, Object Storage and Watson Discovery instances using Terraform IBM Modules.
-
-## Pulumi IBM Cloud Examples
-
-This project demonstrates how to provision **IBM Cloud Object Storage (COS)** and **Watson Discovery** instances using Pulumi with the official `terraform-ibm-modules`.
+This Pulumi example will demonstrate how to provision Resource Group, Key Protect, Object Storage and Watson Discovery instances using Terraform IBM Modules.
 
 ## Prerequisites
 
