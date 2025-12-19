@@ -1,4 +1,7 @@
-RG_NAME = "new-rg"
+EXISTING_RESOURCE_GROUP = (
+    "Default"  # Change to None if want to create a new Resource Group.
+)
+NEW_RG_NAME = "new-rg"  # If want to create a new Resource Group EXISTING_RESOURCE_GROUP should be changed to None
 
 # KMS Configuration
 KP_NAME = "key-protect"

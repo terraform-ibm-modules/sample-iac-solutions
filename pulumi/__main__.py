@@ -34,6 +34,7 @@ def main():
     watson_discovery = create_watson_discovery(rg)
 
     # Export outputs
+    pulumi.export("resource_group_name", rg.resource_group_name)
     pulumi.export("kms_instance_crn", kms_instance.key_protect_crn)
     pulumi.export("bucket_name", cos.bucket_name)
     pulumi.export("cos_instance_name", cos.cos_instance_name)

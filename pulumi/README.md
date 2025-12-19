@@ -33,9 +33,8 @@ pulumi login --local
 
 Provide the Stack details and Passphrase to be used
 
-
 ```sh
-pulumi stack init dev # dev is name of the new stack created.
+pulumi stack init dev # dev is name of the new stack that will be created.
 ```
 
 ![initialize-stack](./images/initialize-stack.png)
@@ -64,12 +63,11 @@ export IBMCLOUD_API_KEY=<your_ibmcloud_api_key> # pragma: allowlist secret
 
 **6. Set Pulumi stack config**
 
-If required to change the default values, define region, prefix, resource group and access group:
+If required to change the default values, update the configuration file for region, prefix and access group:
 
 ```sh
 pulumi config set region us-south # Provide region
 pulumi config set prefix pulumi-demo # Provide the prefix
-pulumi config set resource_group Default # Replace with Resource Group of your choice.
 pulumi config set access_group "Public Access" # Replace with Access group of your choice. Make sure the provided Access Group exists in IBMCloud account.
 ```
 
