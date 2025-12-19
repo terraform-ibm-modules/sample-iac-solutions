@@ -1,4 +1,4 @@
-RG_NAME = "resource-group"
+RG_NAME = "new-rg"
 
 # KMS Configuration
 KP_NAME = "key-protect"

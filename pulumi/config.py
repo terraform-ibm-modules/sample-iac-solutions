@@ -4,9 +4,9 @@ import pulumi
 
 config = pulumi.Config()
 REGION = config.get("region") or "us-south"
-PREFIX = config.get("prefix") or "pulumi2"
+PREFIX = config.get("prefix") or "pul-eg"
 ACCESS_GROUP = config.get("access_group") or "Public Access"
-EXISTING_RESOURCE_GROUP = config.get("resource_group")  # None if new
+EXISTING_RESOURCE_GROUP = config.get("resource_group") or "Default" # None if new
 
 KMS_KEY_CONFIGURATION = {
     "key_name": KMS_KEY_NAME,

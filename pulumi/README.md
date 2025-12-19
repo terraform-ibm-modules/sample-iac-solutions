@@ -69,7 +69,7 @@ If required to change the default values, define region, prefix, resource group 
 ```sh
 pulumi config set region us-south # Provide region
 pulumi config set prefix pulumi-demo # Provide the prefix
-pulumi config set resource-group Default # Replace with Resource Group of your choice.
+pulumi config set resource_group Default # Replace with Resource Group of your choice.
 pulumi config set access_group "Public Access" # Replace with Access group of your choice. Make sure the provided Access Group exists in IBMCloud account.
 ```
 
