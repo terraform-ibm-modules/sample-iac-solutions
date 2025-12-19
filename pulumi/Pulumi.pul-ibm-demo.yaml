@@ -1,0 +1,6 @@
+encryptionsalt: v1:00npfOLbVgE=:v1:42gOvJvvGxdFdFPc:dIMdFUcavA461ieaod/kLDtzU5mHzw==
+config:
+  pulumi-demo:resource-group: Default
+  pulumi-demo:prefix: tim-pulumi
+  pulumi-demo:region: us-south
+  pulumi-demo:access_group: Public Access

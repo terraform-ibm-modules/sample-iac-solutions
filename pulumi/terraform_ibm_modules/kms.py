@@ -1,5 +1,12 @@
+# ----------------------------------------------------------------------------------------------------
+# Required Pulumi packages:
+#   - IBM Cloud KMS All Inclusive module:
+#       pulumi package add terraform-module terraform-ibm-modules/kms-all-inclusive/ibm 5.5.5 ibm_kms_module
+# ----------------------------------------------------------------------------------------------------
+
 import pulumi_ibm_kms_module as ibm_kms_module
-from config import KMS_KEYS, KP_NAME, PREFIX, REGION
+from config import KMS_KEYS, PREFIX, REGION
+from constants import KP_NAME
 
 
 def create_kms_instance(rg):

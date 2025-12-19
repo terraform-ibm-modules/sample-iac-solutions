@@ -1,18 +1,16 @@
-# ----------------------------
-# COS Instance & Bucket
-# ----------------------------
+# ----------------------------------------------------------------------------------------------------
+# Required Pulumi packages:
+#   - IBM Cloud Object Storage module:
+#       pulumi package add terraform-module terraform-ibm-modules/cos/ibm 10.7.2 ibm_cos_module
+# ----------------------------------------------------------------------------------------------------
 
 import glob
 import os
 
 import pulumi_ibm as ibm
 import pulumi_ibm_cos_module as cosmod
-from config import ACCESS_GROUP, PREFIX, REGION
-from utils import first_or_self, generate_suffix
-
-import pulumi
-
-from .constants import (
+from config import PREFIX, REGION
+from constants import (
     BUCKET_NAME,
     BUCKET_STORAGE_CLASS,
     BUCKET_TYPE,
@@ -22,6 +20,9 @@ from .constants import (
     KMS_KEY_RING_NAME,
     STATIC_DIR_NAME,
 )
+from utils import first_or_self, generate_suffix
+
+import pulumi
 
 STATIC_DIR = os.path.join(os.path.dirname(__file__), STATIC_DIR_NAME)
 
@@ -81,7 +82,7 @@ def configure_public_access(cos):
     """Grant public read access to the COS bucket."""
 
     # NOTE: If you want to use a different IAM access group, either change in pulumi config or override here.
-    # ACCESS_GROUP = "your-access-group"
+    ACCESS_GROUP = "geretain-public-access"
 
     # Lookup the default 'Public Access' IAM access group
     public_access_group = ibm.get_iam_access_group(access_group_name=ACCESS_GROUP)

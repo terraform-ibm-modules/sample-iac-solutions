@@ -6,26 +6,61 @@ This repository serves as the central collection of Pulumi examples that demonst
 
 This project demonstrates how to provision **IBM Cloud Object Storage (COS)** and **Watson Discovery** instances using Pulumi with the official `terraform-ibm-modules`.
 
+## Prerequisites
+
+Before you begin, ensure you have:
+
+a) [Pulumi CLI](https://www.pulumi.com/docs/get-started/download-install/) installed
+
+b) [IBM Cloud CLI](https://cloud.ibm.com/docs/cli) installed and configured (optional)
+
+c) An [IBM Cloud API key](https://cloud.ibm.com/docs/account?topic=account-userapikey)
+
+d) [Git](https://git-scm.com/install/) installed
+
 ## Setup
 
-1. Install dependencies
-   Add the required Pulumi Terraform modules:
+1. Clone the repository
+
+    ```sh
+    git clone https://github.com/terraform-ibm-modules/sample-iac-solutions.git
+    cd sample-iac-solutions/pulumi-egs/pulumi
+    ```
+
+2. Install dependencies
+
+    (a) Add pulumi IBM provider package to the project :
+
+    ```sh
+    pulumi package add terraform-provider ibm-cloud/ibm
+    ```
+
+   (b) Add the required Pulumi Terraform modules:
 
    ```sh
     pulumi package add terraform-module terraform-ibm-modules/cos/ibm 10.7.2 ibm_cos_module
+    ```
+
+    ```sh
     pulumi package add terraform-module terraform-ibm-modules/kms-all-inclusive/ibm 5.5.5 ibm_kms_module
+    ```
+
+    ```sh
     pulumi package add terraform-module terraform-ibm-modules/resource-group/ibm 1.4.6 ibm_rg_module
+    ```
+
+    ```sh
     pulumi package add terraform-module terraform-ibm-modules/watsonx-discovery/ibm 1.11.1 wx_discovery
    ```
 
-2. Configure IBM Cloud credentials
+3. Configure IBM Cloud credentials
     Export your API key:
 
     ```sh
     export IBMCLOUD_API_KEY=<your_ibmcloud_api_key> # pragma: allowlist secret
     ```
 
-3. Set Pulumi stack config
+4. Set Pulumi stack config
     Define region, prefix, resource group and access group:
 
     ```sh
@@ -35,19 +70,19 @@ This project demonstrates how to provision **IBM Cloud Object Storage (COS)** an
     pulumi config set access_group "Public Access" # Replace with Access group of your choice.
     ```
 
-4. Preview the changes
+5. Preview the changes
 
     ```sh
     pulumi preview
     ```
 
-5. Apply the changes
+6. Apply the changes
 
     ```sh
     pulumi up
     ```
 
-6. Destroy the resources
+7. Destroy the resources
 
     ```sh
     pulumi down
@@ -55,8 +90,10 @@ This project demonstrates how to provision **IBM Cloud Object Storage (COS)** an
 
 ## Validation
 
-You can log in to IBM Cloud and verify :
+After deployment, verify that resources were provisioned successfully:
 
-- The COS instance and bucket in the IBM Cloud console under Object Storage.
-- Watson Discovery instance in the IBM Cloud dashboard.
-- Resource Group and Key Protect instance.
+* Pulumi Console Output – Confirm resource creation summary.
+* Login to IBM Cloud Console and verify –
+  * COS instance and bucket under Object Storage
+  * Watson Discovery instance in the dashboard
+  * Resource Group and Key Protect instance under Resource List

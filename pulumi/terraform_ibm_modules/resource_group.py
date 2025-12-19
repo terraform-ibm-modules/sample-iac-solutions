@@ -1,7 +1,12 @@
+# ----------------------------------------------------------------------------------------------------
+# Required Pulumi packages:
+#   - IBM Cloud Resource Group module:
+#       pulumi package add terraform-module terraform-ibm-modules/resource-group/ibm 1.4.6 ibm_rg_module
+# ----------------------------------------------------------------------------------------------------
+
 import pulumi_ibm_rg_module as rgmod
 from config import EXISTING_RESOURCE_GROUP, PREFIX
-
-from .constants import RG_NAME
+from constants import RG_NAME
 
 
 def create_resource_group():
