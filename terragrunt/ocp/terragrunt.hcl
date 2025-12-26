@@ -1,5 +1,5 @@
 terraform {
-  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v3.75.7"
+  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-base-ocp-vpc.git?ref=v3.75.8"
 }
 
 include "ibm_provider" {
