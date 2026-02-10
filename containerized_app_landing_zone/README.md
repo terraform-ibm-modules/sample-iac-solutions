@@ -57,7 +57,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 | <a name="module_logs_agent"></a> [logs\_agent](#module\_logs\_agent) | terraform-ibm-modules/logs-agent/ibm | 1.17.4 |
 | <a name="module_metrics_routing"></a> [metrics\_routing](#module\_metrics\_routing) | terraform-ibm-modules/cloud-monitoring/ibm//modules/metrics_routing | 1.12.21 |
 | <a name="module_monitoring_agent"></a> [monitoring\_agent](#module\_monitoring\_agent) | terraform-ibm-modules/monitoring-agent/ibm | 1.19.6 |
-| <a name="module_ocp_base"></a> [ocp\_base](#module\_ocp\_base) | ../.. | n/a |
+| <a name="module_ocp_base"></a> [ocp\_base](#module\_ocp\_base) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.79.0 |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.4.7 |
 | <a name="module_scc_wp"></a> [scc\_wp](#module\_scc\_wp) | terraform-ibm-modules/scc-workload-protection/ibm | 1.16.23 |
 | <a name="module_secret_group"></a> [secret\_group](#module\_secret\_group) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.3.39 |
