@@ -34,11 +34,11 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.9.0 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 3.0.0, <4.0.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.78.2, < 2.0.0 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.16.1 |
-| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | >= 2.0.1 |
-| <a name="requirement_time"></a> [time](#requirement\_time) | >= 0.9.1, < 1.0.0 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | 3.1.1 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.87.3 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 3.0.1 |
+| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 2.0.1 |
+| <a name="requirement_time"></a> [time](#requirement\_time) | 0.31.1 |
 
 ### Modules
 
@@ -71,20 +71,20 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 
 | Name | Type |
 |------|------|
-| [ibm_en_subscription_email.apprapp_email_subscription](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/en_subscription_email) | resource |
-| [ibm_en_subscription_email.en_email_subscription](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/en_subscription_email) | resource |
-| [ibm_en_topic.en_apprapp_topic](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/en_topic) | resource |
-| [ibm_en_topic.en_sm_topic](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/en_topic) | resource |
-| [ibm_iam_authorization_policy.cos_secrets_manager_key_manager](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_authorization_policy) | resource |
-| [ibm_iam_authorization_policy.en_secrets_manager_key_manager](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_authorization_policy) | resource |
+| [ibm_en_subscription_email.apprapp_email_subscription](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.87.3/docs/resources/en_subscription_email) | resource |
+| [ibm_en_subscription_email.en_email_subscription](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.87.3/docs/resources/en_subscription_email) | resource |
+| [ibm_en_topic.en_apprapp_topic](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.87.3/docs/resources/en_topic) | resource |
+| [ibm_en_topic.en_sm_topic](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.87.3/docs/resources/en_topic) | resource |
+| [ibm_iam_authorization_policy.cos_secrets_manager_key_manager](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.87.3/docs/resources/iam_authorization_policy) | resource |
+| [ibm_iam_authorization_policy.en_secrets_manager_key_manager](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.87.3/docs/resources/iam_authorization_policy) | resource |
 | [terraform_data.delete_secrets](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
-| [time_sleep.wait_for_cos_authorization_policy](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
-| [time_sleep.wait_for_en_authorization_policy](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
-| [time_sleep.wait_for_secrets_manager](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
-| [ibm_container_cluster_config.cluster_config](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/container_cluster_config) | data source |
-| [ibm_en_destinations.en_apprapp_destinations](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/en_destinations) | data source |
-| [ibm_en_destinations.en_sm_destinations](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/en_destinations) | data source |
-| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/data-sources/iam_auth_token) | data source |
+| [time_sleep.wait_for_cos_authorization_policy](https://registry.terraform.io/providers/hashicorp/time/0.31.1/docs/resources/sleep) | resource |
+| [time_sleep.wait_for_en_authorization_policy](https://registry.terraform.io/providers/hashicorp/time/0.31.1/docs/resources/sleep) | resource |
+| [time_sleep.wait_for_secrets_manager](https://registry.terraform.io/providers/hashicorp/time/0.31.1/docs/resources/sleep) | resource |
+| [ibm_container_cluster_config.cluster_config](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.87.3/docs/data-sources/container_cluster_config) | data source |
+| [ibm_en_destinations.en_apprapp_destinations](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.87.3/docs/data-sources/en_destinations) | data source |
+| [ibm_en_destinations.en_sm_destinations](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.87.3/docs/data-sources/en_destinations) | data source |
+| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.87.3/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
 
@@ -94,7 +94,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 | <a name="input_existing_resource_group_name"></a> [existing\_resource\_group\_name](#input\_existing\_resource\_group\_name) | The name of an existing resource group to provision the resources. | `string` | `"Default"` | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud api token | `string` | n/a | yes |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | Prefix for name of all resource created by this example | `string` | `"ocp-lz"` | no |
-| <a name="input_provider_visibility"></a> [provider\_visibility](#input\_provider\_visibility) | Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`. | `string` | `"private"` | no |
+| <a name="input_provider_visibility"></a> [provider\_visibility](#input\_provider\_visibility) | Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`. | `string` | `"public"` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where resources are created | `string` | `"us-south"` | no |
 
 ### Outputs
