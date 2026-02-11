@@ -19,6 +19,9 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		Testing:      t,
 		TerraformDir: dir,
 		Prefix:       prefix,
+		TerraformVars: map[string]interface{}{
+			"existing_resource_group_name": resourceGroup,
+		},
 	})
 	return options
 }

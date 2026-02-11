@@ -21,7 +21,7 @@ variable "prefix" {
 variable "region" {
   type        = string
   description = "Region where resources are created"
-  default     = "us-south"
+  default     = "au-syd"
 }
 
 variable "provider_visibility" {
