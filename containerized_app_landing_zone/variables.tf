@@ -27,7 +27,7 @@ variable "region" {
 variable "provider_visibility" {
   description = "Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`."
   type        = string
-  default     = "private"
+  default     = "public"
   validation {
     condition     = contains(["public", "private", "public-and-private"], var.provider_visibility)
     error_message = "Invalid visibility option. Allowed values are `public`, `private`, or `public-and-private`."
