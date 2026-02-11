@@ -7,7 +7,7 @@ terraform {
     }
     time = {
       source  = "hashicorp/time"
-      version = "0.31.1"
+      version = "0.13.1"
     }
     ibm = {
       source  = "IBM-Cloud/ibm"

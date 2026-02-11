@@ -16,16 +16,15 @@ const landingZoneExampleDir = "containerized_app_landing_zone"
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  dir,
-		Prefix:        prefix,
-		ResourceGroup: resourceGroup,
+		Testing:      t,
+		TerraformDir: dir,
+		Prefix:       prefix,
 	})
 	return options
 }
 
 // Consistency test for the containerized app landing zone
-func TestRunBasicExample(t *testing.T) {
+func TestRunLandingZoneExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions(t, "app-lz", landingZoneExampleDir)
