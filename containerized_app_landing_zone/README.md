@@ -96,6 +96,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | Prefix for name of all resource created by this example | `string` | `"ocp-lz"` | no |
 | <a name="input_provider_visibility"></a> [provider\_visibility](#input\_provider\_visibility) | Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`. | `string` | `"public"` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where resources are created | `string` | `"us-south"` | no |
+| <a name="input_resource_tags"></a> [resource\_tags](#input\_resource\_tags) | Optional list of tags to be added to created resources | `list(string)` | `[]` | no |
 
 ### Outputs
 

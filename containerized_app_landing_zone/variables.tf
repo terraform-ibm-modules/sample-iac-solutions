@@ -45,3 +45,9 @@ variable "event_notifications_email_list" {
   description = "The list of email address to target out when an event is triggered"
   default     = []
 }
+
+variable "resource_tags" {
+  type        = list(string)
+  description = "Optional list of tags to be added to created resources"
+  default     = []
+}
