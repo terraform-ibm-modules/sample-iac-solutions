@@ -958,7 +958,7 @@ module "trusted_profile" {
 
 module "logs_agent" {
   source                        = "terraform-ibm-modules/logs-agent/ibm"
-  version                       = "1.17.4"
+  version                       = "1.18.1"
   cluster_id                    = module.ocp_base.cluster_id
   cluster_resource_group_id     = module.resource_group.resource_group_id
   logs_agent_trusted_profile_id = module.trusted_profile.trusted_profile.id

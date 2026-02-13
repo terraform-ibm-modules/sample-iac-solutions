@@ -14,11 +14,26 @@ const resourceGroup = "geretain-test-resources"
 // Ensure every example directory has a corresponding test
 const landingZoneExampleDir = "containerized_app_landing_zone"
 
+var IgnoreUpdates = []string{
+	"module.logs_agent.helm_release.logs_agent",
+	"module.logs_agent.terraform_data.install_required_binaries[0]",
+}
+
+var IgnoreDestroys = []string{
+	"module.logs_agent.terraform_data.install_required_binaries[0]",
+}
+
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:      t,
 		TerraformDir: dir,
 		Prefix:       prefix,
+		IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
+			List: IgnoreUpdates,
+		},
+		IgnoreDestroys: testhelper.Exemptions{ // Ignore destroy/recreate actions
+			List: IgnoreDestroys,
+		},
 		TerraformVars: map[string]interface{}{
 			"existing_resource_group_name": resourceGroup,
 		},

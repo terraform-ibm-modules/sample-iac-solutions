@@ -54,7 +54,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 | <a name="module_en_cos_buckets"></a> [en\_cos\_buckets](#module\_en\_cos\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.9.6 |
 | <a name="module_event_notifications"></a> [event\_notifications](#module\_event\_notifications) | terraform-ibm-modules/event-notifications/ibm | 2.11.7 |
 | <a name="module_kms"></a> [kms](#module\_kms) | terraform-ibm-modules/kms-all-inclusive/ibm | 5.5.25 |
-| <a name="module_logs_agent"></a> [logs\_agent](#module\_logs\_agent) | terraform-ibm-modules/logs-agent/ibm | 1.17.4 |
+| <a name="module_logs_agent"></a> [logs\_agent](#module\_logs\_agent) | terraform-ibm-modules/logs-agent/ibm | 1.18.1 |
 | <a name="module_metrics_routing"></a> [metrics\_routing](#module\_metrics\_routing) | terraform-ibm-modules/cloud-monitoring/ibm//modules/metrics_routing | 1.12.21 |
 | <a name="module_monitoring_agent"></a> [monitoring\_agent](#module\_monitoring\_agent) | terraform-ibm-modules/monitoring-agent/ibm | 1.19.6 |
 | <a name="module_ocp_base"></a> [ocp\_base](#module\_ocp\_base) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.79.0 |
