@@ -56,9 +56,9 @@ module "kms" {
   key_protect_instance_name   = "${var.prefix}-key-protect"
   key_protect_plan            = "tiered-pricing"
   enable_metrics              = true
-  key_protect_allowed_network = "private-only" # Possible values are 'private-only', or 'public-and-private'.
-  key_ring_endpoint_type      = "private"      # Possible values are `public` or `private`.
-  key_endpoint_type           = "private"      # Possible values are `public` or `private`.
+  key_protect_allowed_network = "public-and-private" # Possible values are 'private-only', or 'public-and-private'.
+  key_ring_endpoint_type      = "public"             # Possible values are `public` or `private`.
+  key_endpoint_type           = "public"             # Possible values are `public` or `private`.
   keys                        = [for key in local.keys : key if key != null]
 }
 
@@ -134,7 +134,7 @@ module "event_notifications" {
   cos_bucket_name         = module.en_cos_buckets.buckets[local.en_cos_bucket_name].bucket_name
   cos_instance_id         = module.cos.cos_instance_id
   skip_en_cos_auth_policy = false
-  cos_endpoint            = "https://${module.en_cos_buckets.buckets[local.en_cos_bucket_name].s3_endpoint_direct}"
+  cos_endpoint            = "https://${module.en_cos_buckets.buckets[local.en_cos_bucket_name].s3_endpoint_public}"
   tags                    = var.resource_tags
 }
 
@@ -146,7 +146,7 @@ locals {
     kms_guid                      = module.kms.kms_guid
     kms_key_crn                   = module.kms.keys[format("%s.%s", local.cluster_key_ring_name, local.cluster_key_name)].crn
     skip_iam_authorization_policy = false
-    management_endpoint_type      = "direct" # Possible values are `public`, `private` or `direct`.
+    management_endpoint_type      = "public" # Possible values are `public`, `private` or `direct`.
     storage_class                 = "smart"  # Possible values are `standard` or `smart`.
     resource_instance_id          = module.cos.cos_instance_id
     region_location               = var.region
@@ -230,8 +230,8 @@ module "secrets_manager" {
   enable_event_notification        = true
   existing_en_instance_crn         = module.event_notifications.crn
   skip_en_iam_authorization_policy = false
-  endpoint_type                    = "private"      # Possible values are `public` or `private`.
-  allowed_network                  = "private-only" # Possible values are 'private-only', or 'public-and-private'.
+  endpoint_type                    = "public"             # Possible values are `public` or `private`.
+  allowed_network                  = "public-and-private" # Possible values are 'private-only', or 'public-and-private'.
   secrets                          = local.secret_groups_with_prefix
 }
 
@@ -334,13 +334,13 @@ module "cloud_logs" {
     logs_data = {
       enabled              = true
       bucket_crn           = module.cloud_logs_buckets.buckets[local.data_bucket_name].bucket_crn
-      bucket_endpoint      = module.cloud_logs_buckets.buckets[local.data_bucket_name].s3_endpoint_direct
+      bucket_endpoint      = module.cloud_logs_buckets.buckets[local.data_bucket_name].s3_endpoint_public
       skip_cos_auth_policy = false
     },
     metrics_data = {
       enabled              = true
       bucket_crn           = module.cloud_logs_buckets.buckets[local.metrics_bucket_name].bucket_crn
-      bucket_endpoint      = module.cloud_logs_buckets.buckets[local.metrics_bucket_name].s3_endpoint_direct
+      bucket_endpoint      = module.cloud_logs_buckets.buckets[local.metrics_bucket_name].s3_endpoint_public
       skip_cos_auth_policy = false
     }
   }
@@ -359,7 +359,7 @@ module "cloud_logs_buckets" {
       region_location          = var.region
       resource_instance_id     = module.cos.cos_instance_id
       add_bucket_name_suffix   = true
-      management_endpoint_type = "direct"
+      management_endpoint_type = "public"
       storage_class            = "smart"
       force_delete             = true # If this is set to false, and the bucket contains data, the destroy will fail. Setting it to false on destroy has no impact, it has to be set on apply, so hence hard coding to true."
       activity_tracking = {
@@ -381,7 +381,7 @@ module "cloud_logs_buckets" {
       region_location               = var.region
       resource_instance_id          = module.cos.cos_instance_id
       add_bucket_name_suffix        = true
-      management_endpoint_type      = "direct"
+      management_endpoint_type      = "public"
       storage_class                 = "smart"
       skip_iam_authorization_policy = true
       force_delete                  = true # If this is set to false, and the bucket contains data, the destroy will fail. Setting it to false on destroy has no impact, it has to be set on apply, so hence hard coding to true."
@@ -441,7 +441,7 @@ module "activity_tracker" {
   cos_targets = [
     {
       bucket_name                       = module.at_cos_bucket.buckets[local.activity_tracker_cos_target_bucket_name].bucket_name
-      endpoint                          = module.at_cos_bucket.buckets[local.activity_tracker_cos_target_bucket_name].s3_endpoint_private
+      endpoint                          = module.at_cos_bucket.buckets[local.activity_tracker_cos_target_bucket_name].s3_endpoint_public
       instance_id                       = module.cos.cos_instance_crn
       target_region                     = var.region
       target_name                       = module.cos.cos_instance_name
@@ -474,7 +474,7 @@ module "at_cos_bucket" {
       kms_encryption_enabled        = false
       kms_key_crn                   = module.kms.keys[format("%s.%s", local.cluster_key_ring_name, local.cluster_key_name)].crn
       skip_iam_authorization_policy = false
-      management_endpoint_type      = "direct"
+      management_endpoint_type      = "public"
       storage_class                 = "smart"
       resource_instance_id          = module.cos.cos_instance_id
       region_location               = var.region
@@ -517,12 +517,12 @@ module "app_config" {
   kms_encryption_enabled                                     = true
   skip_app_config_kms_auth_policy                            = false
   existing_kms_instance_crn                                  = module.kms.key_protect_crn
-  kms_endpoint_url                                           = module.kms.kms_private_endpoint
+  kms_endpoint_url                                           = module.kms.kms_public_endpoint
   root_key_id                                                = module.kms.keys[format("%s.%s", local.cluster_key_ring_name, local.cluster_key_name)].key_id
   enable_event_notifications                                 = true
   skip_app_config_event_notifications_auth_policy            = false
   existing_event_notifications_instance_crn                  = module.event_notifications.crn
-  event_notifications_endpoint_url                           = module.event_notifications.event_notifications_private_endpoint
+  event_notifications_endpoint_url                           = module.event_notifications.event_notifications_public_endpoint
   app_config_event_notifications_source_name                 = "${var.prefix}-app-config-en"
   event_notifications_integration_description                = "The App Configuration integration to send notifications of events to users from the Event Notifications instance GUID ${module.event_notifications.guid}"
 }
@@ -598,7 +598,7 @@ locals {
     kms_guid                      = module.kms.kms_guid
     kms_key_crn                   = module.kms.keys[format("%s.%s", local.cluster_key_ring_name, local.cluster_key_name)].crn
     skip_iam_authorization_policy = true
-    management_endpoint_type      = "direct"
+    management_endpoint_type      = "public"
     storage_class                 = "smart"
     resource_instance_id          = module.cos.cos_instance_id
     region_location               = var.region
@@ -800,7 +800,7 @@ module "vpe_gateway" {
   vpc_name          = module.vpc.vpc_name
   vpc_id            = module.vpc.vpc_id
   subnet_zone_list  = module.vpc.subnet_zone_list
-  service_endpoints = "private" # Possible values are `private` or `public`.
+  service_endpoints = "public" # Possible values are `private` or `public`.
 }
 
 #########################################################################################################
@@ -841,10 +841,9 @@ locals {
   ]
   cluster_name = "${var.prefix}-openshift"
   kms_config = {
-    crk_id           = module.kms.keys[format("%s.%s", local.cluster_key_ring_name, local.cluster_key_name)].key_id
-    instance_id      = module.kms.kms_guid
-    private_endpoint = true
-    account_id       = module.kms.kms_account_id
+    crk_id      = module.kms.keys[format("%s.%s", local.cluster_key_ring_name, local.cluster_key_name)].key_id
+    instance_id = module.kms.kms_guid
+    account_id  = module.kms.kms_account_id
   }
 }
 
@@ -872,7 +871,7 @@ resource "terraform_data" "delete_secrets" {
     provider_visibility         = var.provider_visibility
     secrets_manager_instance_id = module.secrets_manager.secrets_manager_guid
     secrets_manager_region      = module.secrets_manager.secrets_manager_region
-    secrets_manager_endpoint    = "private"
+    secrets_manager_endpoint    = "public"
   }
   # api key in triggers_replace to avoid it to be printed out in clear text in terraform_data output
   triggers_replace = {
@@ -896,7 +895,7 @@ module "secret_group" {
   secrets_manager_guid     = module.secrets_manager.secrets_manager_guid
   secret_group_name        = module.ocp_base.cluster_id
   secret_group_description = "Secret group for storing ingress certificates for cluster ${local.cluster_name} with id: ${module.ocp_base.cluster_id}"
-  endpoint_type            = "private"
+  endpoint_type            = "public" # Possible values are `private` or `public`.
 }
 
 data "ibm_container_cluster_config" "cluster_config" {
