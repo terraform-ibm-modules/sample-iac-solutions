@@ -23,6 +23,10 @@ var IgnoreDestroys = []string{
 	"module.logs_agent.terraform_data.install_required_binaries[0]",
 }
 
+var IgnoreAdds = []string{
+	"module.scc_wp.restapi_object.cspm",
+}
+
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:      t,
@@ -33,6 +37,9 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 		},
 		IgnoreDestroys: testhelper.Exemptions{ // Ignore destroy/recreate actions
 			List: IgnoreDestroys,
+		},
+		IgnoreAdds: testhelper.Exemptions{
+			List: IgnoreAdds,
 		},
 		TerraformVars: map[string]interface{}{
 			"existing_resource_group_name": resourceGroup,
