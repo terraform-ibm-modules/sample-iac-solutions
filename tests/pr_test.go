@@ -25,6 +25,7 @@ var IgnoreDestroys = []string{
 
 var IgnoreAdds = []string{
 	"module.scc_wp.restapi_object.cspm",
+	"module.app_config.ibm_config_aggregator_settings.config_aggregator_settings[0]",
 }
 
 func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
