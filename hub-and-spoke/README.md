@@ -166,7 +166,7 @@ To make your Terraform configuration flexible and reusable, input variables allo
 - `prefix` — A short, unique string prepended to all resource names to avoid conflicts (required).
 - `region` — The IBM Cloud region for deployment (optional, defaults to `us-south`).
 
-Make sure `terraform.tfvars` is **not committed to source control**.
+Note: Make sure `terraform.tfvars` is **not committed to source control**.
 
 ### 2. Initialize and deploy
 
@@ -262,7 +262,7 @@ ssh -i $PRIVATE_KEY_FILE root@$JUMPBOX_IP
 
 When prompted to continue connecting, type `yes`. Upon successful connection, your terminal prompt will change to `root@<jumpbox-name>`, indicating that you are now logged into the jumpbox.
 
-**Terminal Management**: This terminal window (Terminal 1) is now connected to the jumpbox. We will refer to this session as the **Jumpbox Session**. In the next steps, you will open a new local terminal.
+Note: **Terminal Management**: This terminal window (Terminal 1) is now connected to the jumpbox. We will refer to this session as the **Jumpbox Session**. In the next steps, you will open a new local terminal.
 
 ## Test Connectivity to a Private Workload Server
 
@@ -314,7 +314,7 @@ ssh -i $PRIVATE_KEY_FILE root@$WORKLOAD_IP_1
 
 When prompted to continue connecting, type `yes`. If the connection is successful, your prompt will change to `root@<workload-server-name>`.
 
-You have successfully "jumped" from the public internet into the secure, private workload environment. **Terminal 1** is now your **Workload Session**. Keep this connection active.
+Note: You have successfully "jumped" from the public internet into the secure, private workload environment. **Terminal 1** is now your **Workload Session**. Keep this connection active.
 
 ## Deploy and Test the End-to-End Application
 
@@ -429,7 +429,7 @@ curl http://$LB_HOSTNAME
 
 You should see the content of the [`dummy_page.html`](./dummy_page.html) file, confirming that the application served content via the workload server and VPE.
 
-**Congratulations!** You have successfully tested your entire hub-and-spoke infrastructure, confirming secure access through the jumpbox, proper inter-VPC connectivity, and full end-to-end application data flow from the internet, through the public and private load balancers, to the private workload server and IBM Cloud Object Storage (COS).
+Note: **Congratulations!** You have successfully tested your entire hub-and-spoke infrastructure, confirming secure access through the jumpbox, proper inter-VPC connectivity, and full end-to-end application data flow from the internet, through the public and private load balancers, to the private workload server and IBM Cloud Object Storage (COS).
 
 ## Cleanup
 
