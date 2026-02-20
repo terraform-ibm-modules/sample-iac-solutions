@@ -2,7 +2,7 @@
 
 This repository contains the complete Terraform configuration to provision a secure hub-and-spoke VPC architecture on IBM Cloud using [Terraform IBM Modules](https://github.com/terraform-ibm-modules).
 
-For a detailed overview of the architecture, components, and the modules used in this project, see the [Hub-and-Spoke Overview](https://cloud.ibm.com/docs/ibm-cloud-provider-for-terraform?topic=ibm-cloud-provider-for-terraform-hub-spoke-infrastructure).
+For a detailed overview of the architecture, components, and the modules used in this directory, see the [Hub-and-Spoke Overview](https://cloud.ibm.com/docs/ibm-cloud-provider-for-terraform?topic=ibm-cloud-provider-for-terraform-hub-spoke-infrastructure).
 
 ## Prerequisites
 
