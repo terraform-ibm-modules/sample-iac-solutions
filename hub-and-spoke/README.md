@@ -26,11 +26,7 @@ For a detailed overview of the architecture, components, and the modules used in
 | [`test_app.py`](./test_app.py) | Sample Python application that fetches content from COS via VPE and serves it on port 8080 |
 | [`dummy_page.html`](./dummy_page.html) | Test HTML page uploaded to COS and served by the sample application |
 
-## What gets provisioned
-
-The infrastructure is defined in [`main.tf`](./main.tf) and builds the following components in order.
-
-### Configure the Network Foundation
+### Network Foundation
 
 In this step, the main network infrastructure for the hub-and-spoke deployment is defined using IBM Cloud Terraform modules. The [`main.tf`](./main.tf) file orchestrates all core components in a structured and consistent way. Resources use the `${var.prefix}-` naming convention to avoid conflicts and maintain uniform naming.
 
@@ -42,6 +38,8 @@ The following components are created in sequence:
 - **Private Service Access:** Virtual Private Endpoints (VPEs) enable private access to IBM Cloud services.
 
 This approach ensures a secure, organized, and scalable infrastructure deployment.
+
+The infrastructure is defined in [`main.tf`](./main.tf) and builds the following components in order.
 
 #### Resource group (Foundation)
 
