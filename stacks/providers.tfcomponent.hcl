@@ -19,7 +19,7 @@ required_providers {
 
 provider "ibm" "this" {
   config {
-    ibmcloud_api_key = var.ibmcloud_api_key
+    ibmcloud_api_key = var.ibmcloud_api_key  # pragma: allowlist secret
     region           = var.region
   }
 }

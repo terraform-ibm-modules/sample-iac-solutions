@@ -9,7 +9,7 @@ deployment "us-east" {
     prefix           = "prefix1"
     region           = "us-east"
     resource_tags    = ["us-east"]
-    ibmcloud_api_key = store.varset.ibm_credentials.ibmcloud_api_key
+    ibmcloud_api_key = store.varset.ibm_credentials.ibmcloud_api_key # pragma: allowlist secret
   }
 }
 
@@ -18,6 +18,6 @@ deployment "ca-tor" {
     prefix           = "prefix2"
     region           = "ca-tor"
     resource_tags    = ["ca-tor"]
-    ibmcloud_api_key = store.varset.ibm_credentials.ibmcloud_api_key
+    ibmcloud_api_key = store.varset.ibm_credentials.ibmcloud_api_key # pragma: allowlist secret
   }
 }
