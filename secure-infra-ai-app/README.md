@@ -76,31 +76,49 @@ The [`main.tf`](main.tf) file in the repository contains the complete **Terrafor
 
 Review the [`main.tf`](main.tf) file to understand the infrastructure components:
 
-### Resource Group (Foundation)
+<details>
+
+<summary>Resource Group (Foundation)</summary>
 
 A **resource group** is a logical container for IBM Cloud resources used for organization, IAM access control, and lifecycle management. This module typically acts as the **root dependency** for all other modules.
 
 > **Reference**: See the [terraform-ibm-resource-group documentation](https://github.com/terraform-ibm-modules/terraform-ibm-resource-group/blob/main/README.md).
 
-### Code Engine Project
+</details>
+
+<details>
+
+<summary>Code Engine Project</summary>
 
 A **Code Engine project** hosts and manages the Loan Risk AI Agents application workloads in a serverless container environment. This project will serve as the deployment target for your containers.
 
 > **Reference**: See the [terraform-ibm-code-engine-project documentation](https://github.com/terraform-ibm-modules/terraform-ibm-code-engine/tree/main/modules/project).
 
-### Code Engine Secret
+</details>
+
+<details>
+
+<summary>Code Engine Secret</summary>
 
 A **Code Engine secret** grants access to the private container registry (`private.us.icr.io`), enabling the push of container images for the application. IBM Cloud Container Registry is the service that you can use to store and share your container images. This secret authenticates with the container registry during the build process.
 
 > **Reference**: See the [terraform-ibm-code-engine-secret documentation](https://github.com/terraform-ibm-modules/terraform-ibm-code-engine/tree/main/modules/secret).
 
-### Container Registry Namespace
+</details>
+
+<details>
+
+<summary>Container Registry Namespace</summary>
 
 An **IBM Cloud Container Registry namespace** organizes and stores the container images used by the Code Engine project.
 
 > **Reference**: See the [terraform-ibm-container-registry documentation](https://github.com/terraform-ibm-modules/terraform-ibm-container-registry/blob/main/README.md).
 
-### Code Engine Build
+</details>
+
+<details>
+
+<summary>Code Engine Build</summary>
 
 The **Code Engine build** configuration builds a **container image from source code** hosted at the [Loan Risk AI Agents repository](https://github.com/IBM/ai-agent-for-loan-risk) using the **Dockerfile** included in the repository. The build output is pushed to **IBM Cloud Container Registry** using the previously created **registry authentication secret**. The resulting **container image** serves as the **foundation for the AI application deployment**, enabling a **reproducible**, **automated**, and **build-from-source** workflow that integrates seamlessly with **Code Engine**.
 
@@ -112,7 +130,11 @@ Key configuration:
 
 > **Reference**: See the [terraform-ibm-code-engine-build documentation](https://github.com/terraform-ibm-modules/terraform-ibm-code-engine/tree/main/modules/build).
 
-### Key Protect and Customer-Managed Encryption Keys
+</details>
+
+<details>
+
+<summary>Key Protect and Customer-Managed Encryption Keys</summary>
 
 An **IBM Key Protect instance** with a key ring and customer-managed encryption keys secures Cloud Object Storage buckets and the watsonx.ai project.
 
@@ -124,13 +146,21 @@ Key configuration:
 - `region` – Region where the Key Protect service is provisioned.
 > **Reference**: See the [terraform-ibm-kms-all-inclusive documentation](https://github.com/terraform-ibm-modules/terraform-ibm-kms-all-inclusive/blob/main/README.md).
 
-### Cloud Object Storage with Key Protect Encryption
+</details>
+
+<details>
+
+<summary>Cloud Object Storage with Key Protect Encryption</summary>
 
 A **Cloud Object Storage (COS)** instance and bucket with encryption using customer-managed keys from Key Protect for secure storage of watsonx.ai project data.
 
 > **Reference**: See the [terraform-ibm-cos documentation](https://github.com/terraform-ibm-modules/terraform-ibm-cos/blob/main/README.md).
 
-### watsonx.ai Project with COS Encryption
+</details>
+
+<details>
+
+<summary>watsonx.ai Project with COS Encryption</summary>
 
 A **watsonx.ai project** with integrated **Cloud Object Storage (COS)** and **customer-managed encryption keys** securely stores data for AI workloads and provides the project ID needed for deploying the Agentic AI agent.
 
@@ -144,7 +174,11 @@ Key configuration:
 
 > **Reference**: See the [terraform-ibm-watsonx-ai documentation](https://github.com/terraform-ibm-modules/terraform-ibm-watsonx-ai/blob/main/README.md).
 
-### Code Engine Application
+</details>
+
+<details>
+
+<summary>Code Engine Application</summary>
 
 A **Code Engine application** runs the containerized Loan Risk AI Agents application as a scalable, serverless workload.
 
@@ -155,6 +189,8 @@ Key configuration:
 - `run_env_variables` – Environment variables for watsonx integration.
 
 > **Reference**: See the [terraform-ibm-code-engine-application documentation](https://github.com/terraform-ibm-modules/terraform-ibm-code-engine/tree/main/modules/app).
+
+</details>
 
 ## Step 5: Review output values
 
