@@ -8,8 +8,6 @@ Before starting this tutorial, make sure you have the necessary tools, knowledge
 
 - Install the [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started).
 - Install [terraform CLI](https://developer.hashicorp.com/terraform/install).
-- Basic knowledge of [Terraform syntax and workflows](https://developer.hashicorp.com/terraform/tutorials).
-- Understanding of [IBM Cloud services](https://www.ibm.com/solutions/cloud).
 - [IBM Cloud apikey](https://cloud.ibm.com/docs/account?topic=account-userapikey&interface=ui) to access the IBM Cloud.
 - Familiar with the [Loan Risk AI Agents application](https://github.com/IBM/ai-agent-for-loan-risk).
 
@@ -37,16 +35,10 @@ secure-infra-ai-app/
 ├── outputs.tf         # Exported outputs
 ├── providers.tf       # Provider configuration
 ├── version.tf         # Terraform version constraints
-└── terraform.tfvars   # Input values for deployment (You will create this)
+└── README.md          # Project documentation
 ```
 
-All the necessary Terraform configuration files are already present in the repository. You only need to create the `terraform.tfvars` file to provide your environment-specific values.
-
-In your terminal, run:
-
-```bash
-touch terraform.tfvars
-```
+All the necessary Terraform configuration files are already present in the repository. You will only need to create the `terraform.tfvars` file (in step 6) to provide your environment-specific values.
 
 ## Step 2: Review IBM Cloud provider configuration
 
@@ -63,10 +55,7 @@ The configuration includes:
 
 ### Terraform and provider versions
 
-The [`version.tf`](version.tf) file ensures that Terraform uses the correct version and compatible provider versions for IBM Cloud and REST API:
-- **Terraform**: `>= 1.9.0`
-- **IBM Cloud provider**: `>= 1.80.4`
-- **REST API provider**: `>= 1.19.1`
+The [`version.tf`](version.tf) file ensures that Terraform uses the correct version and compatible provider versions for IBM Cloud and REST API.
 
 ## Step 3: Review input variables
 
@@ -187,7 +176,13 @@ In this step, you will configure your environment-specific variables and deploy 
 
 ### Secure variables
 
-Create or update the `terraform.tfvars` file with your environment-specific values:
+Create the `terraform.tfvars` file. In your terminal, run:
+
+```bash
+touch terraform.tfvars
+```
+
+Update the `terraform.tfvars` file with your environment-specific values:
 
 ```terraform
 ibmcloud_api_key             = "<your-IBM-cloud-api-key>"        # From IBM Cloud IAM
