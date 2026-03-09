@@ -23,7 +23,7 @@ Clone the sample IaC solutions repository and navigate to the AI application dir
 
 ```bash
 git clone https://github.com/terraform-ibm-modules/sample-iac-solutions.git
-cd sample-iac-solutions/ai-app
+cd sample-iac-solutions/secure-infra-ai-app
 ```
 
 ### Understanding the project structure
@@ -31,7 +31,7 @@ cd sample-iac-solutions/ai-app
 The cloned repository follows a standard Terraform layout, where each file serves a single purpose. This structure promotes clarity, reuse, and predictable behavior. Refer to [this](https://cloud.ibm.com/docs/ibm-cloud-provider-for-terraform?topic=ibm-cloud-provider-for-terraform-understand-tim-structure) for more information.
 
 ```
-ai-app/
+secure-infra-ai-app/
 ├── main.tf            # Infrastructure components (modules & resources)
 ├── variables.tf       # Input variable definitions
 ├── outputs.tf         # Exported outputs

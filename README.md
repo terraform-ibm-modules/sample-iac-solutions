@@ -7,7 +7,7 @@ A collection of sample Infrastructure as code (IaC) solutions for deploying infr
 
 - [Pulumi](pulumi/README.md)
 - [Terragrunt](terragrunt/README.md)
-- [AI Applications](ai-app/README.md)
+- [AI Applications](secure-infra-ai-app/README.md)
 
 <!-- Leave this section as is so that your module has a link to local development environment set-up steps for contributors to follow -->
 ## Contributing
