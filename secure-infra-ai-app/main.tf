@@ -78,10 +78,10 @@ module "code_engine_build" {
   ibmcloud_api_key           = var.ibmcloud_api_key
   project_id                 = module.code_engine_project.id
   existing_resource_group_id = module.resource_group.resource_group_id
-  source_url                 = "https://github.com/IBM/ai-agent-for-loan-risk"  # AI application source code
-  strategy_type              = "dockerfile"                                      # Build using Dockerfile
-  output_secret              = module.code_engine_secret.name                    # Registry credentials
-  output_image               = local.output_image                                # Where to push the image
+  source_url                 = "https://github.com/IBM/ai-agent-for-loan-risk" # AI application source code
+  strategy_type              = "dockerfile"                                    # Build using Dockerfile
+  output_secret              = module.code_engine_secret.name                  # Registry credentials
+  output_image               = local.output_image                              # Where to push the image
 }
 
 ##############################################################################
@@ -89,8 +89,8 @@ module "code_engine_build" {
 ##############################################################################
 
 locals {
-  key_ring_name = "${var.prefix}-cos-key-ring"  # Key ring for organizing encryption keys
-  key_name      = "${var.prefix}-cos-key"       # Customer-managed encryption key
+  key_ring_name = "${var.prefix}-cos-key-ring" # Key ring for organizing encryption keys
+  key_name      = "${var.prefix}-cos-key"      # Customer-managed encryption key
 }
 
 ##############################################################################
@@ -110,7 +110,7 @@ module "key_protect_all_inclusive" {
       key_ring_name = (local.key_ring_name)
       keys = [
         {
-          key_name = (local.key_name)  # Root key for encrypting COS and watsonx.ai
+          key_name = (local.key_name) # Root key for encrypting COS and watsonx.ai
         }
       ]
     }
@@ -131,9 +131,9 @@ module "cos" {
   cos_instance_name          = "${var.prefix}-my-cos"
   cos_plan                   = "standard"
   bucket_name                = "${var.prefix}-bucket"
-  kms_encryption_enabled     = true                                                                      # Enable encryption
-  existing_kms_instance_guid = module.key_protect_all_inclusive.kms_guid                                # Key Protect instance
-  kms_key_crn                = module.key_protect_all_inclusive.keys["${local.key_ring_name}.${local.key_name}"].crn  # Encryption key
+  kms_encryption_enabled     = true                                                                                  # Enable encryption
+  existing_kms_instance_guid = module.key_protect_all_inclusive.kms_guid                                             # Key Protect instance
+  kms_key_crn                = module.key_protect_all_inclusive.keys["${local.key_ring_name}.${local.key_name}"].crn # Encryption key
 }
 
 ##############################################################################
@@ -157,7 +157,7 @@ module "watsonx_ai" {
   watsonx_ai_studio_plan        = "professional-v1"
   watsonx_ai_runtime_plan       = "v2-professional"
   project_name                  = "${var.prefix}-wxai-project"
-  enable_cos_kms_encryption     = true                # Enable encryption for project data
+  enable_cos_kms_encryption     = true # Enable encryption for project data
   cos_instance_crn              = module.cos.cos_instance_crn
   cos_kms_key_crn               = module.key_protect_all_inclusive.keys["${local.key_ring_name}.${local.key_name}"].crn
   skip_iam_authorization_policy = true
@@ -169,25 +169,25 @@ module "watsonx_ai" {
 ##############################################################################
 
 module "code_engine_app" {
-  depends_on      = [module.code_engine_build]  # Wait for image to be built
+  depends_on      = [module.code_engine_build] # Wait for image to be built
   source          = "terraform-ibm-modules/code-engine/ibm//modules/app"
   version         = "4.5.1"
   project_id      = module.code_engine_project.id
   name            = "${var.prefix}-ai-agent-for-loan-risk"
-  image_reference = module.code_engine_build.output_image  # Use the built container image
-  image_secret    = module.code_engine_secret.name         # Registry credentials
-  
+  image_reference = module.code_engine_build.output_image # Use the built container image
+  image_secret    = module.code_engine_secret.name        # Registry credentials
+
   # Environment variables for the application
   run_env_variables = [{
-    type  = "literal"
-    name  = "WATSONX_AI_APIKEY"
+    type = "literal"
+    name = "WATSONX_AI_APIKEY"
     # Use dedicated watsonx API key if provided, otherwise use IBM Cloud API key
     value = var.watsonx_ai_api_key != null ? var.watsonx_ai_api_key : var.ibmcloud_api_key
     },
     {
       type  = "literal"
       name  = "WATSONX_PROJECT_ID"
-      value = module.watsonx_ai.watsonx_ai_project_id  # Connect app to watsonx.ai project
+      value = module.watsonx_ai.watsonx_ai_project_id # Connect app to watsonx.ai project
     }
   ]
 }

@@ -42,7 +42,7 @@ All the necessary Terraform configuration files are already present in the repos
 
 ## Step 2: Review IBM Cloud provider configuration
 
-Before you can provision any resources, Terraform needs to know **how to connect to IBM Cloud**. The repository includes pre-configured provider settings in [`providers.tf`](providers.tf) and [`version.tf`](version.tf). 
+Before you can provision any resources, Terraform needs to know **how to connect to IBM Cloud**. The repository includes pre-configured provider settings in [`providers.tf`](providers.tf) and [`version.tf`](version.tf).
 Review them to understand the provider setup, but no changes are needed.
 
 ### IBM Cloud and REST API providers
@@ -221,8 +221,8 @@ touch terraform.tfvars
 Update the `terraform.tfvars` file with your environment-specific values:
 
 ```terraform
-ibmcloud_api_key             = "<your-IBM-cloud-api-key>"        # From IBM Cloud IAM
-watsonx_ai_api_key           = "<your-watsonx-ai-api-key>"       # Optional
+ibmcloud_api_key             = "<your-IBM-cloud-api-key>"        # From IBM Cloud IAM           #pragma: allowlist secret
+watsonx_ai_api_key           = "<your-watsonx-ai-api-key>"       # Optional         #pragma: allowlist secret
 prefix                       = "<your-prefix>"                   # Define prefix to avoid naming conflicts
 ```
 

@@ -11,7 +11,7 @@
 variable "ibmcloud_api_key" {
   type        = string
   description = "The IBM Cloud API key."
-  sensitive   = true  # Prevents value from appearing in logs
+  sensitive   = true # Prevents value from appearing in logs
 }
 
 variable "prefix" {
@@ -28,11 +28,11 @@ variable "watsonx_ai_api_key" {
   type        = string
   description = "The API key for IBM watsonx in the target account. If this key is not provided, the IBM Cloud API key will be used instead."
   sensitive   = true
-  default     = null  # If null, ibmcloud_api_key will be used for watsonx.ai
+  default     = null # If null, ibmcloud_api_key will be used for watsonx.ai
 }
 
 variable "region" {
   type        = string
   description = "The IBM Cloud region to deploy resources in."
-  default     = "us-south"  # Change to your preferred region (e.g., "eu-de", "jp-tok")
+  default     = "us-south" # Change to your preferred region (e.g., "eu-de", "jp-tok")
 }
