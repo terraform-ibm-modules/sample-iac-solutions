@@ -9,7 +9,7 @@ Before starting this tutorial, make sure you have the necessary tools, knowledge
 - Install the [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started).
 - Install [terraform CLI](https://developer.hashicorp.com/terraform/install).
 - [IBM Cloud apikey](https://cloud.ibm.com/docs/account?topic=account-userapikey&interface=ui) to access the IBM Cloud.
-- Familiar with the [Loan Risk AI Agents application](https://github.com/IBM/ai-agent-for-loan-risk).
+- Familiar with the [Loan Risk AI Agents application](ai-app-for-loan-risk/README.md).
 
 ## Step 1: Clone the Terraform project repository
 
@@ -120,7 +120,7 @@ An **IBM Cloud Container Registry namespace** organizes and stores the container
 
 <summary>Code Engine Build</summary>
 
-The **Code Engine build** configuration builds a **container image from source code** hosted at the [Loan Risk AI Agents repository](https://github.com/IBM/ai-agent-for-loan-risk) using the **Dockerfile** included in the repository. The build output is pushed to **IBM Cloud Container Registry** using the previously created **registry authentication secret**. The resulting **container image** serves as the **foundation for the AI application deployment**, enabling a **reproducible**, **automated**, and **build-from-source** workflow that integrates seamlessly with **Code Engine**.
+The **Code Engine build** configuration builds a **container image from source code** hosted at the [Loan Risk AI Agents repository](ai-app-for-loan-risk/README.md) using the **Dockerfile** included in the repository. The build output is pushed to **IBM Cloud Container Registry** using the previously created **registry authentication secret**. The resulting **container image** serves as the **foundation for the AI application deployment**, enabling a **reproducible**, **automated**, and **build-from-source** workflow that integrates seamlessly with **Code Engine**.
 
 Key configuration:
 - `source_url` – Git repository containing the AI application source code.
