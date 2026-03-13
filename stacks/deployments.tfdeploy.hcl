@@ -1,6 +1,6 @@
 
 store "varset" "ibm_credentials" {
-  id       = "varset-7X1yJ4nwvovXU9MD"
+  id       = "varset-7X1yJ4nwvovXU9MD" # Replace it with the ID of the HCP Terraform variable set containing IBM Cloud credentials
   category = "terraform"
 }
 
