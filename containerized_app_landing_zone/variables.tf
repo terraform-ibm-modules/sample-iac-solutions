@@ -21,7 +21,7 @@ variable "prefix" {
 variable "region" {
   type        = string
   description = "Region where resources are created"
-  default     = "au-syd"
+  default     = "eu-de"
 }
 
 variable "provider_visibility" {
@@ -50,4 +50,10 @@ variable "resource_tags" {
   type        = list(string)
   description = "Optional list of tags to be added to created resources"
   default     = []
+}
+
+variable "secrets_manager_plan" {
+  type        = string
+  description = "The Secrets Manager plan to provision. Possible values are `standard` or `trial`."
+  default     = "trial"
 }
