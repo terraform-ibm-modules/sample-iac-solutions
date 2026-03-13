@@ -1,3 +1,6 @@
+##############################################################################
+# Resource Group
+##############################################################################
 component "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
   version = "1.4.8"
@@ -9,6 +12,10 @@ component "resource_group" {
     ibm = provider.ibm.this
   }
 }
+
+##############################################################################
+# Postgresql instance
+##############################################################################
 
 component "postgres" {
   source  = "terraform-ibm-modules/icd-postgresql/ibm"
