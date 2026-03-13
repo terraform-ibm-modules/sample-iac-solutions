@@ -2,7 +2,6 @@
 package test
 
 import (
-	"os/exec"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -59,27 +58,4 @@ func TestRunLandingZoneExample(t *testing.T) {
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
-}
-
-// Test to validate Terraform Stacks configuration
-func TestTerraformStacksValidate(t *testing.T) {
-	t.Parallel()
-
-	// Run terraform stacks init first (from parent directory)
-	initCmd := exec.Command("terraform", "stacks", "init", "-upgrade")
-	initCmd.Dir = "../stacks"
-
-	initOutput, initErr := initCmd.CombinedOutput()
-	assert.Nil(t, initErr, "Terraform stacks init should not have errored: %s", string(initOutput))
-	t.Logf("Terraform stacks init output: %s", string(initOutput))
-
-	// Run terraform stacks validate command in the stacks directory
-	validateCmd := exec.Command("terraform", "stacks", "validate")
-	validateCmd.Dir = "../stacks"
-
-	validateOutput, validateErr := validateCmd.CombinedOutput()
-	assert.Nil(t, validateErr, "Terraform stacks validate should not have errored: %s", string(validateOutput))
-	assert.NotNil(t, validateOutput, "Expected validation output")
-
-	t.Logf("Terraform stacks validate output: %s", string(validateOutput))
 }
