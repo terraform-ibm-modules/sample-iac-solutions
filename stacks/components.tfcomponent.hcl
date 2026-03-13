@@ -18,7 +18,6 @@ component "postgres" {
     resource_group_id = component.resource_group.resource_group_id
     region            = var.region
     name              = "${var.prefix}-postgres"
-    prefix            = var.prefix
     tags              = var.resource_tags
   }
 
