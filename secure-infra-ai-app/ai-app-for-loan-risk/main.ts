@@ -49,13 +49,13 @@ process.env.IBM_IAM_TOKEN_ENDPOINT="https://iam.cloud.ibm.com/identity/token"
 //process.env.WATSONX_PROJECT_ID="xxx-xxx-xxx-xxx-xxx"
 
 //Optional - For using RAG LLM set rag llm watsonx environment variables to set in deployment
-//process.env.ENABLE_RAG_LLM = "true" //default is false. true requires WATSONX_RISK_RAG_LLM_ENDPOINT; 
+//process.env.ENABLE_RAG_LLM = "true" //default is false. true requires WATSONX_RISK_RAG_LLM_ENDPOINT;
 //process.env.WATSONX_RISK_RAG_LLM_ENDPOINT="https://private.us-south.ml.cloud.ibm.com/ml/v4/deployments/xxx-xxx-xxx-xxx-xxx/ai_service?version=2021-05-01";
 
 //Optional - For using watsonx Assistant. Creates a /wx.html webpage with the chat widget
 //process.env.ENABLE_WXASST="true" //default is false. true requires the other WXASST_ variables. These are available in the Embed script of the watsonx assistant
 //process.env.WXASST_INTEGRATION_ID="xxx-xxx-xxx-xx-xx"
-//process.env.WXASST_REGION="xx-xxx" 
+//process.env.WXASST_REGION="xx-xxx"
 //process.env.WXASST_SERVICE_INSTANCE_ID="xxx-xxxx-xxx-xx-x"
 
 //environment variables set by functions in the code
@@ -141,7 +141,7 @@ if (process.env.ENABLE_WXASST) {
 
 
 const agentic_instructions = {
-  credit_score_tool:'Get the credit score for the customer using the customer id. Customer\'s name can be used instead of customer\'s id. If the credit score is already known do not retrieve again.', 
+  credit_score_tool:'Get the credit score for the customer using the customer id. Customer\'s name can be used instead of customer\'s id. If the credit score is already known do not retrieve again.',
   account_status_tool: 'Get the account status for the customer using customer id. Customer\'s name can be used instaed of customer\'s id. If the account status is already known do not retrieve again.',
   overall_risk_tool: 'Get overall risk based on combination of both credit score and account status. Explain how the overall risk was calculated. If the credit score and account status are not known then do not provide the risk status and first retrieve the missing credit score or account status.',
   overall_risk_from_rag_llm_tool: 'Get overall risk based on combination of both credit score and account status. Explain how the overall risk was calculated. If the credit score and account status are not known then do not provide the risk status and first retrieve the missing credit score or account status.',
@@ -149,8 +149,8 @@ const agentic_instructions = {
   interest_rate_tool: 'Get interest rate percentage based on overall risk. Explain how the interest rate was determined. If the overall risk is not known then do not provide the interest rate status and first retrieve the overall risk.',
   interest_rate_from_rag_llm_tool_prompt: "what is the interest rate for overall risk {overall_risk} and how was it determined?",
   interest_rate_from_rag_llm_tool: 'Get interest rate percentage based on overall risk. If the overall risk is not known then do not provide the interest rate status and first retrieve the overall risk. Explain how the interest rate was determined.',
-   
-  //NOTE: Also - tbd -- There are additional descriptions for the tool input argumets that impact tool use. 
+
+  //NOTE: Also - tbd -- There are additional descriptions for the tool input argumets that impact tool use.
   //eg schema: z.object({ customer_id: z.string().describe("Customer's id"),
 
   model: 'watsonx-ChatWatsonx',
@@ -160,7 +160,7 @@ const agentic_instructions = {
   model_randomSeed: 123, // if temperature is not 0
   model_topP: 1, //0-1 nucleus sampling. ideally not recommneded to use with temperature
   model_topK: 25 // 1-100 lower value keeps on topic
-  //NOTE: check model details for which properties are supported by it. 
+  //NOTE: check model details for which properties are supported by it.
 }
 
 /////////////////////////////////
@@ -199,7 +199,7 @@ webapp.post('/callagent', async (req: Request, res: Response) => {
 
   const query = input_post_body.query; //"what is the overall risk for credit score 444?"     ////req.query.q; // 'hello'
 
-  console.log("Setting access_token.");  
+  console.log("Setting access_token.");
   await get_ibm_iam_token();
 
   //Get input to the graph
@@ -217,13 +217,13 @@ webapp.post('/callagent', async (req: Request, res: Response) => {
 const makePostRequestCallByType = async (calltype: string, post_data: any): Promise<any> => {
   //async function makePostRequest(url: string, data: any): Promise<any> {
     try {
-    
-        const post_params = { 
-            url: '', 
+
+        const post_params = {
+            url: '',
             headers: {},
             data: post_data
         };
-        
+
         if ( calltype === 'get_token') {
             post_params.url = process.env.IBM_IAM_TOKEN_ENDPOINT;
             post_params.headers =  {
@@ -280,7 +280,7 @@ const get_ibm_iam_token = async () => {
     access_token=responseData.access_token;
     //access_token_expiration=responseData.expiration;
     process.env.IBM_IAM_TOKEN=responseData.access_token;
-    process.env.IBM_IAM_TOKEN_EXPIRATION=responseData.expiration;    
+    process.env.IBM_IAM_TOKEN_EXPIRATION=responseData.expiration;
     //return responseData.access_token;
     })
     .catch((error) => {
@@ -307,7 +307,7 @@ const setupTools = async () => {
     }
 
     // Customer information
-    // customer_id : "loren@ibm.com" || "loren" || "1111" 
+    // customer_id : "loren@ibm.com" || "loren" || "1111"
     // credit_score = 455;
     // account_status = 'good-standing' ;
 
@@ -541,10 +541,10 @@ const setupModelWithTools = async (tools: Array<any>) => {
         version: '2024-05-31',
         ...props,
         }).bindTools(tools);
-        
+
         return modelWithTools;
     }; // end if watsonx-ChatWatsonx',
-  
+
     //return modelWithTools; //returned in the block.
 
 };
@@ -555,7 +555,7 @@ const setupApp = async (tools: Array<any>, modelWithTools) => {
 
 
     const toolNodeForGraph = new ToolNode(tools)
-    
+
     const shouldContinue = (state) => {
     const { messages } = state;
     const lastMessage = messages[messages.length - 1];
@@ -645,12 +645,3 @@ webapp.listen(process.env.APPLICATION_PORT, () => {
   console.log(`Agentic AI application ${process.env.APPLICATION_NAME} is starting...`);
   console.log(`Server is running on http://<your-server-ip>:${process.env.APPLICATION_PORT}`);
 });
-
-
-
-
-
-
-
-
-

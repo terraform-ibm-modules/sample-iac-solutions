@@ -4,11 +4,11 @@
 
 This repository provides an AI agent application for demonstration and proof-of-concept(PoC) to showcase agentic AI adoption in industry/enterprise workflows and use cases.
 
-With a focus on the financial industry, it uses a bank loan processing workflow as an example that leverages agentic AI. It demonstrates one of the main values of using agentic AI - _relying on LLMs to reason about what to do and take actions_, instead of relying on traditional approach of rules and conditions. 
+With a focus on the financial industry, it uses a bank loan processing workflow as an example that leverages agentic AI. It demonstrates one of the main values of using agentic AI - _relying on LLMs to reason about what to do and take actions_, instead of relying on traditional approach of rules and conditions.
 
 The application is built to run on IBM Cloud – deploy on Code Engine to host the code for the AI agent, use watsonx.ai for inferencing and retrieval augmented generation (RAG) with LLMs, and watsonx Assistant/Orchestrate for a chat conversation experience.
 
-To learn more about the key features and architectural concepts of agentic AI and about using this Loan Risk AI Agent, you can: 
+To learn more about the key features and architectural concepts of agentic AI and about using this Loan Risk AI Agent, you can:
 
 - Read the article [Agentic AI in enterprise workflow automation](https://developer.ibm.com/articles/agentic-ai-workflow-automation/).
 - Watch the 5-minute demo video [Agentic AI on IBM Cloud - Demo](https://mediacenter.ibm.com/media/Agentic+AI+on+IBM+Cloud+-+Demo+Video/1_kn6kvqmz).
@@ -43,7 +43,7 @@ Requires IBM Cloud account with:
 
 Optional enhancements:
 
-For using agentic RAG feature, you will also need watsonx.ai vector index and a deployed RAG inferencing endpoint. 
+For using agentic RAG feature, you will also need watsonx.ai vector index and a deployed RAG inferencing endpoint.
 
 For using chat conversaiton feature, you will need watsonx Assistant/Orchestrate service.
 
@@ -58,7 +58,5 @@ Steps for deploying the base and enhancements are provided below.
 For usage and additional examples refer [here.](artifacts/usage-examples/usage-examples-README.md)
 
 ![Example usage screenshot](artifacts/usage-examples/UsageExample2.png)
-
-  
 
 

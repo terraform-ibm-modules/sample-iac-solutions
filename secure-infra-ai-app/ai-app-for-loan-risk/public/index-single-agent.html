@@ -42,7 +42,7 @@
 	<br>
 	Response JSON:<br>
         <textarea id="text_response" class="large-textarea" ></textarea>
-        <br>	
+        <br>
         Status: <span id="text_status"> </span>
         <br>
         <br><span id="text_process_status"> </span>
@@ -113,9 +113,9 @@ function create_and_send_request_from_ui_input(request_type) {
 		var input_query=input_text_area.value; //.trim();
 	        //input_text_area=document.getElementById('text_request');
 	        //var input_data = input_text_area.value; //.trim();
-		var input_data_obj = { 
-	    		type: "call_ai_agent", 
-	    		query: input_query 
+		var input_data_obj = {
+	    		type: "call_ai_agent",
+	    		query: input_query
 		}; //close input_data_obj{}
 
 
@@ -137,8 +137,8 @@ function makePOSTAPIcall(data_to_post, success_actioncode, error_actioncode) {
                 full_url = '/callagent'
 		//this can be initialized from the env
                 next_actioncode="notifyUI"
-		//can be received from the main call and used to define what action to be taken with responses. 
-	
+		//can be received from the main call and used to define what action to be taken with responses.
+
 
                 $.ajax({
                     url : full_url,
@@ -171,7 +171,7 @@ function makePOSTAPIcall(data_to_post, success_actioncode, error_actioncode) {
 	       display_obj_ai_agent_response.innerHTML = '';
                status_display_obj.innerHTML = rMsg_status;
                status_display_obj2.innerHTML = rMsg_status;
- 
+
                var rMsg = "Request could not be completed";
 	       const display_obj = document.getElementById('text_response');
                display_obj.value = "Please wait...";
@@ -200,7 +200,7 @@ function handleError(jqXHR, funcType, nextactioncode){
                 //rMsg = "responseText:"+jqXHR.responseText;
                 rMsg = jqXHR.responseText;
                 //rMsg = rMsg + "<br>jqXHR:" + JSON.stringify(jqXHR);
-               
+
                 //do any other housekeeping due to failed request
                 // this can depend on the values of nextactioncode jqXHR.readyState jqXHR.status jqXHR.statusText etc.
 
@@ -251,7 +251,7 @@ function handleSuccess(jqXHR, funcType, nextactioncode){
                         status_display_obj.innerHTML = rMsg_status;
                         status_display_obj2.innerHTML = "Request completed."; //rMsg_status;
                         //display_obj.textContent = rMsg
-			display_obj.value = JSON.stringify(JSON.parse(rMsg), undefined, 4);	
+			display_obj.value = JSON.stringify(JSON.parse(rMsg), undefined, 4);
 
 			//final_message= JSON.stringify( JSON.parse(rMsg)[1], undefined, 4);
                         final_message= JSON.stringify( JSON.parse(rMsg)[JSON.parse(rMsg).length-1].content , undefined, 4);
@@ -274,4 +274,3 @@ function handleSuccess(jqXHR, funcType, nextactioncode){
 
 </body>
 </html>
-

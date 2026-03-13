@@ -12,10 +12,10 @@ The code has predefined customers (Loren, Matt and Hilda) with specific risk pro
 + what can you do for me?
 + what can you do for me? how?
 
-+ what is the risk for loren? 
++ what is the risk for loren?
 + what is the risk for loren? why?
 
-+ What is the interest rate for matt? 
++ What is the interest rate for matt?
 + What is the interest rate for matt? Explain how it was determined?
 + What is the interest rate for matt? why? how do you decide?
 
