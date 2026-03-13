@@ -219,7 +219,7 @@ module "secrets_manager" {
   resource_group_id             = module.resource_group.resource_group_id
   region                        = var.region
   secrets_manager_name          = "${var.prefix}-secrets-manager"
-  sm_service_plan               = "standard" # Possible values are `standard` or `trial`.
+  sm_service_plan               = var.secrets_manager_plan
   skip_iam_authorization_policy = false
   # kms dependency
   is_hpcs_key                       = false

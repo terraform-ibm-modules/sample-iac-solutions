@@ -95,8 +95,9 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud api token | `string` | n/a | yes |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | Prefix for name of all resource created by this example | `string` | `"ocp-lz"` | no |
 | <a name="input_provider_visibility"></a> [provider\_visibility](#input\_provider\_visibility) | Set the visibility value for the IBM terraform provider. Supported values are `public`, `private`, `public-and-private`. | `string` | `"public"` | no |
-| <a name="input_region"></a> [region](#input\_region) | Region where resources are created | `string` | `"au-syd"` | no |
+| <a name="input_region"></a> [region](#input\_region) | Region where resources are created | `string` | `"eu-de"` | no |
 | <a name="input_resource_tags"></a> [resource\_tags](#input\_resource\_tags) | Optional list of tags to be added to created resources | `list(string)` | `[]` | no |
+| <a name="input_secrets_manager_plan"></a> [secrets\_manager\_plan](#input\_secrets\_manager\_plan) | The Secrets Manager plan to provision. Possible values are `standard` or `trial`. | `string` | `"trial"` | no |
 
 ### Outputs
 
