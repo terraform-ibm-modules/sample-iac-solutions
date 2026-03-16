@@ -58,5 +58,3 @@ Steps for deploying the base and enhancements are provided below.
 For usage and additional examples refer [here.](artifacts/usage-examples/usage-examples-README.md)
 
 ![Example usage screenshot](artifacts/usage-examples/UsageExample2.png)
-
-
