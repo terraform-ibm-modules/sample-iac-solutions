@@ -7,6 +7,8 @@ A collection of sample Infrastructure as code (IaC) solutions for deploying infr
 
 - [Pulumi](pulumi/README.md)
 - [Terragrunt](terragrunt/README.md)
+- [Containerized App Landing Zone](containerized_app_landing_zone/README.md)
+- [HCP Stacks](stacks/README.md)
 
 <!-- Leave this section as is so that your module has a link to local development environment set-up steps for contributors to follow -->
 ## Contributing
