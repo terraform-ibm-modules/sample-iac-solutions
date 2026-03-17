@@ -64,8 +64,8 @@ By default, the risk and interest rate tools of the AI agent simulate risk and i
 #### 7.	Optional: Using watsonx Assistant/Orchestrate (Chat widget)
 By adding this feature, you can get a more conversational/chat experience when asking questions in the watsonx Assistant chat widget. The conversation is single turn and the watsonx Assistant skills can be enhanced further if needed.
 - Note the Code Engine URL for the deployed application.
-- Open API file (agentic-ai-app-custom-ext-openapi.json) and update the URL with the deployed appliaciton URL.
-- Create an action skill in watsonx Assistant instance
+- Open API file (agentic-ai-app-custom-ext-openapi.json) and update the URL with the deployed application URL.
+- Create an action skill in watsonx Assistant instance.
 - Create and add a custom extension by importing the updated Open API file [agentic-ai-app-custom-ext-openapi.json](../wxAssistantOrchestrate/agentic-ai-app-custom-ext-openapi.json).
 - Import the zip file to set up the actions that use the custom extension [wx-asst-agentic-ai-app.zip](../wxAssistantOrchestrate/wx-asst-agentic-ai-app.zip).
 - Open the watsonx Assistant Web chat configuration and note the integrationID, region and serviceInstanceID from the Embed script tab.

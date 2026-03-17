@@ -1,15 +1,15 @@
 FROM node:18-alpine
 
-ENV APPLICATION_HOME_DOCKER=/usr/src/app
-ENV APPLICATION_PORT=8080
+ENV APPLICATION_HOME_DOCKER=/usr/src/app \
+    APPLICATION_PORT=8080
 
 WORKDIR $APPLICATION_HOME_DOCKER
 
 COPY . .
-RUN npm install
-RUN npm run build
 
-RUN addgroup -g 1001 -S nodejs && \
+RUN npm install && \
+    npm run build && \
+    addgroup -g 1001 -S nodejs && \
     adduser -S nodejs -u 1001 && \
     chown -R nodejs:nodejs $APPLICATION_HOME_DOCKER
 
