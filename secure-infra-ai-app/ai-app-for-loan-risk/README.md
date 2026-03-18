@@ -45,7 +45,7 @@ Optional enhancements:
 
 For using agentic RAG feature, you will also need watsonx.ai vector index and a deployed RAG inferencing endpoint.
 
-For using chat conversaiton feature, you will need watsonx Assistant/Orchestrate service.
+For using chat conversation feature, you will need watsonx Assistant/Orchestrate service.
 
 Steps for deploying the base and enhancements are provided below.
 

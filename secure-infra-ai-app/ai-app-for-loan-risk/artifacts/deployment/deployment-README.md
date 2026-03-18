@@ -67,7 +67,7 @@ By adding this feature, you can get a more conversational/chat experience when a
 - Open API file (agentic-ai-app-custom-ext-openapi.json) and update the URL with the deployed application URL.
 - Create an action skill in watsonx Assistant instance.
 - Create and add a custom extension by importing the updated Open API file [agentic-ai-app-custom-ext-openapi.json](../wxAssistantOrchestrate/agentic-ai-app-custom-ext-openapi.json).
-- Import the zip file to set up the actions that use the custom extension [wx-asst-agentic-ai-app.zip](../wxAssistantOrchestrate/wx-asst-agentic-ai-app.zip).
+- Zip the [wx-asst-agentic-ai-app](../wxAssistantOrchestrate/wx-asst-agentic-ai-app) folder and import the resulting zip file to set up the actions that use the custom extension.
 - Open the watsonx Assistant Web chat configuration and note the integrationID, region and serviceInstanceID from the Embed script tab.
 - On Code Engine open the deployed application configuration, add the following environment variables with the values captured above and redeploy the application (ENABLE_WXASST=true, WXASST_INTEGRATION_ID, WXASST_REGION, WXASST_SERVICE_INSTANCE_ID captured above)
 - The watsonx Assistant will become available on the page <application-url>/wx.html
