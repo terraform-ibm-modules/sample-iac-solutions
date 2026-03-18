@@ -44,7 +44,7 @@ process.env.IBM_IAM_TOKEN_ENDPOINT="https://iam.cloud.ibm.com/identity/token"
 //process.env.APPLICATION_PORT="8080"; //default is 8080. If using Docker, it must be same in Dockerfile.
 
 //REQUIRED environment variables when using IBM Cloud watsonx.ai platform LLMs
-//process.env.WATSONX_AI_APIKEY="xxxxxxxxxxx"
+//process.env.WATSONX_AI_APIKEY="xxxxxxxxxxx"    // pragma: allowlist secret
 //process.env.WATSONX_SERVICE_URL="https://us-south.ml.cloud.ibm.com" //default is us-south region
 //process.env.WATSONX_PROJECT_ID="xxx-xxx-xxx-xxx-xxx"
 
@@ -266,7 +266,7 @@ const makePostRequestCallByType = async (calltype: string, post_data: any): Prom
 
 const get_ibm_iam_token = async () => {
 
-  const data="grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=" + process.env.WATSONX_AI_APIKEY;
+  const data="grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=" + process.env.WATSONX_AI_APIKEY;  // pragma: allowlist secret
 
   var access_token="";
 
@@ -535,7 +535,7 @@ const setupModelWithTools = async (tools: Array<any>) => {
         //model: "mistralai/mistral-large", #deprecated
         //model: "ibm/granite-3-8b-instruct",
         //model: "meta-llama/llama-3-1-70b-instruct",
-        //apikey: process.env.WATSONX_AI_APIKEY,
+        //apikey: process.env.WATSONX_AI_APIKEY,    // pragma: allowlist secret
         projectId: process.env.WATSONX_PROJECT_ID,
         serviceUrl: process.env.WATSONX_SERVICE_URL,
         version: '2024-05-31',
