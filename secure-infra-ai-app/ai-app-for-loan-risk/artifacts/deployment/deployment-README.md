@@ -31,7 +31,7 @@ Note the Project Id. This will be used to set the environment variable WATSONX_P
 #### 3.	Deploy application to Code Engine
 Follow the steps to _deploy the application from repository source code_ as described [here](https://cloud.ibm.com/apidocs/watsonx-ai#endpoint-url).
 
-Use code repo URL: https://github.com/IBM/ai-agent-for-loan-risk.git
+Use code repo URL: https://github.com/terraform-ibm-modules/sample-iac-solutions.git and ensure that the context directory is set to `/secure-infra-ai-app/ai-app-for-loan-risk`.
 
 Add the environment variables and the values captured above to the deployment.
 - WATSONX_AI_APIKEY
