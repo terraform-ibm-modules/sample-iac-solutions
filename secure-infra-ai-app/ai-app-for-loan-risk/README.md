@@ -13,8 +13,6 @@ To learn more about the key features and architectural concepts of agentic AI an
 - Read the article [Agentic AI in enterprise workflow automation](https://developer.ibm.com/articles/agentic-ai-workflow-automation/).
 - Watch the 5-minute demo video [Agentic AI on IBM Cloud - Demo](https://mediacenter.ibm.com/media/Agentic+AI+on+IBM+Cloud+-+Demo+Video/1_kn6kvqmz).
 
-For questions or feedback contact Anuj Jain (jainanuj@us.ibm.com).
-
 ## Use Case
 + AI agent to support bank loan risk evaluation workflow.
 + AI agent determines overall risk and interest rate for a bank loan using LLMs and relevant tools.
