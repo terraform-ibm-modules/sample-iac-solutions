@@ -40,6 +40,8 @@ secure-infra-ai-app/
 
 All the necessary Terraform configuration files are already present in the repository. You will only need to create the `terraform.tfvars` file (in step 6) to provide your environment-specific values.
 
+> **Note**: In the directory, there is another folder called [ai-app-for-loan-risk](https://github.com/terraform-ibm-modules/sample-iac-solutions/secure-infra-ai-app/ai-app-for-loan-risk) which contains the source code for the AI application.
+
 ## Step 2: Review IBM Cloud provider configuration
 
 Before you can provision any resources, Terraform needs to know **how to connect to IBM Cloud**. The repository includes pre-configured provider settings in [`providers.tf`](providers.tf) and [`version.tf`](version.tf).
