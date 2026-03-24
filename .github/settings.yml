@@ -22,7 +22,7 @@ repository:
 
   # Uncomment this description property
   # and update the description to the current repo description.
-  description: "A collection of sample Infrastructure as code (IaC) solutions for deploying infrastructure to IBM Cloud."
+  description: "A collection of sample Infrastructure as Code (IaC) solutions for deploying infrastructure to IBM Cloud."
 
   # Use a comma-separated list of topics to set on the repo (ensure not to use any caps in the topic string).
   topics: terraform, ibm-cloud, core-team, iac, samples, solutions, terragrunt, pulumi

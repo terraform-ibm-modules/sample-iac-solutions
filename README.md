@@ -1,11 +1,12 @@
-# Sample Infrastructure as code (IaC) solutions
+# Sample Infrastructure as Code (IaC) solutions
 
-A collection of sample Infrastructure as code (IaC) solutions for deploying infrastructure to IBM Cloud.
+A collection of sample Infrastructure as Code (IaC) solutions for deploying infrastructure to IBM Cloud.
 
 <!-- Add a bullet point list below for each of the sample solutions and link them to the corresponding directory -->
 ## Contents
 
 - [Pulumi](pulumi/README.md)
+- [Secure Infra for AI Applications](secure-infra-ai-app/README.md)
 - [Terragrunt](terragrunt/README.md)
 - [Containerized App Landing Zone](containerized_app_landing_zone/README.md)
 - [HCP Stacks](stacks/README.md)
