@@ -13,7 +13,6 @@
 //***********************************************************//
 // Loan Risk - AI Agent
 // LangGraph - single AI agent with LLM and tools
-// Author: Anuj Jain (jainanuj@us.ibm.com)
 //***********************************************************//
 
 import express, { Application, Request, Response } from 'express';
