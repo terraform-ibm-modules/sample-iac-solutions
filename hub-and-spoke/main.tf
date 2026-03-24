@@ -4,6 +4,9 @@ module "resource_group" {
   resource_group_name = "${var.prefix}-resource-group"
 }
 
+# Subnets are defined across **three Availability Zones** (`zone-1`, `zone-2`, `zone-3`) in the `us-south` region.
+# The VPC uses the `10.0.0.0/20` address space, providing **over 4,000 IP addresses**.
+# Each subnet gets a `/22` block (e.g., `10.0.0.0/22`, `10.0.4.0/22`, `10.0.8.0/22`)
 module "management_vpc" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
   version           = "8.10.1"
@@ -82,6 +85,10 @@ module "management_vpc" {
   }
 }
 
+# The Workload VPC uses the 10.10.0.0/20 address space to make sure it does not overlap with the Management VPC (10.0.0.0/20) to ensure proper routing between the two VPCs.
+# public_gateway = false is a key security feature. By setting this to false, the virtual servers in this VPC cannot initiate connections to the public internet, nor can they be reached from it directly.
+# ACLs are configured to allow traffic only between the Management VPC (10.0.0.0/20) and the Workload VPC (10.10.0.0/20).
+# All other traffic is implicitly denied by default, creating a secure, isolated environment for your application servers.
 module "workload_vpc" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
   version           = "8.10.1"
@@ -167,6 +174,12 @@ resource "ibm_is_ssh_key" "ssh_key" {
   public_key = tls_private_key.ssh_key.public_key_openssh
 }
 
+# Security Groups vs. Network ACLs: the landing-zone-vsi module creates a Security Group for the jumpbox. 
+# Network ACLs: Stateless, operate at the subnet level, and require explicit rules for both inbound and outbound traffic. 
+# Security Groups: Stateful, operate at the instance (VSI) level, and automatically allow return traffic for permitted inbound connections. 
+# They act as a virtual firewall for your servers and simplify rule management.
+# enable_floating_ip = true: This setting provisions and attaches a public Floating IP to the jumpbox, making it accessible from the internet. 
+# The assigned IP is available in the jumpbox_public_ip output.
 module "jumpbox_server" {
   source                = "terraform-ibm-modules/landing-zone-vsi/ibm"
   version               = "v5.20.1"
@@ -332,6 +345,10 @@ module "workload_servers" {
   vsi_per_subnet    = 1
 }
 
+# This setup follows a secure cloud design pattern called Load Balancer Chaining,
+# The Public Load Balancer serves as the secure entry point and resides in the Management VPC. It is the only component exposed to the internet.
+# Traffic is then forwarded to the Private Load Balancer in the isolated Workload VPC.
+# This design ensures that no resources in the Workload VPC are publicly exposed. The private load balancer remains inaccessible from the internet.
 resource "ibm_is_lb" "public_load_balancer" {
   name           = "${var.prefix}-public-lb"
   subnets        = module.management_vpc.subnet_ids
