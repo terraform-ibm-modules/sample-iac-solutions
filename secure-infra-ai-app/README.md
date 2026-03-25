@@ -1,6 +1,6 @@
-# Build Secure IBM Cloud Infrastructure with Terraform Modules for AI Applications
+# Build secure infrastructure with Terraform IBM Modules for AI Applications
 
-This **IBM Cloud Terraform tutorial** shows how to compose and integrate reusable Terraform modules to build a secure, scalable **Infrastructure as Code** solution on IBM Cloud. You will provision, configure, and operate the Loan Risk AI Agents application while applying IaC best practices for automation, compliance, and observability.
+This tutorial shows how to compose and integrate reusable Terraform modules to build a secure, scalable **Infrastructure as Code** solution on IBM Cloud. You will provision, configure, and operate the Loan Risk AI Agents application while applying IaC best practices for automation, compliance, and observability.
 
 ## Prerequisites
 
