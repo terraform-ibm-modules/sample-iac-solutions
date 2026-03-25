@@ -2,6 +2,8 @@
 
 This tutorial shows how to compose and integrate reusable Terraform modules to build a secure, scalable **Infrastructure as Code** solution on IBM Cloud. You will provision, configure, and operate the Loan Risk AI Agents application while applying IaC best practices for automation, compliance, and observability.
 
+For a detailed overview of the architecture, components, and the modules used in this solution, see the [Secure AI Infrastructure overview](https://cloud.ibm.com/docs/ibm-cloud-provider-for-terraform?topic=ibm-cloud-provider-for-terraform-secure-ai-infrastructure).
+
 ## Prerequisites
 
 Before starting this tutorial, make sure you have the necessary tools, knowledge, and familiarity with IBM Cloud services. These prerequisites will help you follow along with provisioning infrastructure using Terraform modules and deploying the example Loan Risk AI Agents application.
