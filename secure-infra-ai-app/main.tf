@@ -78,7 +78,7 @@ module "code_engine_build" {
   ibmcloud_api_key           = var.ibmcloud_api_key
   project_id                 = module.code_engine_project.id
   existing_resource_group_id = module.resource_group.resource_group_id
-  source_url                 = "https://github.com/terraform-ibm-modules/sample-iac-solutions/secure-infra-ai-app/ai-app-for-loan-risk" # AI application source code
+  source_url                 = "https://github.com/terraform-ibm-modules/sample-iac-solutions/tree/main/secure-infra-ai-app/ai-app-for-loan-risk" # AI application source code
   strategy_type              = "dockerfile"                                    # Build using Dockerfile
   output_secret              = module.code_engine_secret.name                  # Registry credentials
   output_image               = local.output_image                              # Where to push the image

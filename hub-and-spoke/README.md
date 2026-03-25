@@ -1,4 +1,4 @@
-# Build a Secure Hub-and-Spoke Infrastructure Using Terraform IBM Modules
+# Build a secure Hub-and-Spoke infrastructure using Terraform IBM Modules
 
 This repository contains the complete Terraform configuration to provision a secure hub-and-spoke VPC architecture on IBM Cloud using [Terraform IBM Modules](https://github.com/terraform-ibm-modules).
 

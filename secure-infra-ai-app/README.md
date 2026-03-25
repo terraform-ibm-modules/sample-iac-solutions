@@ -1,6 +1,6 @@
-# Build Secure IBM Cloud Infrastructure with Terraform Modules for AI Applications
+# Build secure infrastructure with Terraform IBM Modules for AI Applications
 
-This **IBM Cloud Terraform tutorial** shows how to compose and integrate reusable Terraform modules to build a secure, scalable **Infrastructure as Code** solution on IBM Cloud. You will provision, configure, and operate the Loan Risk AI Agents application while applying IaC best practices for automation, compliance, and observability.
+This tutorial shows how to compose and integrate reusable Terraform modules to build a secure, scalable **Infrastructure as Code** solution on IBM Cloud. You will provision, configure, and operate the Loan Risk AI Agents application while applying IaC best practices for automation, compliance, and observability.
 
 ## Prerequisites
 
@@ -40,7 +40,7 @@ secure-infra-ai-app/
 
 All the necessary Terraform configuration files are already present in the repository. You will only need to create the `terraform.tfvars` file (in step 6) to provide your environment-specific values.
 
-> **Note**: The [ai-app-for-loan-risk](https://github.com/terraform-ibm-modules/sample-iac-solutions/secure-infra-ai-app/ai-app-for-loan-risk) folder contains the AI application source code. While you don't need to modify this folder to deploy the infrastructure, it is essential because the infrastructure code references it for building the container image.
+> **Note**: The [ai-app-for-loan-risk](ai-app-for-loan-risk/README.md) folder contains the AI application source code. While you don't need to modify this folder to deploy the infrastructure, it is essential because the infrastructure code references it for building the container image.
 
 ## Step 2: Review IBM Cloud provider configuration
 
