@@ -56,7 +56,7 @@ The following elements are configured:
 - **Public access:** Jumpbox and public load balancer with controlled internet connectivity.
 - **Subnet IP ranges:** Logical separation of resources per availability zone.
 
-See [`main.tf`](./main.tf) for the full configuration.
+See [`main.tf`](https://github.com/terraform-ibm-modules/sample-iac-solutions/blob/48aa507c1067cde44f980c8db751a37fe852b436/hub-and-spoke/main.tf#L10) for the full configuration.
 
 #### Workload VPC (The Spoke)
 
@@ -68,11 +68,11 @@ The following elements are configured:
 - **Private Subnets:** No public gateways to prevent direct internet access.
 - **Network ACLs:** Allow traffic only between Management and Workload VPCs, securing the environment.
 
-See [`main.tf`](./main.tf) for the full configuration.
+See [`main.tf`](https://github.com/terraform-ibm-modules/sample-iac-solutions/blob/48aa507c1067cde44f980c8db751a37fe852b436/hub-and-spoke/main.tf#L92) for the full configuration.
 
 #### Transit Gateway
 
-To **enable private communication** between the Management and Workload VPCs, a **Transit Gateway** is created. See [`main.tf`](./main.tf).
+To **enable private communication** between the Management and Workload VPCs, a **Transit Gateway** is created. See [`main.tf`](https://github.com/terraform-ibm-modules/sample-iac-solutions/blob/48aa507c1067cde44f980c8db751a37fe852b436/hub-and-spoke/main.tf#L148).
 
 ### Create an SSH Key for Server Access
 
@@ -86,7 +86,7 @@ The following actions are performed:
 
 Note: Saving private keys directly to the filesystem is done here for tutorial simplicity. In a production environment, you should use a secure secret management tool like **IBM Cloud Secrets Manager**.
 
-See [`main.tf`](./main.tf) for the full configuration.
+See [`main.tf`](https://github.com/terraform-ibm-modules/sample-iac-solutions/blob/48aa507c1067cde44f980c8db751a37fe852b436/hub-and-spoke/main.tf#L160) for the full configuration.
 
 ### Provision the Jumpbox Server
 
@@ -98,7 +98,7 @@ The following elements are configured:
 - **Floating IP:** Assigns a public IP for SSH connectivity.
 - **VSI Configuration:** Defines instance type, subnet placement, and SSH key access.
 
-See [`main.tf`](./main.tf) for the full configuration.
+See [`main.tf`](https://github.com/terraform-ibm-modules/sample-iac-solutions/blob/48aa507c1067cde44f980c8db751a37fe852b436/hub-and-spoke/main.tf#L183) for the full configuration.
 
 ### Provision the Workload Servers and Private Load Balancer
 
@@ -110,7 +110,7 @@ The following actions are performed:
 - **Security Groups:** Restrict access to only the jumpbox and load balancer, while allowing outbound DNS and HTTPS calls.
 - **Private Load Balancer:** Distributes incoming traffic from the Management VPC to workload servers using round-robin algorithm.
 
-See [`main.tf`](./main.tf) for the full configuration.
+See [`main.tf`](https://github.com/terraform-ibm-modules/sample-iac-solutions/blob/48aa507c1067cde44f980c8db751a37fe852b436/hub-and-spoke/main.tf#L235) for the full configuration.
 
 ### Exposing the Application to the Internet
 
@@ -125,7 +125,7 @@ The following are created:
 
 This setup follows a secure cloud design pattern called **Load Balancer Chaining**: the public load balancer serves as the secure entry point and resides in the Management VPC. It is the only component exposed to the internet. Traffic is then forwarded to the private load balancer in the isolated Workload VPC. This design ensures that no resources in the Workload VPC are publicly exposed.
 
-See [`main.tf`](./main.tf) for the full configuration.
+See [`main.tf`](https://github.com/terraform-ibm-modules/sample-iac-solutions/blob/48aa507c1067cde44f980c8db751a37fe852b436/hub-and-spoke/main.tf#L352) for the full configuration.
 
 ### Provision Virtual Private Endpoints (VPEs)
 
@@ -137,13 +137,13 @@ The following are created:
 2. A **VPE gateway** connected to the workload VPC.
 3. Access configured to specific IBM Cloud services (Cloud Object Storage).
 
-See [`main.tf`](./main.tf) for the full configuration.
+See [`main.tf`](https://github.com/terraform-ibm-modules/sample-iac-solutions/blob/48aa507c1067cde44f980c8db751a37fe852b436/hub-and-spoke/main.tf#L401) for the full configuration.
 
 ### Provision Cloud Object Storage
 
 To store application data securely, a **Cloud Object Storage (COS)** instance and a bucket are created. This COS instance will be used by your workload servers or applications to persist data.
 
-See [`main.tf`](./main.tf) for the full configuration.
+See [`main.tf`](https://github.com/terraform-ibm-modules/sample-iac-solutions/blob/48aa507c1067cde44f980c8db751a37fe852b436/hub-and-spoke/main.tf#L436) for the full configuration.
 
 ### Define Outputs
 
