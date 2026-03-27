@@ -45,7 +45,7 @@ module "management_vpc" {
         name        = "allow-workload-to-management-traffic"
         action      = "allow"
         direction   = "inbound"
-        source      = "10.10.0.0/20"  # workload vpc range
+        source      = "10.10.0.0/20" # workload vpc range
         destination = "0.0.0.0/0"
       },
       {
@@ -174,11 +174,11 @@ resource "ibm_is_ssh_key" "ssh_key" {
   public_key = tls_private_key.ssh_key.public_key_openssh
 }
 
-# Security Groups vs. Network ACLs: the landing-zone-vsi module creates a Security Group for the jumpbox. 
-# Network ACLs: Stateless, operate at the subnet level, and require explicit rules for both inbound and outbound traffic. 
-# Security Groups: Stateful, operate at the instance (VSI) level, and automatically allow return traffic for permitted inbound connections. 
+# Security Groups vs. Network ACLs: the landing-zone-vsi module creates a Security Group for the jumpbox.
+# Network ACLs: Stateless, operate at the subnet level, and require explicit rules for both inbound and outbound traffic.
+# Security Groups: Stateful, operate at the instance (VSI) level, and automatically allow return traffic for permitted inbound connections.
 # They act as a virtual firewall for your servers and simplify rule management.
-# enable_floating_ip = true: This setting provisions and attaches a public Floating IP to the jumpbox, making it accessible from the internet. 
+# enable_floating_ip = true: This setting provisions and attaches a public Floating IP to the jumpbox, making it accessible from the internet.
 # The assigned IP is available in the jumpbox_public_ip output.
 module "jumpbox_server" {
   source                = "terraform-ibm-modules/landing-zone-vsi/ibm"
@@ -447,4 +447,3 @@ module "cos_storage" {
     role                      = "Reader"
   }]
 }
-
