@@ -17,7 +17,7 @@
     "@langchain/core": "1.1.33",
     "@langchain/langgraph": "1.2.3",
     "express": "4.22.1",
-    "json-server": "0.16.3"
+    "json-server": "^1.0.0-beta.15"
   },
   "devDependencies": {
     "@types/express": "5.0.6",
