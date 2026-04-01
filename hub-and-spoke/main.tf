@@ -417,6 +417,7 @@ module "workload_vpe_security_group" {
 
 module "workload_vpes" {
   source             = "terraform-ibm-modules/vpe-gateway/ibm"
+  version            = "5.1.0"
   region             = "us-south"
   prefix             = "${var.prefix}-workload-vpe"
   vpc_name           = module.workload_vpc.vpc_name
@@ -435,11 +436,11 @@ module "workload_vpes" {
 
 module "cos_storage" {
   source                 = "terraform-ibm-modules/cos/ibm"
+  version                = "10.14.10"
   resource_group_id      = module.resource_group.resource_group_id
   region                 = "us-south"
   cos_instance_name      = "${var.prefix}-cos-storage"
   bucket_name            = "${var.prefix}-data-bucket"
-  retention_enabled      = false # Disabled for tutorial - enable for production
   kms_encryption_enabled = false
   resource_keys = [{
     name                      = "workload-service-credentials"
