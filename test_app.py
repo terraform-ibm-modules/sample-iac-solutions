@@ -1,5 +1,10 @@
-import os, datetime, hashlib, hmac, requests
-from http.server import HTTPServer, BaseHTTPRequestHandler
+import datetime
+import hashlib
+import hmac
+import os
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+import requests
 
 # Env vars
 AK = os.getenv("COS_ACCESS_KEY_ID")
@@ -9,17 +14,24 @@ OBJ = os.getenv("COS_OBJECT_KEY", "index.html")
 VPE_ENDPOINT = os.getenv("VPE_ENDPOINT")
 
 if not all([AK, SK, BUCKET, OBJ, VPE_ENDPOINT]):
-    raise EnvironmentError("Missing required environment variables.")
+    raise OSError("Missing required environment variables.")
 
 # COS config
 HOST = "s3.direct.us-south.cloud-object-storage.appdomain.cloud"
 ENDPOINT = "https://" + VPE_ENDPOINT
 REGION = "us-south"
 
+
 # Signing helpers
-def sign(key, msg): return hmac.new(key, msg.encode(), hashlib.sha256).digest()
+def sign(key, msg):
+    return hmac.new(key, msg.encode(), hashlib.sha256).digest()
+
+
 def sig_key(k, date, region, svc):
-    return sign(sign(sign(sign(("AWS4" + k).encode(), date), region), svc), "aws4_request")
+    return sign(
+        sign(sign(sign(("AWS4" + k).encode(), date), region), svc), "aws4_request"
+    )
+
 
 # Timestamps
 now = datetime.datetime.utcnow()
@@ -38,8 +50,12 @@ SCOPE = f"{DATE}/{REGION}/s3/aws4_request"
 STS = f"AWS4-HMAC-SHA256\n{TS}\n{SCOPE}\n{hashlib.sha256(CANON).hexdigest()}"
 
 # Signature
-SIG = hmac.new(sig_key(SK, DATE, REGION, "s3"), STS.encode(), hashlib.sha256).hexdigest()
-AUTH = f"AWS4-HMAC-SHA256 Credential={AK}/{SCOPE}, SignedHeaders={SIGNED}, Signature={SIG}"
+SIG = hmac.new(
+    sig_key(SK, DATE, REGION, "s3"), STS.encode(), hashlib.sha256
+).hexdigest()
+AUTH = (
+    f"AWS4-HMAC-SHA256 Credential={AK}/{SCOPE}, SignedHeaders={SIGNED}, Signature={SIG}"
+)
 
 # Request
 HDR = {"x-amz-date": TS, "Authorization": AUTH, "Host": HOST}
@@ -50,6 +66,7 @@ resp = requests.get(URL, headers=HDR, verify=False)
 if resp.status_code != 200:
     raise Exception(f"Error {resp.status_code}: {resp.text}")
 CONTENT = resp.text.encode()
+
 
 # Web server
 class Handler(BaseHTTPRequestHandler):
@@ -63,6 +80,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(404)
             self.end_headers()
             self.wfile.write(b"404 Not Found")
+
 
 if __name__ == "__main__":
     print(f"Serving {OBJ} from {BUCKET} on port 8080...")

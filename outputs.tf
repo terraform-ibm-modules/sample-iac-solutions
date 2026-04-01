@@ -1,6 +1,6 @@
 output "ssh_private_key_file_name" {
   description = "Private key file name."
-  value = "${var.prefix}_ssh_private_key.pem"
+  value       = "${var.prefix}_ssh_private_key.pem"
 }
 
 output "jumpbox_public_ip" {
@@ -25,7 +25,7 @@ output "workload_vpe_ips" {
 
 output "workload_vpe_ips_1" {
   description = "One of the Private IP addresses of VPC endpoints for cloud services"
-  value = flatten([for vpe_ips in module.workload_vpes.vpe_ips : [for ip in vpe_ips : ip.address]])[0]
+  value       = flatten([for vpe_ips in module.workload_vpes.vpe_ips : [for ip in vpe_ips : ip.address]])[0]
 }
 
 output "cos_instance_crn" {
