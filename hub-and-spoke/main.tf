@@ -349,6 +349,7 @@ module "workload_servers" {
 # The Public Load Balancer serves as the secure entry point and resides in the Management VPC. It is the only component exposed to the internet.
 # Traffic is then forwarded to the Private Load Balancer in the isolated Workload VPC.
 # This design ensures that no resources in the Workload VPC are publicly exposed. The private load balancer remains inaccessible from the internet.
+# checkov:skip=CKV2_IBM_1: Public load balancer is required
 resource "ibm_is_lb" "public_load_balancer" {
   name           = "${var.prefix}-public-lb"
   subnets        = module.management_vpc.subnet_ids
