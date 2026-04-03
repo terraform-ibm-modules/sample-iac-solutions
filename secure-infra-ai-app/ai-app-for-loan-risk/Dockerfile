@@ -1,4 +1,4 @@
-FROM node:24-alpine
+FROM node:24.14.1-alpine
 
 ENV APPLICATION_HOME_DOCKER=/usr/src/app \
     APPLICATION_PORT=8080
