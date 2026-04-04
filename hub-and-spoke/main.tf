@@ -147,7 +147,7 @@ module "workload_vpc" {
 
 module "transit_gateway" {
   source                    = "terraform-ibm-modules/transit-gateway/ibm"
-  version                   = "2.6.0"
+  version                   = "3.0.1"
   transit_gateway_name      = "${var.prefix}-management-workload-tg"
   region                    = "us-south"
   global_routing            = false
