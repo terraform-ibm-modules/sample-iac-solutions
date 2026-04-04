@@ -166,7 +166,7 @@ locals {
 
 module "en_cos_buckets" {
   source         = "terraform-ibm-modules/cos/ibm//modules/buckets"
-  version        = "10.14.9"
+  version        = "10.14.10"
   bucket_configs = local.en_cos_bucket_config
 }
 
@@ -285,7 +285,7 @@ resource "ibm_en_subscription_email" "en_email_subscription" {
 
 module "cos" {
   source              = "terraform-ibm-modules/cos/ibm//modules/fscloud"
-  version             = "10.14.9"
+  version             = "10.14.10"
   resource_group_id   = module.resource_group.resource_group_id
   create_cos_instance = true
   cos_instance_name   = local.cos_instance_name
@@ -324,7 +324,7 @@ locals {
 module "cloud_logs" {
   depends_on        = [time_sleep.wait_for_cos_authorization_policy]
   source            = "terraform-ibm-modules/cloud-logs/ibm"
-  version           = "1.12.8"
+  version           = "1.12.9"
   resource_group_id = module.resource_group.resource_group_id
   region            = var.region
   instance_name     = "${var.prefix}-cloud-logs"
@@ -349,7 +349,7 @@ module "cloud_logs" {
 
 module "cloud_logs_buckets" {
   source  = "terraform-ibm-modules/cos/ibm//modules/buckets"
-  version = "10.14.9"
+  version = "10.14.10"
   bucket_configs = [
     {
       bucket_name              = local.data_bucket_name
@@ -464,7 +464,7 @@ module "activity_tracker" {
 
 module "at_cos_bucket" {
   source  = "terraform-ibm-modules/cos/ibm//modules/buckets"
-  version = "10.14.9"
+  version = "10.14.10"
   bucket_configs = [
     for value in local.at_buckets_config :
     {
@@ -502,7 +502,7 @@ module "at_cos_bucket" {
 
 module "app_config" {
   source                                                     = "terraform-ibm-modules/app-configuration/ibm"
-  version                                                    = "1.16.0"
+  version                                                    = "1.16.1"
   resource_group_id                                          = module.resource_group.resource_group_id
   region                                                     = var.region
   app_config_name                                            = "${var.prefix}-app-config"
@@ -571,7 +571,7 @@ resource "ibm_en_subscription_email" "apprapp_email_subscription" {
 
 module "scc_wp" {
   source                                       = "terraform-ibm-modules/scc-workload-protection/ibm"
-  version                                      = "1.18.1"
+  version                                      = "1.18.2"
   name                                         = "${var.prefix}-scc-workload-protection"
   region                                       = var.region
   resource_group_id                            = module.resource_group.resource_group_id
@@ -619,7 +619,7 @@ locals {
 # Create COS bucket using the defined bucket configuration
 module "vpc_cos_buckets" {
   source         = "terraform-ibm-modules/cos/ibm//modules/buckets"
-  version        = "10.14.9"
+  version        = "10.14.10"
   bucket_configs = local.flow_logs_bucket_config
 }
 
@@ -849,7 +849,7 @@ locals {
 
 module "ocp_base" {
   source                                = "terraform-ibm-modules/base-ocp-vpc/ibm"
-  version                               = "3.83.0"
+  version                               = "3.83.2"
   resource_group_id                     = module.resource_group.resource_group_id
   region                                = var.region
   cluster_name                          = local.cluster_name
