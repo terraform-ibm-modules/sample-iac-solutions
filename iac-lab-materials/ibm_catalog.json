@@ -1,0 +1,214 @@
+{
+    "products": [
+        {
+            "label": "Secure Hub-and-Spoke Foundation",
+            "name": "cloud-labs-txc-2025-pfeng-1818",
+            "product_kind": "solution",
+            "tags": [
+                "ibm_created",
+                "target_terraform",
+                "terraform",
+                "solution",
+                "network",
+                "network_vpc",
+                "platform_engineering"
+            ],
+            "keywords": [
+                "vpc",
+                "slz",
+                "terraform",
+                "IaC",
+                "infrastructure as code",
+                "solution",
+                "hub and spoke"
+            ],
+            "short_description": "Deploy Hub and Spoke Virtual Private Clouds (VPCs) on IBM Cloud with full flexibility and customisation to support different workloads",
+            "long_description": "This accelerator provisions a secure, scalable hub-and-spoke network architecture on IBM Cloud. It enables centralized management, private connectivity, and isolated workload environments.",
+            "offering_docs_url": "https://ibm-cloud.github.io/techxchange-labs/pfeng-1818/#/",
+            "offering_icon_url": "https://globalcatalog.cloud.ibm.com/api/v1/1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc/artifacts/solution.svg",
+            "features": [
+                {
+                    "title": "Secure Access with Jumpbox & Load Balancer",
+                    "description": "Jumpbox and Load Balancer Chaining for secure, controlled access to private workloads."
+                },
+                {
+                    "title": "Automated HA Deployment on IBM Cloud",
+                    "description": "Automated multi-zone deployment using IBM Cloud Terraform modules for high availability."
+                }
+            ],
+            "flavors": [
+                {
+                    "label": "Standard",
+                    "name": "standard",
+                    "working_directory": ".",
+                    "licenses": [],
+                    "compliance": {},
+                    "iam_permissions": [
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Viewer"
+                            ],
+                            "service_name": "Resource group only",
+                            "notes": "Viewer access is required in the resource group you want to provision in."
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "All Account Management services",
+                            "notes": "[Optional] Required to create new resource groups when enabling the Account Configuration integration."
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "All Identity and Access enabled services",
+                            "notes": "[Optional] Required to create new resource groups with account settings when enabling the Account Configuration integration."
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator"
+                            ],
+                            "service_name": "is.vpc",
+                            "notes": "Required to create Virtual Private Cloud(VPC)"
+                        },
+                        {
+                            "service_name": "cloud-object-storage",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "notes": "[Optional] Required if VPC Flow Logs are enabled."
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "hs-crypto",
+                            "notes": "[Optional] Required if Hyper Protect Crypto Service is used for encryption."
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "kms",
+                            "notes": "[Optional] Required if Key Protect is used for encryption."
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "sysdig-monitor",
+                            "notes": "[Optional] Required to create an instance of Cloud Monitoring."
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "logs",
+                            "notes": "[Optional] Required to create an instance of Cloud Logs."
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Writer",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "service_name": "atracker",
+                            "notes": "[Optional] Required when enabling the Activity Tracker Event Routing."
+                        },
+                        {
+                            "service_name": "sysdig-secure",
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager",
+                                "crn:v1:bluemix:public:iam::::role:Editor"
+                            ],
+                            "notes": "[Optional] Required for creating and managing SCC Workload Protection instance."
+                        },
+                        {
+                            "role_crns": [
+                                "crn:v1:bluemix:public:iam::::role:Administrator",
+                                "crn:v1:bluemix:public:iam::::serviceRole:Manager"
+                            ],
+                            "service_name": "apprapp",
+                            "notes": "[Optional] Required to create the App Configuration instance."
+                        }
+                    ],
+                    "architecture": {
+                        "features": [
+                            {
+                                "title": " ",
+                                "description": "Ideal for users who want flexibility with a reliable starting point."
+                            },
+                            {
+                                "title": " ",
+                                "description": "Offers full control over architecture parameters, with well-chosen defaults that enable a functional Virtual Private Cloud (VPC) environment and integrated IBM Cloud services without requiring manual adjustments."
+                            }
+                        ],
+                        "diagrams": [
+                            {
+                                "diagram": {
+                                    "caption": "Hub and Spoke Virtual Private Cloud(VPC) topology",
+                                    "url": "https://raw.githubusercontent.com/terraform-ibm-modules/sample-iac-solutions/main/iac-lab-materials/architecture.svg",
+                                    "type": "image/svg+xml"
+                                }
+                            }
+                        ]
+                    },
+                    "release_notes_url": "",
+                    "configuration": [
+                        {
+                            "key": "ibmcloud_api_key",
+                            "type": "password",
+                            "description": "IBM Cloud API key for authentication and resource provisioning",
+                            "required": true,
+                            "virtual": false
+                        },
+                        {
+                            "key": "prefix",
+                            "type": "string",
+                            "default_value": "__NOT_SET__",
+                            "description": "Unique prefix for resource naming (e.g., 'jdoe' or 'dev')",
+                            "required": true,
+                            "virtual": false
+                        }
+                    ],
+                    "terraform_version": "",
+                    "outputs": [
+                        {
+                            "key": "jumpbox_public_ip",
+                            "description": "Public IP address to connect to the jumpbox server"
+                        },
+                        {
+                            "key": "workload_server_private_ips",
+                            "description": "Private IP addresses of the workload servers"
+                        },
+                        {
+                            "key": "public_load_balancer_hostname",
+                            "description": "Public hostname to access the application through the load balancer"
+                        },
+                        {
+                            "key": "workload_vpe_ips",
+                            "description": "Private IP addresses of VPC endpoints for cloud services"
+                        },
+                        {
+                            "key": "cos_access_key_id",
+                            "description": "Access key ID for Cloud Object Storage (S3-compatible)"
+                        },
+                        {
+                            "key": "cos_secret_access_key",
+                            "description": "Secret access key for Cloud Object Storage (S3-compatible)"
+                        }
+                    ],
+                    "install_type": "fullstack",
+                    "scripts": [],
+                    "change_notices": {},
+                    "dependency_version_2": true
+                }
+            ]
+        }
+    ]
+}
