@@ -72,7 +72,7 @@ module "management_vpc" {
         name        = "allow-workload-to-management-traffic"
         action      = "allow"
         direction   = "inbound"
-        source      = "10.10.0.0/20"  # workload vpc range
+        source      = "10.10.0.0/20" # workload vpc range
         destination = "0.0.0.0/0"
       },
       {
@@ -195,7 +195,7 @@ resource "local_file" "ssh_private_key" {
 # ONLY outputs private file name
 output "ssh_private_key_file_name" {
   description = "Private key file name."
-  value = "${var.prefix}_ssh_private_key.pem"
+  value       = "${var.prefix}_ssh_private_key.pem"
 }
 
 resource "ibm_is_ssh_key" "ssh_key" {
@@ -509,4 +509,3 @@ output "cos_secret_access_key" {
   description = "Secret access key for Cloud Object Storage (S3-compatible)"
   value       = module.cos_storage.resource_keys["workload-service-credentials"]["credentials"]["cos_hmac_keys.secret_access_key"]
 }
-
