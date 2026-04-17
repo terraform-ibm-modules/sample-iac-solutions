@@ -1,14 +1,3 @@
-variable "ibmcloud_api_key" {
-  description = "IBM Cloud API key for authentication and resource provisioning"
-  type        = string
-  sensitive   = true
-}
-
-variable "prefix" {
-  description = "Unique prefix for resource naming (e.g., 'vb-lab' or 'ra-dev'). Maximum prefix length is 6 characters."
-  type        = string
-}
-
 provider "ibm" {
   ibmcloud_api_key = var.ibmcloud_api_key
   region           = "us-south" # You can change this to your preferred region
@@ -21,9 +10,13 @@ terraform {
       source  = "IBM-Cloud/ibm"
       version = ">= 1.80.0"
     }
-    time = {
-      source  = "hashicorp/time"
-      version = ">= 0.9.1, < 1.0.0"
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 4.0.0"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = ">= 2.0.0"
     }
   }
 }
@@ -192,12 +185,6 @@ resource "local_file" "ssh_private_key" {
   file_permission = "0600" # Read-only for owner
 }
 
-# ONLY outputs private file name
-output "ssh_private_key_file_name" {
-  description = "Private key file name."
-  value       = "${var.prefix}_ssh_private_key.pem"
-}
-
 resource "ibm_is_ssh_key" "ssh_key" {
   name       = "${var.prefix}-ssh-key"
   public_key = tls_private_key.ssh_key.public_key_openssh
@@ -253,11 +240,6 @@ module "jumpbox_server" {
   user_data         = null
   vpc_id            = module.management_vpc.vpc_id
   vsi_per_subnet    = 1
-}
-
-output "jumpbox_public_ip" {
-  description = "Public IP address to connect to the jumpbox server"
-  value       = module.jumpbox_server.fip_list[0].floating_ip
 }
 
 module "workload_servers" {
@@ -373,20 +355,10 @@ module "workload_servers" {
   vsi_per_subnet    = 1
 }
 
-output "workload_server_private_ips" {
-  description = "Private IP addresses of the workload servers"
-  value       = module.workload_servers.list[*].ipv4_address
-}
-
-output "public_load_balancer_hostname" {
-  description = "Public hostname to access the application through the load balancer"
-  value       = ibm_is_lb.public_load_balancer.hostname
-}
-
 resource "ibm_is_lb" "public_load_balancer" {
   name           = "${var.prefix}-public-lb"
   subnets        = module.management_vpc.subnet_ids
-  type           = "public"
+  type           = "public" #checkov:skip=CKV2_IBM_1: Public load balancer is required
   resource_group = module.resource_group.resource_group_id
 }
 
@@ -452,6 +424,7 @@ resource "ibm_is_lb_listener" "public_lb_listener" {
 
 module "workload_vpes" {
   source             = "terraform-ibm-modules/vpe-gateway/ibm"
+  version            = "2.6.1"
   region             = "us-south"
   prefix             = "${var.prefix}-workload-vpe"
   vpc_name           = module.workload_vpc.vpc_name
@@ -468,13 +441,9 @@ module "workload_vpes" {
   ]
 }
 
-output "workload_vpe_ips" {
-  description = "Private IP addresses of VPC endpoints for cloud services"
-  value       = module.workload_vpes.vpe_ips
-}
-
 module "cos_storage" {
   source                 = "terraform-ibm-modules/cos/ibm"
+  version                = "8.16.2"
   resource_group_id      = module.resource_group.resource_group_id
   region                 = "us-south"
   cos_instance_name      = "${var.prefix}-cos-storage"
@@ -486,26 +455,4 @@ module "cos_storage" {
     generate_hmac_credentials = true
     role                      = "Reader"
   }]
-}
-
-output "cos_instance_crn" {
-  description = "COS instance CRN"
-  value       = module.cos_storage.cos_instance_crn
-}
-
-output "bucket_name" {
-  description = "Bucket name"
-  value       = module.cos_storage.bucket_name
-}
-
-output "cos_access_key_id" {
-  sensitive   = true
-  description = "Access key ID for Cloud Object Storage (S3-compatible)"
-  value       = module.cos_storage.resource_keys["workload-service-credentials"]["credentials"]["cos_hmac_keys.access_key_id"]
-}
-
-output "cos_secret_access_key" {
-  sensitive   = true
-  description = "Secret access key for Cloud Object Storage (S3-compatible)"
-  value       = module.cos_storage.resource_keys["workload-service-credentials"]["credentials"]["cos_hmac_keys.secret_access_key"]
 }

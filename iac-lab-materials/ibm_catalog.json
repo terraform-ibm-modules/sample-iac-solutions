@@ -42,7 +42,10 @@
                     "name": "standard",
                     "working_directory": ".",
                     "licenses": [],
-                    "compliance": {},
+                    "compliance": {
+                        "authority": "scc-v3",
+                        "controls": []
+                    },
                     "iam_permissions": [
                         {
                             "role_crns": [
@@ -154,7 +157,8 @@
                                     "caption": "Hub and Spoke Virtual Private Cloud(VPC) topology",
                                     "url": "https://raw.githubusercontent.com/terraform-ibm-modules/sample-iac-solutions/main/iac-lab-materials/architecture.svg",
                                     "type": "image/svg+xml"
-                                }
+                                },
+                                "description": "Architecture diagram showing the hub-and-spoke VPC topology with management and workload VPCs connected via Transit Gateway"
                             }
                         ]
                     },
