@@ -614,8 +614,13 @@ const runAppWithQuery = async (query: string) => {
 
     const chat_messages=[];
 
-    for await (const chunk of stream) {
-        const lastMessage = chunk.messages[chunk.messages.length - 1];
+    for await (const chunk of stream as AsyncIterable<{ messages?: BaseMessage[] }>) {
+        const chunkMessages = chunk.messages ?? [];
+        if (chunkMessages.length === 0) {
+            continue;
+        }
+
+        const lastMessage = chunkMessages[chunkMessages.length - 1];
         const type = lastMessage._getType();
         const content = lastMessage.content;
         const toolCalls = lastMessage.tool_calls;
