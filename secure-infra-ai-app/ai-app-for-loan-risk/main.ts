@@ -623,7 +623,7 @@ const runAppWithQuery = async (query: string) => {
         const lastMessage = chunkMessages[chunkMessages.length - 1];
         const type = lastMessage._getType();
         const content = lastMessage.content;
-        const toolCalls = lastMessage.tool_calls;
+        const toolCalls = lastMessage instanceof AIMessage ? lastMessage.tool_calls : undefined;
         console.dir({
             type,
             content,
