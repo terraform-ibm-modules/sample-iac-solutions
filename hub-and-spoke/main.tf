@@ -263,7 +263,7 @@ module "workload_servers" {
       {
         name      = "allow-dns-resolution"
         direction = "outbound"
-        source    = "0.0.0.0/0"
+        source    = null
         tcp       = null
         udp = {
           port_min = 53
@@ -274,7 +274,7 @@ module "workload_servers" {
       {
         name      = "allow-https-api-calls"
         direction = "outbound"
-        source    = "0.0.0.0/0"
+        source    = null
         tcp = {
           port_min = 443
           port_max = 443
@@ -429,9 +429,8 @@ module "workload_vpes" {
 
   cloud_services = [
     {
-      service_name                = "cloud-object-storage"
-      vpe_name                    = "${var.prefix}-cos-vpe"
-      dns_resolution_binding_mode = "primary"
+      service_name                 = "cloud-object-storage"
+      allow_dns_resolution_binding = true
     }
   ]
 }

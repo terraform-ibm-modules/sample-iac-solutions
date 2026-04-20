@@ -52,12 +52,16 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 }
 
 func setupHubAndSpokeOptions(t *testing.T) *testhelper.TestOptions {
-	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:      t,
 		TerraformDir: hubAndSpokeSolutionDir,
-		Prefix:       "hub-spoke",
+		Prefix:       "hs",
 		Region:       "us-south",
 	})
+	options.TerraformVars = map[string]interface{}{
+		"prefix": options.Prefix,
+		"region": options.Region,
+	}
 	return options
 }
 
