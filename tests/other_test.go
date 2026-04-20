@@ -13,6 +13,7 @@ const resourceGroup = "geretain-test-resources"
 
 // Ensure every example directory has a corresponding test
 const landingZoneExampleDir = "containerized_app_landing_zone"
+const hubAndSpokeSolutionDir = "hub-and-spoke"
 
 var IgnoreUpdates = []string{
 	"module.logs_agent.helm_release.logs_agent",
@@ -50,11 +51,36 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 	return options
 }
 
+func setupHubAndSpokeOptions(t *testing.T) *testhelper.TestOptions {
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: hubAndSpokeSolutionDir,
+		Prefix:       "hs",
+		Region:       "us-south",
+	})
+	options.TerraformVars = map[string]interface{}{
+		"prefix": options.Prefix,
+		"region": options.Region,
+	}
+	return options
+}
+
 // Consistency test for the containerized app landing zone
 func TestRunLandingZoneExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions(t, "app-lz", landingZoneExampleDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+// Consistency test for hub-and-spoke solution
+func TestRunHubAndSpokeExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupHubAndSpokeOptions(t)
 
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
