@@ -429,7 +429,7 @@ module "workload_vpes" {
 
   cloud_services = [
     {
-      service_name                 = "cloud-object-storage"
+      service_name                 = "cloud-object-storage",
       allow_dns_resolution_binding = true
     }
   ]
