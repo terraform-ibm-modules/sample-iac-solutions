@@ -520,10 +520,9 @@ const setupModelWithTools = async (tools: Array<any>) => {
     //props for meta-llama/llama-3-2-90b-vision-instruct or other models
     console.log('Using watsonx-ChatWatsonx');
     const props = {
-        minTokens: agentic_instructions.model_minTokens,// 150,
         maxTokens: agentic_instructions.model_maxTokens, //250,
         temperature: agentic_instructions.model_temperature, //0.5,
-        randomSeed: agentic_instructions.model_randomSeed //12345
+        seed: agentic_instructions.model_randomSeed //12345
     };
 
 
@@ -614,11 +613,16 @@ const runAppWithQuery = async (query: string) => {
 
     const chat_messages=[];
 
-    for await (const chunk of stream) {
-        const lastMessage = chunk.messages[chunk.messages.length - 1];
+    for await (const chunk of stream as AsyncIterable<{ messages?: BaseMessage[] }>) {
+        const chunkMessages = chunk.messages ?? [];
+        if (chunkMessages.length === 0) {
+            continue;
+        }
+
+        const lastMessage = chunkMessages[chunkMessages.length - 1];
         const type = lastMessage._getType();
         const content = lastMessage.content;
-        const toolCalls = lastMessage.tool_calls;
+        const toolCalls = lastMessage instanceof AIMessage ? lastMessage.tool_calls : undefined;
         console.dir({
             type,
             content,

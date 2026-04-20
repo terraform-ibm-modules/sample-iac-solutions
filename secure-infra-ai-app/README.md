@@ -10,6 +10,7 @@ Before starting this tutorial, make sure you have the necessary tools, knowledge
 
 - Install the [IBM Cloud CLI](https://cloud.ibm.com/docs/cli?topic=cli-getting-started).
 - Install [terraform CLI](https://developer.hashicorp.com/terraform/install).
+- Ensure the IBM Cloud CLI can install the Code Engine plug-in (`code-engine`) from the IBM Cloud plug-in repository.
 - [IBM Cloud apikey](https://cloud.ibm.com/docs/account?topic=account-userapikey&interface=ui) to access the IBM Cloud.
 - Familiar with the [Loan Risk AI Agents application](ai-app-for-loan-risk/README.md).
 
