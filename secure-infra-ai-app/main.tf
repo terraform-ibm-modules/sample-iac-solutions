@@ -10,7 +10,7 @@
 
 module "resource_group" {
   source              = "terraform-ibm-modules/resource-group/ibm"
-  version             = "1.5.0"
+  version             = "1.6.0"
   resource_group_name = "${var.prefix}-resource-group"
 }
 
@@ -21,7 +21,7 @@ module "resource_group" {
 
 module "code_engine_project" {
   source            = "terraform-ibm-modules/code-engine/ibm//modules/project"
-  version           = "4.8.3"
+  version           = "4.9.1"
   name              = "${var.prefix}-ce-project"
   resource_group_id = module.resource_group.resource_group_id
 }
@@ -33,7 +33,7 @@ module "code_engine_project" {
 
 module "code_engine_secret" {
   source     = "terraform-ibm-modules/code-engine/ibm//modules/secret"
-  version    = "4.8.3"
+  version    = "4.9.1"
   name       = "${var.prefix}-registry-access-secret"
   project_id = module.code_engine_project.id
   format     = "registry"
@@ -51,7 +51,7 @@ module "code_engine_secret" {
 
 module "namespace" {
   source            = "terraform-ibm-modules/container-registry/ibm"
-  version           = "2.6.14"
+  version           = "2.7.0"
   namespace_name    = "${var.prefix}-crn"
   resource_group_id = module.resource_group.resource_group_id
 }
@@ -73,7 +73,7 @@ locals {
 
 module "code_engine_build" {
   source                     = "terraform-ibm-modules/code-engine/ibm//modules/build"
-  version                    = "4.8.3"
+  version                    = "4.9.1"
   name                       = "${var.prefix}-ce-build"
   ibmcloud_api_key           = var.ibmcloud_api_key
   project_id                 = module.code_engine_project.id
@@ -100,7 +100,7 @@ locals {
 
 module "key_protect_all_inclusive" {
   source                    = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                   = "5.5.36"
+  version                   = "5.6.1"
   key_protect_instance_name = "${var.prefix}-kp"
   resource_group_id         = module.resource_group.resource_group_id
   enable_metrics            = false
@@ -125,7 +125,7 @@ module "key_protect_all_inclusive" {
 
 module "cos" {
   source                     = "terraform-ibm-modules/cos/ibm"
-  version                    = "10.14.9"
+  version                    = "10.16.0"
   resource_group_id          = module.resource_group.resource_group_id
   region                     = var.region
   cos_instance_name          = "${var.prefix}-my-cos"
@@ -151,7 +151,7 @@ data "ibm_iam_auth_token" "restapi" {
 
 module "watsonx_ai" {
   source                        = "terraform-ibm-modules/watsonx-ai/ibm"
-  version                       = "2.16.2"
+  version                       = "2.17.1"
   region                        = var.region
   resource_group_id             = module.resource_group.resource_group_id
   watsonx_ai_studio_plan        = "professional-v1"
@@ -171,7 +171,7 @@ module "watsonx_ai" {
 module "code_engine_app" {
   depends_on      = [module.code_engine_build] # Wait for image to be built
   source          = "terraform-ibm-modules/code-engine/ibm//modules/app"
-  version         = "4.8.3"
+  version         = "4.9.1"
   project_id      = module.code_engine_project.id
   name            = "${var.prefix}-ai-agent-for-loan-risk"
   image_reference = module.code_engine_build.output_image # Use the built container image
