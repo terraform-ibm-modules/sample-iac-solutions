@@ -35,56 +35,56 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | 3.1.1 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.89.0 |
-| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 3.0.1 |
-| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 2.0.1 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 2.0.2 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 3.1.0 |
+| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 3.0.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | 0.13.1 |
 
 ### Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_activity_tracker"></a> [activity\_tracker](#module\_activity\_tracker) | terraform-ibm-modules/activity-tracker/ibm | 1.7.1 |
-| <a name="module_app_config"></a> [app\_config](#module\_app\_config) | terraform-ibm-modules/app-configuration/ibm | 1.16.0 |
-| <a name="module_at_cos_bucket"></a> [at\_cos\_bucket](#module\_at\_cos\_bucket) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.14.9 |
-| <a name="module_cloud_logs"></a> [cloud\_logs](#module\_cloud\_logs) | terraform-ibm-modules/cloud-logs/ibm | 1.12.8 |
-| <a name="module_cloud_logs_buckets"></a> [cloud\_logs\_buckets](#module\_cloud\_logs\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.14.9 |
-| <a name="module_cloud_monitoring"></a> [cloud\_monitoring](#module\_cloud\_monitoring) | terraform-ibm-modules/cloud-monitoring/ibm | 1.14.6 |
-| <a name="module_cos"></a> [cos](#module\_cos) | terraform-ibm-modules/cos/ibm//modules/fscloud | 10.14.9 |
-| <a name="module_en_cos_buckets"></a> [en\_cos\_buckets](#module\_en\_cos\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.14.9 |
-| <a name="module_event_notifications"></a> [event\_notifications](#module\_event\_notifications) | terraform-ibm-modules/event-notifications/ibm | 2.11.29 |
-| <a name="module_kms"></a> [kms](#module\_kms) | terraform-ibm-modules/kms-all-inclusive/ibm | 5.5.36 |
-| <a name="module_logs_agent"></a> [logs\_agent](#module\_logs\_agent) | terraform-ibm-modules/logs-agent/ibm | 1.20.2 |
-| <a name="module_metrics_routing"></a> [metrics\_routing](#module\_metrics\_routing) | terraform-ibm-modules/cloud-monitoring/ibm//modules/metrics_routing | 1.14.6 |
-| <a name="module_monitoring_agent"></a> [monitoring\_agent](#module\_monitoring\_agent) | terraform-ibm-modules/monitoring-agent/ibm | 1.21.4 |
-| <a name="module_ocp_base"></a> [ocp\_base](#module\_ocp\_base) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.83.0 |
-| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.5.0 |
-| <a name="module_scc_wp"></a> [scc\_wp](#module\_scc\_wp) | terraform-ibm-modules/scc-workload-protection/ibm | 1.18.1 |
-| <a name="module_secret_group"></a> [secret\_group](#module\_secret\_group) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.4.8 |
-| <a name="module_secrets_manager"></a> [secrets\_manager](#module\_secrets\_manager) | terraform-ibm-modules/secrets-manager/ibm | 2.13.9 |
-| <a name="module_trusted_profile"></a> [trusted\_profile](#module\_trusted\_profile) | terraform-ibm-modules/trusted-profile/ibm | 3.2.20 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 8.16.1 |
-| <a name="module_vpc_cos_buckets"></a> [vpc\_cos\_buckets](#module\_vpc\_cos\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.14.9 |
-| <a name="module_vpe_gateway"></a> [vpe\_gateway](#module\_vpe\_gateway) | terraform-ibm-modules/vpe-gateway/ibm | 5.1.0 |
+| <a name="module_activity_tracker"></a> [activity\_tracker](#module\_activity\_tracker) | terraform-ibm-modules/activity-tracker/ibm | 1.8.2 |
+| <a name="module_app_config"></a> [app\_config](#module\_app\_config) | terraform-ibm-modules/app-configuration/ibm | 1.18.0 |
+| <a name="module_at_cos_bucket"></a> [at\_cos\_bucket](#module\_at\_cos\_bucket) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.16.0 |
+| <a name="module_cloud_logs"></a> [cloud\_logs](#module\_cloud\_logs) | terraform-ibm-modules/cloud-logs/ibm | 1.13.3 |
+| <a name="module_cloud_logs_buckets"></a> [cloud\_logs\_buckets](#module\_cloud\_logs\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.16.0 |
+| <a name="module_cloud_monitoring"></a> [cloud\_monitoring](#module\_cloud\_monitoring) | terraform-ibm-modules/cloud-monitoring/ibm | 1.15.3 |
+| <a name="module_cos"></a> [cos](#module\_cos) | terraform-ibm-modules/cos/ibm//modules/fscloud | 10.16.0 |
+| <a name="module_en_cos_buckets"></a> [en\_cos\_buckets](#module\_en\_cos\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.16.0 |
+| <a name="module_event_notifications"></a> [event\_notifications](#module\_event\_notifications) | terraform-ibm-modules/event-notifications/ibm | 2.12.6 |
+| <a name="module_kms"></a> [kms](#module\_kms) | terraform-ibm-modules/kms-all-inclusive/ibm | 5.6.3 |
+| <a name="module_logs_agent"></a> [logs\_agent](#module\_logs\_agent) | terraform-ibm-modules/logs-agent/ibm | 1.23.0 |
+| <a name="module_metrics_routing"></a> [metrics\_routing](#module\_metrics\_routing) | terraform-ibm-modules/cloud-monitoring/ibm//modules/metrics_routing | 1.15.3 |
+| <a name="module_monitoring_agent"></a> [monitoring\_agent](#module\_monitoring\_agent) | terraform-ibm-modules/monitoring-agent/ibm | 1.24.0 |
+| <a name="module_ocp_base"></a> [ocp\_base](#module\_ocp\_base) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.87.0 |
+| <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.6.0 |
+| <a name="module_scc_wp"></a> [scc\_wp](#module\_scc\_wp) | terraform-ibm-modules/scc-workload-protection/ibm | 1.19.1 |
+| <a name="module_secret_group"></a> [secret\_group](#module\_secret\_group) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.5.1 |
+| <a name="module_secrets_manager"></a> [secrets\_manager](#module\_secrets\_manager) | terraform-ibm-modules/secrets-manager/ibm | 2.14.2 |
+| <a name="module_trusted_profile"></a> [trusted\_profile](#module\_trusted\_profile) | terraform-ibm-modules/trusted-profile/ibm | 4.0.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 8.17.2 |
+| <a name="module_vpc_cos_buckets"></a> [vpc\_cos\_buckets](#module\_vpc\_cos\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.16.0 |
+| <a name="module_vpe_gateway"></a> [vpe\_gateway](#module\_vpe\_gateway) | terraform-ibm-modules/vpe-gateway/ibm | 5.2.1 |
 
 ### Resources
 
 | Name | Type |
 |------|------|
-| [ibm_en_subscription_email.apprapp_email_subscription](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.89.0/docs/resources/en_subscription_email) | resource |
-| [ibm_en_subscription_email.en_email_subscription](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.89.0/docs/resources/en_subscription_email) | resource |
-| [ibm_en_topic.en_apprapp_topic](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.89.0/docs/resources/en_topic) | resource |
-| [ibm_en_topic.en_sm_topic](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.89.0/docs/resources/en_topic) | resource |
-| [ibm_iam_authorization_policy.cos_secrets_manager_key_manager](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.89.0/docs/resources/iam_authorization_policy) | resource |
-| [ibm_iam_authorization_policy.en_secrets_manager_key_manager](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.89.0/docs/resources/iam_authorization_policy) | resource |
+| [ibm_en_subscription_email.apprapp_email_subscription](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.0.2/docs/resources/en_subscription_email) | resource |
+| [ibm_en_subscription_email.en_email_subscription](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.0.2/docs/resources/en_subscription_email) | resource |
+| [ibm_en_topic.en_apprapp_topic](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.0.2/docs/resources/en_topic) | resource |
+| [ibm_en_topic.en_sm_topic](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.0.2/docs/resources/en_topic) | resource |
+| [ibm_iam_authorization_policy.cos_secrets_manager_key_manager](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.0.2/docs/resources/iam_authorization_policy) | resource |
+| [ibm_iam_authorization_policy.en_secrets_manager_key_manager](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.0.2/docs/resources/iam_authorization_policy) | resource |
 | [terraform_data.delete_secrets](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
 | [time_sleep.wait_for_cos_authorization_policy](https://registry.terraform.io/providers/hashicorp/time/0.13.1/docs/resources/sleep) | resource |
 | [time_sleep.wait_for_en_authorization_policy](https://registry.terraform.io/providers/hashicorp/time/0.13.1/docs/resources/sleep) | resource |
 | [time_sleep.wait_for_secrets_manager](https://registry.terraform.io/providers/hashicorp/time/0.13.1/docs/resources/sleep) | resource |
-| [ibm_container_cluster_config.cluster_config](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.89.0/docs/data-sources/container_cluster_config) | data source |
-| [ibm_en_destinations.en_apprapp_destinations](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.89.0/docs/data-sources/en_destinations) | data source |
-| [ibm_en_destinations.en_sm_destinations](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.89.0/docs/data-sources/en_destinations) | data source |
-| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.89.0/docs/data-sources/iam_auth_token) | data source |
+| [ibm_container_cluster_config.cluster_config](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.0.2/docs/data-sources/container_cluster_config) | data source |
+| [ibm_en_destinations.en_apprapp_destinations](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.0.2/docs/data-sources/en_destinations) | data source |
+| [ibm_en_destinations.en_sm_destinations](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.0.2/docs/data-sources/en_destinations) | data source |
+| [ibm_iam_auth_token.auth_token](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.0.2/docs/data-sources/iam_auth_token) | data source |
 
 ### Inputs
 
