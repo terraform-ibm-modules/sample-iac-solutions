@@ -1,6 +1,6 @@
 module "resource_group" {
   source              = "terraform-ibm-modules/resource-group/ibm"
-  version             = "1.5.0"
+  version             = "1.6.0"
   resource_group_name = "${var.prefix}-resource-group"
 }
 
@@ -9,7 +9,7 @@ module "resource_group" {
 # Each subnet gets a `/22` block (e.g., `10.0.0.0/22`, `10.0.4.0/22`, `10.0.8.0/22`)
 module "management_vpc" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "8.16.1"
+  version           = "8.17.2"
   resource_group_id = module.resource_group.resource_group_id
   region            = "us-south"
   name              = "${var.prefix}-management-vpc"
@@ -91,7 +91,7 @@ module "management_vpc" {
 # All other traffic is implicitly denied by default, creating a secure, isolated environment for your application servers.
 module "workload_vpc" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "8.16.1"
+  version           = "8.17.2"
   resource_group_id = module.resource_group.resource_group_id
   region            = "us-south"
   name              = "${var.prefix}-workload-vpc"
@@ -147,7 +147,7 @@ module "workload_vpc" {
 
 module "transit_gateway" {
   source                    = "terraform-ibm-modules/transit-gateway/ibm"
-  version                   = "2.6.0"
+  version                   = "3.1.0"
   transit_gateway_name      = "${var.prefix}-management-workload-tg"
   region                    = "us-south"
   global_routing            = false
@@ -182,7 +182,7 @@ resource "ibm_is_ssh_key" "ssh_key" {
 # The assigned IP is available in the jumpbox_public_ip output.
 module "jumpbox_server" {
   source                = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version               = "v6.2.7"
+  version               = "v6.3.1"
   create_security_group = true
   image_id              = "r006-ca75f893-8675-47b0-b35d-9f847abc95e3" # Debian 12 minimal
   enable_floating_ip    = true
@@ -234,7 +234,7 @@ module "jumpbox_server" {
 
 module "workload_servers" {
   source                = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version               = "v6.2.7"
+  version               = "v6.3.1"
   create_security_group = true
   image_id              = "r006-ca75f893-8675-47b0-b35d-9f847abc95e3" # Debian 12 minimal
   security_group = {
@@ -384,7 +384,7 @@ resource "ibm_is_lb_listener" "public_lb_listener" {
 
 module "public_lb_security_group" {
   source                       = "terraform-ibm-modules/security-group/ibm"
-  version                      = "2.8.9"
+  version                      = "2.9.1"
   add_ibm_cloud_internal_rules = true
   security_group_name          = "public-lb-security-group"
   security_group_rules = [{
@@ -400,7 +400,7 @@ module "public_lb_security_group" {
 
 module "workload_vpe_security_group" {
   source              = "terraform-ibm-modules/security-group/ibm"
-  version             = "2.8.9"
+  version             = "2.9.1"
   security_group_name = "workload-vpe-security-group"
   resource_group      = module.resource_group.resource_group_id
   vpc_id              = module.workload_vpc.vpc_id
@@ -417,7 +417,7 @@ module "workload_vpe_security_group" {
 
 module "workload_vpes" {
   source             = "terraform-ibm-modules/vpe-gateway/ibm"
-  version            = "5.1.0"
+  version            = "5.2.1"
   region             = "us-south"
   prefix             = "${var.prefix}-workload-vpe"
   vpc_name           = module.workload_vpc.vpc_name
@@ -436,7 +436,7 @@ module "workload_vpes" {
 
 module "cos_storage" {
   source                 = "terraform-ibm-modules/cos/ibm"
-  version                = "10.14.10"
+  version                = "10.16.0"
   resource_group_id      = module.resource_group.resource_group_id
   region                 = "us-south"
   cos_instance_name      = "${var.prefix}-cos-storage"
