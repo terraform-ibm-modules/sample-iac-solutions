@@ -86,3 +86,14 @@ func TestRunHubAndSpokeExample(t *testing.T) {
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
+
+// Upgrade test for hub-and-spoke solution
+func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupHubAndSpokeOptions(t)
+
+	output, err := options.RunTestUpgrade()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
