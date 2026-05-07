@@ -197,10 +197,8 @@ module "jumpbox_server" {
           port_min = 22
           port_max = 22
         }
-        udp        = null
-        icmp       = null
-        local      = false
-        ip_version = "ipv4"
+        udp  = null
+        icmp = null
       },
       {
         name        = "allow-ssh-to-workload-servers"
@@ -211,8 +209,6 @@ module "jumpbox_server" {
           port_min = 22
           port_max = 22
         }
-        local      = false
-        ip_version = "ipv4"
       },
       {
         name        = "allow-ping-to-workload-servers"
@@ -223,8 +219,6 @@ module "jumpbox_server" {
           type = 8 # Echo request (ping)
           code = 0
         }
-        local      = false
-        ip_version = "ipv4"
       }
     ]
   }
@@ -254,10 +248,8 @@ module "workload_servers" {
           port_min = 22
           port_max = 22
         }
-        udp        = null
-        icmp       = null
-        local      = false
-        ip_version = "ipv4"
+        udp  = null
+        icmp = null
       },
       {
         name      = "allow-ping-from-jumpbox"
@@ -267,8 +259,6 @@ module "workload_servers" {
           type = 8 # Echo request (ping)
           code = 0
         }
-        local      = false
-        ip_version = "ipv4"
       },
       {
         name      = "allow-dns-resolution"
@@ -279,9 +269,7 @@ module "workload_servers" {
           port_min = 53
           port_max = 53
         }
-        icmp       = null
-        local      = false
-        ip_version = "ipv4"
+        icmp = null
       },
       {
         name      = "allow-https-api-calls"
@@ -291,10 +279,8 @@ module "workload_servers" {
           port_min = 443
           port_max = 443
         }
-        udp        = null
-        icmp       = null
-        local      = false
-        ip_version = "ipv4"
+        udp  = null
+        icmp = null
       },
       {
         name      = "allow-loadbalancer-to-app"
@@ -304,10 +290,8 @@ module "workload_servers" {
           port_min = 8080 # application port
           port_max = 8080
         }
-        udp        = null
-        icmp       = null
-        local      = false
-        ip_version = "ipv4"
+        udp  = null
+        icmp = null
       }
     ]
   }
@@ -337,8 +321,6 @@ module "workload_servers" {
             port_min = 80
             port_max = 80
           }
-          local      = false
-          ip_version = "ipv4"
         },
         {
           name        = "allow-lb-to-workload-servers"
@@ -349,8 +331,6 @@ module "workload_servers" {
             port_min = 8080
             port_max = 8080
           }
-          local      = false
-          ip_version = "ipv4"
         }
       ]
     }
