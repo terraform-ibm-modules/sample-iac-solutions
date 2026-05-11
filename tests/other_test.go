@@ -129,3 +129,15 @@ func TestRunSecureInfraAIAppExample(t *testing.T) {
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
 }
+
+// Upgrade test for secure infra AI app solution
+func TestUpgradeSecureInfraAIAppExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupSecureInfraAIAppOptions(t)
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected  some output")
+	}
+}
