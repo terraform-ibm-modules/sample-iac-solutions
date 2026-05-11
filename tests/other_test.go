@@ -13,6 +13,7 @@ const resourceGroup = "geretain-test-resources"
 
 // Ensure every example directory has a corresponding test
 const landingZoneExampleDir = "containerized_app_landing_zone"
+const hubAndSpokeSolutionDir = "hub-and-spoke"
 const secureInfraAIAppDir = "secure-infra-ai-app"
 
 var IgnoreUpdates = []string{
@@ -51,6 +52,20 @@ func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptio
 	return options
 }
 
+func setupHubAndSpokeOptions(t *testing.T) *testhelper.TestOptions {
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: hubAndSpokeSolutionDir,
+		Prefix:       "hs",
+		Region:       "us-south",
+	})
+	options.TerraformVars = map[string]interface{}{
+		"prefix": options.Prefix,
+		"region": options.Region,
+	}
+	return options
+}
+
 func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:      t,
@@ -79,6 +94,29 @@ func TestRunLandingZoneExample(t *testing.T) {
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
+}
+
+// Consistency test for hub-and-spoke solution
+func TestRunHubAndSpokeExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupHubAndSpokeOptions(t)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+// Upgrade test for hub-and-spoke solution
+func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupHubAndSpokeOptions(t)
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected  some output")
+	}
 }
 
 // Consistency test for the secure infra AI app
