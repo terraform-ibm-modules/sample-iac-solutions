@@ -520,10 +520,9 @@ const setupModelWithTools = async (tools: Array<any>) => {
     //props for meta-llama/llama-3-2-90b-vision-instruct or other models
     console.log('Using watsonx-ChatWatsonx');
     const props = {
-        minTokens: agentic_instructions.model_minTokens,// 150,
         maxTokens: agentic_instructions.model_maxTokens, //250,
         temperature: agentic_instructions.model_temperature, //0.5,
-        randomSeed: agentic_instructions.model_randomSeed //12345
+        seed: agentic_instructions.model_randomSeed //12345
     };
 
 
