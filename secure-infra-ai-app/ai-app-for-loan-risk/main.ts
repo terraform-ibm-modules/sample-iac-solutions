@@ -522,7 +522,7 @@ const setupModelWithTools = async (tools: Array<any>) => {
     const props = {
         maxTokens: agentic_instructions.model_maxTokens, //250,
         temperature: agentic_instructions.model_temperature, //0.5,
-        randomSeed: agentic_instructions.model_randomSeed //12345
+        seed: agentic_instructions.model_randomSeed //12345
     };
 
 
