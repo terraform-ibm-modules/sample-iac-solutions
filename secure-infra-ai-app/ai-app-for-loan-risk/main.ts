@@ -613,7 +613,7 @@ const runAppWithQuery = async (query: string) => {
 
     const chat_messages=[];
 
-    for await (const chunk of stream) {
+    for await (const chunk of stream as AsyncIterable<{ messages: BaseMessage[] }>) {
         const lastMessage = chunk.messages[chunk.messages.length - 1];
         const type = lastMessage._getType();
         const content = lastMessage.content;
