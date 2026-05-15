@@ -182,7 +182,7 @@ resource "ibm_is_ssh_key" "ssh_key" {
 # The assigned IP is available in the jumpbox_public_ip output.
 module "jumpbox_server" {
   source                = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version               = "v6.2.7"
+  version               = "6.3.1"
   create_security_group = true
   image_id              = "r006-ca75f893-8675-47b0-b35d-9f847abc95e3" # Debian 12 minimal
   enable_floating_ip    = true
@@ -234,7 +234,7 @@ module "jumpbox_server" {
 
 module "workload_servers" {
   source                = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version               = "v6.2.7"
+  version               = "6.3.1"
   create_security_group = true
   image_id              = "r006-ca75f893-8675-47b0-b35d-9f847abc95e3" # Debian 12 minimal
   security_group = {
@@ -311,7 +311,7 @@ module "workload_servers" {
     subnet_id_to_provision_nlb = module.workload_vpc.subnet_zone_list[0].id
 
     security_group = {
-      name = "private-loadbalancer-security-group"
+      name = "private-lb-sg-inline-test"
       rules = [
         {
           name      = "allow-http-from-management"
@@ -349,6 +349,7 @@ module "workload_servers" {
 # The Public Load Balancer serves as the secure entry point and resides in the Management VPC. It is the only component exposed to the internet.
 # Traffic is then forwarded to the Private Load Balancer in the isolated Workload VPC.
 # This design ensures that no resources in the Workload VPC are publicly exposed. The private load balancer remains inaccessible from the internet.
+
 resource "ibm_is_lb" "public_load_balancer" {
   name           = "${var.prefix}-public-lb"
   subnets        = module.management_vpc.subnet_ids
@@ -372,7 +373,7 @@ resource "ibm_is_lb_pool_member" "private_lb_target" {
   lb             = ibm_is_lb.public_load_balancer.id
   pool           = element(split("/", ibm_is_lb_pool.public_lb_pool.id), 1)
   port           = 80
-  target_address = module.workload_servers.load_balancers_metadata["${var.prefix}-workload-${var.prefix}-private-lb-lb"].private_ips[0] # Private load balancer IP
+  target_address = module.workload_servers.load_balancers_metadata["${var.prefix}-private-lb"].private_ips[0]
 }
 
 resource "ibm_is_lb_listener" "public_lb_listener" {
