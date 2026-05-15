@@ -4,3 +4,4 @@ provider "ibm" {
   # Increase default timeouts for VPC resources
   max_retries      = 10
   ibmcloud_timeout = 3600
+}
