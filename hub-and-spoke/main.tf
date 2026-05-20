@@ -152,7 +152,7 @@ module "transit_gateway" {
   region                    = "us-south"
   global_routing            = false
   resource_group_id         = module.resource_group.resource_group_id
-  vpc_connections           = [{ vpc_crn = module.management_vpc.vpc_crn }, { vpc_crn = module.workload_vpc.vpc_crn }]
+  vpc_connections           = [{ vpc_crn = module.management_vpc.vpc_crn, connection_name = "${var.prefix}-management-vpc-connection" }, { vpc_crn = module.workload_vpc.vpc_crn, connection_name = "${var.prefix}-workload-vpc-connection" }]
   classic_connections_count = 0
 }
 
