@@ -135,7 +135,6 @@ module "event_notifications" {
   cos_instance_id         = module.cos.cos_instance_id
   skip_en_cos_auth_policy = false
   cos_endpoint            = "https://${module.en_cos_buckets.buckets[local.en_cos_bucket_name].s3_endpoint_public}"
-  tags                    = var.resource_tags
 }
 
 locals {
