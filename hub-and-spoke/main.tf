@@ -392,6 +392,7 @@ module "public_lb_security_group" {
     name      = "allow-http-from-internet"
     direction = "inbound"
     remote    = "0.0.0.0/0"
+    protocol  = "tcp"
     port_min  = 80
     port_max  = 80
   }]
