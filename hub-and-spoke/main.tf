@@ -412,7 +412,9 @@ module "workload_vpe_security_group" {
       name      = "allow-workload-to-cloud-services"
       direction = "inbound"
       remote    = "10.10.0.0/20" # workload VPC range
-      tcp       = { port_min = 443, port_max = 443 }
+      protocol  = "tcp"
+      port_min  = 443
+      port_max  = 443
     }
   ]
 }
