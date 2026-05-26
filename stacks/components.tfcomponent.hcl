@@ -3,7 +3,7 @@
 ##############################################################################
 component "resource_group" {
   source  = "terraform-ibm-modules/resource-group/ibm"
-  version = "1.4.8"
+  version = "1.6.1"
   inputs = {
     resource_group_name = "${var.prefix}-rg"
   }
@@ -19,7 +19,7 @@ component "resource_group" {
 
 component "postgres" {
   source  = "terraform-ibm-modules/icd-postgresql/ibm"
-  version = "4.10.10"
+  version = "4.12.5"
 
   inputs = {
     resource_group_id = component.resource_group.resource_group_id
