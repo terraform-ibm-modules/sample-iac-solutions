@@ -14,6 +14,7 @@ const resourceGroup = "geretain-test-resources"
 // Ensure every example directory has a corresponding test
 const landingZoneExampleDir = "containerized_app_landing_zone"
 const hubAndSpokeSolutionDir = "hub-and-spoke"
+const secureInfraAIAppDir = "secure-infra-ai-app"
 
 var IgnoreUpdates = []string{
 	"module.logs_agent.helm_release.logs_agent",
@@ -65,6 +66,25 @@ func setupHubAndSpokeOptions(t *testing.T) *testhelper.TestOptions {
 	return options
 }
 
+func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: secureInfraAIAppDir,
+		Prefix:       "sec-ai",
+		Region:       "us-south",
+		IgnoreUpdates: testhelper.Exemptions{
+			List: []string{
+				"module.code_engine_app.ibm_code_engine_app.ce_app", // Added to resolve probe_liveness idempotency test failure —  Refer Issue - https://github.ibm.com/GoldenEye/issues/issues/17145
+			},
+		},
+	})
+	options.TerraformVars = map[string]interface{}{
+		"prefix": options.Prefix,
+		"region": options.Region,
+	}
+	return options
+}
+
 // Consistency test for the containerized app landing zone
 func TestRunLandingZoneExample(t *testing.T) {
 	t.Parallel()
@@ -92,6 +112,29 @@ func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupHubAndSpokeOptions(t)
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected  some output")
+	}
+}
+
+// Consistency test for the secure infra AI app
+func TestRunSecureInfraAIAppExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupSecureInfraAIAppOptions(t)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+// Upgrade test for secure infra AI app solution
+func TestUpgradeSecureInfraAIAppExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupSecureInfraAIAppOptions(t)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
