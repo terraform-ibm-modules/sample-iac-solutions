@@ -127,16 +127,15 @@ module "key_protect_all_inclusive" {
 ##############################################################################
 
 module "cos" {
-  source                     = "terraform-ibm-modules/cos/ibm"
-  version                    = "10.16.0"
-  resource_group_id          = module.resource_group.resource_group_id
-  region                     = var.region
-  cos_instance_name          = "${var.prefix}-my-cos"
-  cos_plan                   = "standard"
-  bucket_name                = "${var.prefix}-bucket"
-  kms_encryption_enabled     = true                                                                                  # Enable encryption
-  existing_kms_instance_guid = module.key_protect_all_inclusive.kms_guid                                             # Key Protect instance
-  kms_key_crn                = module.key_protect_all_inclusive.keys["${local.key_ring_name}.${local.key_name}"].crn # Encryption key
+  source                 = "terraform-ibm-modules/cos/ibm"
+  version                = "10.16.0"
+  resource_group_id      = module.resource_group.resource_group_id
+  region                 = var.region
+  cos_instance_name      = "${var.prefix}-my-cos"
+  cos_plan               = "standard"
+  bucket_name            = "${var.prefix}-bucket"
+  kms_encryption_enabled = true                                                                                  # Enable encryption
+  kms_key_crn            = module.key_protect_all_inclusive.keys["${local.key_ring_name}.${local.key_name}"].crn # Encryption key
 }
 
 ##############################################################################
