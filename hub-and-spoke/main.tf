@@ -1,6 +1,6 @@
 module "resource_group" {
   source              = "terraform-ibm-modules/resource-group/ibm"
-  version             = "1.6.0"
+  version             = "1.6.1"
   resource_group_name = "${var.prefix}-resource-group"
 }
 
@@ -9,7 +9,7 @@ module "resource_group" {
 # Each subnet gets a `/22` block (e.g., `10.0.0.0/22`, `10.0.4.0/22`, `10.0.8.0/22`)
 module "management_vpc" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "8.19.0"
+  version           = "9.0.7"
   resource_group_id = module.resource_group.resource_group_id
   region            = "us-south"
   name              = "${var.prefix}-management-vpc"
@@ -91,7 +91,7 @@ module "management_vpc" {
 # All other traffic is implicitly denied by default, creating a secure, isolated environment for your application servers.
 module "workload_vpc" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "8.19.0"
+  version           = "9.0.7"
   resource_group_id = module.resource_group.resource_group_id
   region            = "us-south"
   name              = "${var.prefix}-workload-vpc"
@@ -182,7 +182,7 @@ resource "ibm_is_ssh_key" "ssh_key" {
 # The assigned IP is available in the jumpbox_public_ip output.
 module "jumpbox_server" {
   source                = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version               = "6.5.0"
+  version               = "6.5.1"
   create_security_group = true
   image_id              = "r006-ca75f893-8675-47b0-b35d-9f847abc95e3" # Debian 12 minimal
   enable_floating_ip    = true
@@ -234,7 +234,7 @@ module "jumpbox_server" {
 
 module "workload_servers" {
   source                = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version               = "6.5.0"
+  version               = "6.5.1"
   create_security_group = true
   image_id              = "r006-ca75f893-8675-47b0-b35d-9f847abc95e3" # Debian 12 minimal
   security_group = {
@@ -421,7 +421,7 @@ module "workload_vpe_security_group" {
 
 module "workload_vpes" {
   source             = "terraform-ibm-modules/vpe-gateway/ibm"
-  version            = "5.3.0"
+  version            = "5.3.3"
   region             = "us-south"
   prefix             = "${var.prefix}-workload-vpe"
   vpc_name           = module.workload_vpc.vpc_name
@@ -440,7 +440,7 @@ module "workload_vpes" {
 
 module "cos_storage" {
   source                 = "terraform-ibm-modules/cos/ibm"
-  version                = "10.16.0"
+  version                = "10.16.4"
   resource_group_id      = module.resource_group.resource_group_id
   region                 = "us-south"
   cos_instance_name      = "${var.prefix}-cos-storage"
