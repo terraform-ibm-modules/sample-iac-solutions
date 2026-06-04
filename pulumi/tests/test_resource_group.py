@@ -1,11 +1,12 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 
 class TestResourceGroup(unittest.TestCase):
-
     @patch("terraform_ibm_modules.resource_group.rgmod.Module")
-    @patch("terraform_ibm_modules.resource_group.EXISTING_RESOURCE_GROUP", "existing-rg")
+    @patch(
+        "terraform_ibm_modules.resource_group.EXISTING_RESOURCE_GROUP", "existing-rg"
+    )
     def test_existing_resource_group(self, mock_module):
         from terraform_ibm_modules.resource_group import create_resource_group
 

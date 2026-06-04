@@ -1,9 +1,8 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 
 class TestWatsonDiscovery(unittest.TestCase):
-
     @patch("terraform_ibm_modules.watson_discovery.wxd_mod.Module")
     @patch("terraform_ibm_modules.watson_discovery.PREFIX", "test")
     @patch("terraform_ibm_modules.watson_discovery.WATSON_DISCOVERY_NAME", "wd")

@@ -1,9 +1,8 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 
 class TestKMS(unittest.TestCase):
-
     @patch("terraform_ibm_modules.key_protect.ibm_kms_module.Module")
     @patch("terraform_ibm_modules.key_protect.PREFIX", "test")
     @patch("terraform_ibm_modules.key_protect.REGION", "us-south")

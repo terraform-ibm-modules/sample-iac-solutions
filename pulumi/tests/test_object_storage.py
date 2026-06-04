@@ -1,9 +1,8 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
 
 class TestCOSInstance(unittest.TestCase):
-
     @patch("terraform_ibm_modules.object_storage.generate_suffix", return_value="abcd")
     @patch("terraform_ibm_modules.object_storage.cosmod.Module")
     @patch("terraform_ibm_modules.object_storage.PREFIX", "test")
