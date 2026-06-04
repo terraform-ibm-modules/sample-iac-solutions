@@ -2,6 +2,7 @@
 package test
 
 import (
+	"os/exec"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -14,6 +15,7 @@ const resourceGroup = "geretain-test-resources"
 // Ensure every example directory has a corresponding test
 const landingZoneExampleDir = "containerized_app_landing_zone"
 const hubAndSpokeSolutionDir = "hub-and-spoke"
+const pulumiScriptDir = "../pulumi/run_tests.sh"
 
 var IgnoreUpdates = []string{
 	"module.logs_agent.helm_release.logs_agent",
@@ -97,4 +99,21 @@ func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected  some output")
 	}
+}
+
+// Test for Pulumi Python tests
+func TestRunPulumiPythonTests(t *testing.T) {
+	t.Parallel()
+
+	// Execute the Python test script
+	cmd := exec.Command("bash", pulumiScriptDir)
+	output, err := cmd.CombinedOutput()
+
+	// Print output for debugging
+	t.Logf("Pulumi Python Test Output:\n%s", string(output))
+
+	// Assert that the tests passed
+	assert.Nil(t, err, "Pulumi Python tests should not have errored")
+	assert.Contains(t, string(output), "passed", "Expected tests to pass")
+	assert.NotContains(t, string(output), "FAILED", "Should not contain any failures")
 }
