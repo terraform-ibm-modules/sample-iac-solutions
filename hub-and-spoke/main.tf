@@ -4,6 +4,15 @@ module "resource_group" {
   resource_group_name = "${var.prefix}-resource-group"
 }
 
+# Get the latest Ubuntu image using common-utilities module
+module "latest_ubuntu_image" {
+  source                   = "terraform-ibm-modules/common-utilities/ibm//modules/vsi-image-selector"
+  version                  = "1.6.1"
+  operating_system         = "ubuntu"
+  operating_system_version = "24"
+  architecture             = "amd64"
+}
+
 # Subnets are defined across **three Availability Zones** (`zone-1`, `zone-2`, `zone-3`) in the `us-south` region.
 # The VPC uses the `10.0.0.0/20` address space, providing **over 4,000 IP addresses**.
 # Each subnet gets a `/22` block (e.g., `10.0.0.0/22`, `10.0.4.0/22`, `10.0.8.0/22`)
@@ -185,7 +194,7 @@ module "jumpbox_server" {
   source                = "terraform-ibm-modules/landing-zone-vsi/ibm"
   version               = "6.5.0"
   create_security_group = true
-  image_id              = "r006-ca75f893-8675-47b0-b35d-9f847abc95e3" # Debian 12 minimal
+  image_id              = module.latest_ubuntu_image.latest_image_id # Dynamically fetched latest Ubuntu image
   enable_floating_ip    = true
   security_group = {
     name = "jumpbox-security-group"
@@ -237,7 +246,7 @@ module "workload_servers" {
   source                = "terraform-ibm-modules/landing-zone-vsi/ibm"
   version               = "6.5.0"
   create_security_group = true
-  image_id              = "r006-ca75f893-8675-47b0-b35d-9f847abc95e3" # Debian 12 minimal
+  image_id              = module.latest_ubuntu_image.latest_image_id # Dynamically fetched latest Ubuntu image
   security_group = {
     name = "workload-server-security-group"
     rules = [
