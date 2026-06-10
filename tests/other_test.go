@@ -148,41 +148,41 @@ func TestStacksValidation(t *testing.T) {
 	// Check if terraform stacks command is available
 	checkCmd := exec.Command("terraform", "stacks", "--help")
 	_, checkErr := checkCmd.CombinedOutput()
-	
+
 	if checkErr != nil {
 		// Stacks command not available - skip this test
 		t.Skipf("Terraform stacks command not available (requires Terraform with stacks plugin). This test will run in CI with goldeneye-ci-image. Error: %v", checkErr)
 		return
 	}
-	
+
 	t.Log("✓ Terraform stacks command is available")
-	
+
 	// Step 1: Run terraform stacks init
 	t.Log("Running terraform stacks init...")
 	initCmd := exec.Command("terraform", "stacks", "init")
 	initCmd.Dir = stacksPath
 	initOutput, initErr := initCmd.CombinedOutput()
-	
+
 	t.Logf("Stacks init output:\n%s", string(initOutput))
-	
+
 	if initErr != nil {
 		t.Fatalf("terraform stacks init failed: %v\nOutput: %s", initErr, string(initOutput))
 	}
-	
+
 	t.Log("✓ terraform stacks init completed successfully")
-	
+
 	// Step 2: Run terraform stacks validate
 	t.Log("Running terraform stacks validate...")
 	validateCmd := exec.Command("terraform", "stacks", "validate")
 	validateCmd.Dir = stacksPath
 	validateOutput, validateErr := validateCmd.CombinedOutput()
-	
+
 	t.Logf("Stacks validate output:\n%s", string(validateOutput))
-	
+
 	if validateErr != nil {
 		t.Fatalf("terraform stacks validate failed: %v\nOutput: %s", validateErr, string(validateOutput))
 	}
-	
+
 	t.Log("✓ terraform stacks validate completed successfully")
 	t.Log("✓ Stack configuration is valid and ready for deployment")
 }
