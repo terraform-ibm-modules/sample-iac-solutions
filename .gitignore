@@ -48,7 +48,7 @@ terraform.rc
 .idea/
 
 # Node modules
-/node_modules
+node_modules/
 
 # Visual Studio Code
 .vscode/
