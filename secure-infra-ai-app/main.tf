@@ -20,7 +20,7 @@ module "resource_group" {
 ##############################################################################
 
 module "code_engine_project" {
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-code-engine.git//modules/project?ref=1c442d9e881393fd3ac9975dacb078652dad0500"
+  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-code-engine.git//modules/project?ref=e18aa8f"
   name              = "${var.prefix}-ce-project"
   resource_group_id = module.resource_group.resource_group_id
 }
@@ -31,7 +31,7 @@ module "code_engine_project" {
 ##############################################################################
 
 module "code_engine_secret" {
-  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-code-engine.git//modules/secret?ref=1c442d9e881393fd3ac9975dacb078652dad0500"
+  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-code-engine.git//modules/secret?ref=e18aa8f"
   name       = "${var.prefix}-registry-access-secret"
   project_id = module.code_engine_project.id
   format     = "registry"
@@ -70,7 +70,7 @@ locals {
 ##############################################################################
 
 module "code_engine_build" {
-  source                     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-code-engine.git//modules/build?ref=1c442d9e881393fd3ac9975dacb078652dad0500"
+  source                     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-code-engine.git//modules/build?ref=e18aa8f"
   name                       = "${var.prefix}-ce-build"
   region                     = var.region
   ibmcloud_api_key           = var.ibmcloud_api_key
@@ -169,7 +169,7 @@ module "watsonx_ai" {
 
 module "code_engine_app" {
   depends_on      = [module.code_engine_build] # Wait for image to be built
-  source          = "git::https://github.com/terraform-ibm-modules/terraform-ibm-code-engine.git//modules/app?ref=1c442d9e881393fd3ac9975dacb078652dad0500"
+  source          = "git::https://github.com/terraform-ibm-modules/terraform-ibm-code-engine.git//modules/app?ref=e18aa8f"
   project_id      = module.code_engine_project.id
   name            = "${var.prefix}-ai-agent-for-loan-risk"
   image_reference = module.code_engine_build.output_image # Use the built container image
