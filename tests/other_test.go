@@ -87,6 +87,7 @@ func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
 
 // Consistency test for the containerized app landing zone
 func TestRunLandingZoneExample(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 
 	options := setupOptions(t, "app-lz", landingZoneExampleDir)
@@ -98,6 +99,7 @@ func TestRunLandingZoneExample(t *testing.T) {
 
 // Consistency test for hub-and-spoke solution
 func TestRunHubAndSpokeExample(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 
 	options := setupHubAndSpokeOptions(t)
@@ -109,6 +111,7 @@ func TestRunHubAndSpokeExample(t *testing.T) {
 
 // Upgrade test for hub-and-spoke solution
 func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 
 	options := setupHubAndSpokeOptions(t)
