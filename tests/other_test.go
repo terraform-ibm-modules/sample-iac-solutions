@@ -135,7 +135,6 @@ func TestRunSecureInfraAIAppExample(t *testing.T) {
 
 // Upgrade test for secure infra AI app solution
 func TestUpgradeSecureInfraAIAppExample(t *testing.T) {
-	t.Skip()
 	t.Parallel()
 
 	options := setupSecureInfraAIAppOptions(t)
