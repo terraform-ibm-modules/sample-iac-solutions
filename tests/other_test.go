@@ -132,9 +132,10 @@ func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
 }
 
 // Consistency test for the secure infra AI app
+// Note: t.Parallel() removed because IBM Cloud CLI uses shared global state (IBMCLOUD_HOME=/tmp)
+// which causes race conditions when multiple tests run simultaneously.
+// Both tests would overwrite each other's CLI configuration, leading to "No region targeted" errors.
 func TestRunSecureInfraAIAppExample(t *testing.T) {
-	t.Parallel()
-
 	options := setupSecureInfraAIAppOptions(t)
 
 	output, err := options.RunTestConsistency()
@@ -143,8 +144,10 @@ func TestRunSecureInfraAIAppExample(t *testing.T) {
 }
 
 // Upgrade test for secure infra AI app solution
+// Note: t.Parallel() removed because IBM Cloud CLI uses shared global state (IBMCLOUD_HOME=/tmp)
+// which causes race conditions when multiple tests run simultaneously.
+// Both tests would overwrite each other's CLI configuration, leading to "No region targeted" errors.
 func TestUpgradeSecureInfraAIAppExample(t *testing.T) {
-
 	options := setupSecureInfraAIAppOptions(t)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
