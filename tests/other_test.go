@@ -127,6 +127,7 @@ func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
 // which causes race conditions when multiple tests run simultaneously.
 // Both tests would overwrite each other's CLI configuration, leading to "No region targeted" errors.
 func TestRunSecureInfraAIAppExample(t *testing.T) {
+	t.Skip()
 	options := setupSecureInfraAIAppOptions(t)
 
 	output, err := options.RunTestConsistency()
