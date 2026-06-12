@@ -80,11 +80,10 @@ module "code_engine_build" {
   project_id                 = module.code_engine_project.id
   existing_resource_group_id = module.resource_group.resource_group_id
   source_url                 = "https://github.com/terraform-ibm-modules/sample-iac-solutions.git" # Git repository for the AI application source
-  source_context_dir         = "secure-infra-ai-app/ai-app-for-loan-risk"                          # Build context inside the repository
-  source_revision            = "main"                                                              # Build from the branch that contains the latest fixes
-  strategy_type              = "dockerfile"                                                        # Build using Dockerfile
-  output_secret              = module.code_engine_secret.name                                      # Registry credentials
-  output_image               = local.output_image                                                  # Where to push the image
+  source_context_dir         = "secure-infra-ai-app/ai-app-for-loan-risk"
+  strategy_type              = "dockerfile"                   # Build using Dockerfile
+  output_secret              = module.code_engine_secret.name # Registry credentials
+  output_image               = local.output_image             # Where to push the image
 }
 
 ##############################################################################
