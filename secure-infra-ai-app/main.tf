@@ -21,7 +21,7 @@ module "resource_group" {
 
 module "code_engine_project" {
   source            = "terraform-ibm-modules/code-engine/ibm//modules/project"
-  version           = "4.9.2"
+  version           = "4.9.6"
   name              = "${var.prefix}-ce-project"
   resource_group_id = module.resource_group.resource_group_id
 }
@@ -33,7 +33,7 @@ module "code_engine_project" {
 
 module "code_engine_secret" {
   source     = "terraform-ibm-modules/code-engine/ibm//modules/secret"
-  version    = "4.9.2"
+  version    = "4.9.6"
   name       = "${var.prefix}-registry-access-secret"
   project_id = module.code_engine_project.id
   format     = "registry"
@@ -73,18 +73,17 @@ locals {
 
 module "code_engine_build" {
   source                     = "terraform-ibm-modules/code-engine/ibm//modules/build"
-  version                    = "4.9.2"
+  version                    = "4.9.6"
   name                       = "${var.prefix}-ce-build"
   region                     = var.region
   ibmcloud_api_key           = var.ibmcloud_api_key
   project_id                 = module.code_engine_project.id
   existing_resource_group_id = module.resource_group.resource_group_id
   source_url                 = "https://github.com/terraform-ibm-modules/sample-iac-solutions.git" # Git repository for the AI application source
-  source_context_dir         = "secure-infra-ai-app/ai-app-for-loan-risk"                          # Build context inside the repository
-  source_revision            = "issue_18151"                                                       # Build from the branch that contains the latest fixes
-  strategy_type              = "dockerfile"                                                        # Build using Dockerfile
-  output_secret              = module.code_engine_secret.name                                      # Registry credentials
-  output_image               = local.output_image                                                  # Where to push the image
+  source_context_dir         = "secure-infra-ai-app/ai-app-for-loan-risk"
+  strategy_type              = "dockerfile"                   # Build using Dockerfile
+  output_secret              = module.code_engine_secret.name # Registry credentials
+  output_image               = local.output_image             # Where to push the image
 }
 
 ##############################################################################
@@ -173,7 +172,7 @@ module "watsonx_ai" {
 module "code_engine_app" {
   depends_on      = [module.code_engine_build] # Wait for image to be built
   source          = "terraform-ibm-modules/code-engine/ibm//modules/app"
-  version         = "4.9.2"
+  version         = "4.9.6"
   project_id      = module.code_engine_project.id
   name            = "${var.prefix}-ai-agent-for-loan-risk"
   image_reference = module.code_engine_build.output_image # Use the built container image
