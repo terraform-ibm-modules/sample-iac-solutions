@@ -20,7 +20,8 @@ module "resource_group" {
 ##############################################################################
 
 module "code_engine_project" {
-  source            = "git::https://github.com/terraform-ibm-modules/terraform-ibm-code-engine.git//modules/project?ref=40bf83e"
+  source            = "terraform-ibm-modules/code-engine/ibm//modules/project"
+  version           = "4.9.6"
   name              = "${var.prefix}-ce-project"
   resource_group_id = module.resource_group.resource_group_id
 }
@@ -31,7 +32,8 @@ module "code_engine_project" {
 ##############################################################################
 
 module "code_engine_secret" {
-  source     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-code-engine.git//modules/secret?ref=40bf83e"
+  source     = "terraform-ibm-modules/code-engine/ibm//modules/secret"
+  version    = "4.9.6"
   name       = "${var.prefix}-registry-access-secret"
   project_id = module.code_engine_project.id
   format     = "registry"
@@ -70,7 +72,8 @@ locals {
 ##############################################################################
 
 module "code_engine_build" {
-  source                     = "git::https://github.com/terraform-ibm-modules/terraform-ibm-code-engine.git//modules/build?ref=40bf83e"
+  source                     = "terraform-ibm-modules/code-engine/ibm//modules/build"
+  version                    = "4.9.6"
   name                       = "${var.prefix}-ce-build"
   region                     = var.region
   ibmcloud_api_key           = var.ibmcloud_api_key
@@ -169,7 +172,8 @@ module "watsonx_ai" {
 
 module "code_engine_app" {
   depends_on      = [module.code_engine_build] # Wait for image to be built
-  source          = "git::https://github.com/terraform-ibm-modules/terraform-ibm-code-engine.git//modules/app?ref=40bf83e"
+  source          = "terraform-ibm-modules/code-engine/ibm//modules/app"
+  version         = "4.9.6"
   project_id      = module.code_engine_project.id
   name            = "${var.prefix}-ai-agent-for-loan-risk"
   image_reference = module.code_engine_build.output_image # Use the built container image
