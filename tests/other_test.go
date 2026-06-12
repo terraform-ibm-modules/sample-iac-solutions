@@ -96,6 +96,18 @@ func TestRunLandingZoneExample(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
+// Upgrade test for the containerized app landing zone
+func TestUpgradeLandingZoneExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "app-lz", landingZoneExampleDir)
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected  some output")
+	}
+}
+
 // Consistency test for hub-and-spoke solution
 func TestRunHubAndSpokeExample(t *testing.T) {
 	t.Parallel()
@@ -119,10 +131,8 @@ func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
 	}
 }
 
-// Consistency test for the secure infra AI app
 func TestRunSecureInfraAIAppExample(t *testing.T) {
 	t.Parallel()
-
 	options := setupSecureInfraAIAppOptions(t)
 
 	output, err := options.RunTestConsistency()
@@ -130,10 +140,8 @@ func TestRunSecureInfraAIAppExample(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
-// Upgrade test for secure infra AI app solution
 func TestUpgradeSecureInfraAIAppExample(t *testing.T) {
 	t.Parallel()
-
 	options := setupSecureInfraAIAppOptions(t)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
