@@ -85,25 +85,6 @@ func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
 	return options
 }
 
-func setupSecureInfraAIAppUpgradeOptions(t *testing.T) *testhelper.TestOptions {
-	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
-		Testing:      t,
-		TerraformDir: secureInfraAIAppDir,
-		Prefix:       "sec-ai-upg",
-		Region:       "us-south",
-		IgnoreUpdates: testhelper.Exemptions{
-			List: []string{
-				"module.code_engine_app.ibm_code_engine_app.ce_app", // Added to resolve probe_liveness idempotency test failure —  Refer Issue - https://github.ibm.com/GoldenEye/issues/issues/17145
-			},
-		},
-	})
-	options.TerraformVars = map[string]interface{}{
-		"prefix": options.Prefix,
-		"region": options.Region,
-	}
-	return options
-}
-
 // Consistency test for the containerized app landing zone
 func TestRunLandingZoneExample(t *testing.T) {
 	t.Skip()
@@ -166,10 +147,9 @@ func TestRunSecureInfraAIAppExample(t *testing.T) {
 }
 
 // Upgrade test for secure infra AI app solution
+// Note: Does not use t.Parallel() to avoid ibmcloud CLI conflicts with the consistency test
 func TestUpgradeSecureInfraAIAppExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupSecureInfraAIAppUpgradeOptions(t)
+	options := setupSecureInfraAIAppOptions(t)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
