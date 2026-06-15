@@ -67,7 +67,7 @@ func setupHubAndSpokeOptions(t *testing.T) *testhelper.TestOptions {
 }
 
 func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
-	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:      t,
 		TerraformDir: secureInfraAIAppDir,
 		Prefix:       "sec-ai",
@@ -77,10 +77,30 @@ func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
 				"module.code_engine_app.ibm_code_engine_app.ce_app", // Added to resolve probe_liveness idempotency test failure —  Refer Issue - https://github.ibm.com/GoldenEye/issues/issues/17145
 			},
 		},
-		TerraformVars: map[string]interface{}{
-			"existing_resource_group_name": resourceGroup,
+	})
+	options.TerraformVars = map[string]interface{}{
+		"prefix": options.Prefix,
+		"region": options.Region,
+	}
+	return options
+}
+
+func setupSecureInfraAIAppUpgradeOptions(t *testing.T) *testhelper.TestOptions {
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: secureInfraAIAppDir,
+		Prefix:       "sec-ai-upg",
+		Region:       "us-south",
+		IgnoreUpdates: testhelper.Exemptions{
+			List: []string{
+				"module.code_engine_app.ibm_code_engine_app.ce_app", // Added to resolve probe_liveness idempotency test failure —  Refer Issue - https://github.ibm.com/GoldenEye/issues/issues/17145
+			},
 		},
 	})
+	options.TerraformVars = map[string]interface{}{
+		"prefix": options.Prefix,
+		"region": options.Region,
+	}
 	return options
 }
 
@@ -134,8 +154,10 @@ func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
 	}
 }
 
+// Consistency test for the secure infra AI app
 func TestRunSecureInfraAIAppExample(t *testing.T) {
 	t.Parallel()
+
 	options := setupSecureInfraAIAppOptions(t)
 
 	output, err := options.RunTestConsistency()
@@ -143,9 +165,11 @@ func TestRunSecureInfraAIAppExample(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
+// Upgrade test for secure infra AI app solution
 func TestUpgradeSecureInfraAIAppExample(t *testing.T) {
 	t.Parallel()
-	options := setupSecureInfraAIAppOptions(t)
+
+	options := setupSecureInfraAIAppUpgradeOptions(t)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
