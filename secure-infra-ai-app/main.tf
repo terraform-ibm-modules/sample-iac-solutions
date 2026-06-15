@@ -9,9 +9,10 @@
 ##############################################################################
 
 module "resource_group" {
-  source              = "terraform-ibm-modules/resource-group/ibm"
-  version             = "1.6.0"
-  resource_group_name = "${var.prefix}-resource-group"
+  source                       = "terraform-ibm-modules/resource-group/ibm"
+  version                      = "1.6.0"
+  resource_group_name          = var.existing_resource_group_name == null ? "${var.prefix}-resource-group" : null
+  existing_resource_group_name = var.existing_resource_group_name
 }
 
 ##############################################################################

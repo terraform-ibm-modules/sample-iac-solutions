@@ -67,7 +67,7 @@ func setupHubAndSpokeOptions(t *testing.T) *testhelper.TestOptions {
 }
 
 func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
-	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:      t,
 		TerraformDir: secureInfraAIAppDir,
 		Prefix:       "sec-ai",
@@ -77,11 +77,10 @@ func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
 				"module.code_engine_app.ibm_code_engine_app.ce_app", // Added to resolve probe_liveness idempotency test failure —  Refer Issue - https://github.ibm.com/GoldenEye/issues/issues/17145
 			},
 		},
+		TerraformVars: map[string]interface{}{
+			"existing_resource_group_name": resourceGroup,
+		},
 	})
-	options.TerraformVars = map[string]interface{}{
-		"prefix": options.Prefix,
-		"region": options.Region,
-	}
 	return options
 }
 

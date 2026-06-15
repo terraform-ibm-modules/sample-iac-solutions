@@ -36,3 +36,9 @@ variable "region" {
   description = "The IBM Cloud region to deploy resources in."
   default     = "us-south" # Change to your preferred region (e.g., "eu-de", "jp-tok")
 }
+
+variable "existing_resource_group_name" {
+  type        = string
+  description = "The name of an existing resource group to use. If not provided, a new resource group will be created."
+  default     = null
+}
