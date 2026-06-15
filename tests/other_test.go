@@ -87,7 +87,6 @@ func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
 
 // Consistency test for the containerized app landing zone
 func TestRunLandingZoneExample(t *testing.T) {
-	t.Skip()
 	t.Parallel()
 
 	options := setupOptions(t, "app-lz", landingZoneExampleDir)
@@ -99,7 +98,6 @@ func TestRunLandingZoneExample(t *testing.T) {
 
 // Upgrade test for the containerized app landing zone
 func TestUpgradeLandingZoneExample(t *testing.T) {
-	t.Skip()
 	t.Parallel()
 
 	options := setupOptions(t, "app-lz", landingZoneExampleDir)
@@ -112,7 +110,6 @@ func TestUpgradeLandingZoneExample(t *testing.T) {
 
 // Consistency test for hub-and-spoke solution
 func TestRunHubAndSpokeExample(t *testing.T) {
-	t.Skip()
 	t.Parallel()
 
 	options := setupHubAndSpokeOptions(t)
@@ -124,7 +121,6 @@ func TestRunHubAndSpokeExample(t *testing.T) {
 
 // Upgrade test for hub-and-spoke solution
 func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
-	t.Skip()
 	t.Parallel()
 
 	options := setupHubAndSpokeOptions(t)
@@ -147,7 +143,9 @@ func TestRunSecureInfraAIAppExample(t *testing.T) {
 }
 
 // Upgrade test for secure infra AI app solution
-// Note: Does not use t.Parallel() to avoid ibmcloud CLI conflicts with the consistency test
+// Note: Removed t.Parallel() because the Code Engine build module uses ibmcloud CLI
+// which maintains global state. Running in parallel with TestRunSecureInfraAIAppExample
+// causes CLI context conflicts.
 func TestUpgradeSecureInfraAIAppExample(t *testing.T) {
 	options := setupSecureInfraAIAppOptions(t)
 	output, err := options.RunTestUpgrade()
