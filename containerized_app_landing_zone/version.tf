@@ -3,7 +3,7 @@ terraform {
   required_providers {
     restapi = {
       source  = "Mastercard/restapi"
-      version = "2.0.1"
+      version = "3.0.0"
     }
     time = {
       source  = "hashicorp/time"
@@ -11,15 +11,15 @@ terraform {
     }
     ibm = {
       source  = "IBM-Cloud/ibm"
-      version = "2.1.0"
+      version = "2.2.2"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "3.1.1"
+      version = "3.2.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "3.1.0"
+      version = "3.2.0"
     }
   }
 }
