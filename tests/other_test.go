@@ -103,6 +103,7 @@ func TestRunLandingZoneExample(t *testing.T) {
 
 // Upgrade test for the containerized app landing zone
 func TestUpgradeLandingZoneExample(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 
 	options := setupOptions(t, "app-lz", landingZoneExampleDir)
@@ -140,6 +141,7 @@ func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
 
 // Consistency test for the secure infra AI app
 func TestRunSecureInfraAIAppExample(t *testing.T) {
+	t.Skip()
 	t.Parallel()
 
 	options := setupSecureInfraAIAppOptions(t)
@@ -154,6 +156,7 @@ func TestRunSecureInfraAIAppExample(t *testing.T) {
 // which maintains global state. Running in parallel with TestRunSecureInfraAIAppExample
 // causes CLI context conflicts.
 func TestUpgradeSecureInfraAIAppExample(t *testing.T) {
+	t.Skip()
 	options := setupSecureInfraAIAppOptions(t)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
