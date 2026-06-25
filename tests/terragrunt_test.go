@@ -89,7 +89,7 @@ func ensureTerraformPath() {
 
 	terraformPath, err := exec.LookPath("terraform")
 	if err == nil {
-		os.Setenv("TG_TF_PATH", terraformPath)
+		_ = os.Setenv("TG_TF_PATH", terraformPath)
 	}
 }
 
