@@ -216,6 +216,15 @@ func TestStacksValidation(t *testing.T) {
 
 	t.Log("✓ Terraform stacks command is available")
 
+	listFilesCmd := exec.Command("find", ".", "-type", "f")
+	listFilesCmd.Dir = stacksPath
+	listFilesOutput, listFilesErr := listFilesCmd.CombinedOutput()
+	if listFilesErr != nil {
+		t.Logf("Warning: failed to list stack files: %v\nOutput: %s", listFilesErr, string(listFilesOutput))
+	} else {
+		t.Logf("Included stack files:\n%s", string(listFilesOutput))
+	}
+
 	// Step 1: Run terraform stacks init
 	t.Log("Running terraform stacks init...")
 	initCmd := exec.Command("terraform", "stacks", "init")
