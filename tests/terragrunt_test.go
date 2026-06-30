@@ -15,6 +15,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/gruntwork-io/terratest/modules/logger"
+	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
@@ -91,6 +93,48 @@ func ensureTerraformPath() {
 	if err == nil {
 		_ = os.Setenv("TG_TF_PATH", terraformPath)
 	}
+}
+
+func requireTerragruntInstalled(t *testing.T) {
+	t.Helper()
+	if _, err := exec.LookPath("terragrunt"); err != nil {
+		t.Fatal("terragrunt executable not found in $PATH — install terragrunt (https://terragrunt.gruntwork.io/docs/getting-started/install/) and ensure it is available before running this test")
+	}
+}
+
+// setupTerragruntBinary runs terraform init + apply on the terragrunt-setup module to
+// install the terragrunt binary onto $PATH (/usr/local/bin) if not already present.
+func setupTerragruntBinary(t *testing.T) {
+	t.Helper()
+
+	// Skip setup entirely if terragrunt is already on $PATH.
+	if _, err := exec.LookPath("terragrunt"); err == nil {
+		t.Log("terragrunt already on $PATH, skipping setup")
+		return
+	}
+
+	workingDir, err := os.Getwd()
+	require.NoError(t, err, "Failed to get working directory")
+
+	setupDir := filepath.Join(workingDir, "terragrunt-setup")
+
+	t.Log("Installing terragrunt via terragrunt-setup module...")
+
+	setupOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		TerraformDir: setupDir,
+		Vars: map[string]interface{}{
+			"ibmcloud_api_key":   os.Getenv("TF_VAR_ibmcloud_api_key"),
+			"install_terragrunt": true,
+		},
+		Upgrade: true,
+		Logger:  logger.TestingT,
+	})
+
+	_, applyErr := terraform.InitAndApplyContextE(t, context.Background(), setupOptions)
+	require.NoError(t, applyErr, "terragrunt-setup apply failed — could not install terragrunt")
+
+	// Confirm the binary is now reachable on $PATH.
+	requireTerragruntInstalled(t)
 }
 
 func runTerragruntCommand(t *testing.T, dir string, args ...string) (string, error) {
@@ -183,6 +227,7 @@ func cleanupTerragruntResources(t *testing.T, options *testhelper.TestOptions) {
 
 func TestTerragruntDeployAll(t *testing.T) {
 	skipIfNoAPIKey(t)
+	setupTerragruntBinary(t)
 
 	options := setupTerragruntOptions(t, "tg-test")
 
