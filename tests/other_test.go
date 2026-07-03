@@ -15,7 +15,7 @@ const resourceGroup = "geretain-test-resources"
 // Ensure every example directory has a corresponding test
 const landingZoneExampleDir = "containerized_app_landing_zone"
 const hubAndSpokeSolutionDir = "hub-and-spoke"
-const pulumiScriptDir = "../pulumi/run_tests.sh"
+const pulumiScriptDir = "pulumi/run_tests.sh"
 const secureInfraAIAppDir = "secure-infra-ai-app"
 
 var IgnoreUpdates = []string{
@@ -133,6 +133,16 @@ func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
 	}
 }
 
+// Consistency test for the secure infra AI app
+func TestRunSecureInfraAIAppExample(t *testing.T) {
+	t.Parallel()
+	options := setupSecureInfraAIAppOptions(t)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
 // Test for Pulumi Python tests
 func TestRunPulumiPythonTests(t *testing.T) {
 	t.Parallel()
@@ -148,17 +158,6 @@ func TestRunPulumiPythonTests(t *testing.T) {
 	assert.Nil(t, err, "Pulumi Python tests should not have errored")
 	assert.Contains(t, string(output), "passed", "Expected tests to pass")
 	assert.NotContains(t, string(output), "FAILED", "Should not contain any failures")
-}
-
-// Consistency test for the secure infra AI app
-func TestRunSecureInfraAIAppExample(t *testing.T) {
-	t.Parallel()
-
-	options := setupSecureInfraAIAppOptions(t)
-
-	output, err := options.RunTestConsistency()
-	assert.Nil(t, err, "This should not have errored")
-	assert.NotNil(t, output, "Expected some output")
 }
 
 // Upgrade test for secure infra AI app solution
