@@ -1,44 +1,68 @@
 #!/bin/bash
-# Script to run Pulumi Python tests
 
-set -e
+set -Eeuo pipefail
 
-# Determine script directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VENV_DIR="${SCRIPT_DIR}/.venv"
-REQUIREMENTS_TEST="${SCRIPT_DIR}/requirements_test.txt"
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly VENV_DIR="${SCRIPT_DIR}/.venv"
+readonly REQUIREMENTS_TEST="${SCRIPT_DIR}/requirements_test.txt"
+readonly SEPARATOR="======================================================================"
 
-echo "======================================================================"
-# Create virtual environment if it does not exist
-if [ ! -d "$VENV_DIR" ]; then
-    echo "Creating virtual environment in ${VENV_DIR}..."
-    python3 -m venv "$VENV_DIR"
+print_separator() {
+    echo "${SEPARATOR}"
+}
+
+cleanup() {
+    if declare -F deactivate >/dev/null 2>&1; then
+        deactivate
+    fi
+}
+
+trap cleanup EXIT
+
+if ! command -v python3 >/dev/null 2>&1; then
+    echo "ERROR: python3 is not installed or not available in PATH."
+    exit 1
 fi
 
-# Activate the virtual environment
+print_separator
+
+if [[ ! -d "${VENV_DIR}" ]]; then
+    echo "Creating virtual environment at:"
+    echo "  ${VENV_DIR}"
+    python3 -m venv "${VENV_DIR}"
+fi
+
 echo "Activating virtual environment..."
-source "$VENV_DIR/bin/activate"
 
-echo "Installing Dependencies"
-python3 -m pip install --upgrade pip --quiet
-python3 -m pip install -r "${REQUIREMENTS_TEST}" --quiet
-echo ""
-printf "Running pulumi python tests with coverage \n\t ==> Test Directory: ${SCRIPT_DIR}"
+# shellcheck source=/dev/null
+source "${VENV_DIR}/bin/activate"
+echo "Installing test dependencies..."
+python -m pip install --upgrade pip --quiet
+python -m pip install --requirement "${REQUIREMENTS_TEST}" --quiet
+echo
+printf "Running Pulumi Python tests\n"
+printf "  Test Directory : %s\n\n" "${SCRIPT_DIR}"
 
-cd "${SCRIPT_DIR}"
+pushd "${SCRIPT_DIR}" >/dev/null
 
-# Run pytest with coverage (terminal output only, no HTML)
-if python3 -m pytest . -v --cov=../../pulumi --cov-report=term-missing --tb=short; then
-    echo ""
-    echo "✅ Pulumi unit tests passed!"
-    echo "======================================================================"
-    deactivate
+if python -m pytest \
+    . \
+    -v \
+    --cov=../../pulumi \
+    --cov-report=term-missing \
+    --tb=short
+then
+    popd >/dev/null
+    echo
+    echo "✅ Pulumi unit tests passed."
+    print_separator
     exit 0
 else
-    EXIT_CODE=$?
-    echo ""
-    printf "❌ Some Pulumi unit tests failed! \n\t ==> Exit code: ${EXIT_CODE}"
-    echo "======================================================================"
-    deactivate
-    exit ${EXIT_CODE}
+    exit_code=$?
+    popd >/dev/null
+    echo
+    printf "❌ Pulumi unit tests failed.\n"
+    printf "   Exit code : %d\n" "${exit_code}"
+    print_separator
+    exit "${exit_code}"
 fi
