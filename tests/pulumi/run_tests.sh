@@ -2,7 +2,8 @@
 
 set -Eeuo pipefail
 
-readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# SC2155 Fix: Split declaration and assignment
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly VENV_DIR="${SCRIPT_DIR}/.venv"
 readonly REQUIREMENTS_TEST="${SCRIPT_DIR}/requirements_test.txt"
 readonly SEPARATOR="======================================================================"
@@ -11,6 +12,9 @@ print_separator() {
     echo "${SEPARATOR}"
 }
 
+# SC2329 Fix: Shellcheck doesn't always trace trap references cleanly.
+# Added a directive to tell it this function is used.
+# shellcheck disable=SC2329
 cleanup() {
     if declare -F deactivate >/dev/null 2>&1; then
         deactivate
