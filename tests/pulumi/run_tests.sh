@@ -53,6 +53,7 @@ if python -m pytest \
     . \
     -v \
     --cov=../../pulumi \
+    --cov-branch \
     --cov-report=term-missing \
     --tb=short
 then

@@ -52,11 +52,14 @@ mock_pulumi.terraform_ibm_modules = terraform_ibm_modules
 assert _tim_spec.loader is not None, "ModuleSpec has no loader"
 _tim_spec.loader.exec_module(terraform_ibm_modules)
 
+from utils import first_or_self, generate_suffix
 
 from pulumi.terraform_ibm_modules.key_protect import create_kms_instance
 from pulumi.terraform_ibm_modules.object_storage import (
+    configure_bucket_website,
     configure_public_access,
     create_cos_instance,
+    create_cos_instance_with_key_protect_enabled,
     upload_static_files,
 )
 from pulumi.terraform_ibm_modules.resource_group import create_resource_group
@@ -180,10 +183,27 @@ class TestKMS(unittest.TestCase):
         self.assertEqual(kms, mock_module.return_value)
 
 
+class TestUtils(unittest.TestCase):
+    def test_generate_suffix_default_length(self):
+        result = generate_suffix()
+        self.assertEqual(len(result), 4)
+        self.assertTrue(result.isalnum())
+
+    def test_generate_suffix_custom_length(self):
+        result = generate_suffix(8)
+        self.assertEqual(len(result), 8)
+
+    def test_first_or_self_with_list(self):
+        self.assertEqual(first_or_self(["a", "b"]), "a")
+
+    def test_first_or_self_with_scalar(self):
+        self.assertEqual(first_or_self("hello"), "hello")
+
+
 class TestCOSInstance(unittest.TestCase):
     @patch(
         "pulumi.terraform_ibm_modules.object_storage.generate_suffix",
-        return_value="abcd",
+        return_value="pulumi",
     )
     @patch("pulumi.terraform_ibm_modules.object_storage.cosmod.Module")
     @patch("pulumi.terraform_ibm_modules.object_storage.PREFIX", "test")
@@ -201,12 +221,67 @@ class TestCOSInstance(unittest.TestCase):
         self.assertEqual(cos, mock_module.return_value)
 
     @patch(
+        "pulumi.terraform_ibm_modules.object_storage.generate_suffix",
+        return_value="pulumi",
+    )
+    @patch("pulumi.terraform_ibm_modules.object_storage.cosmod.Module")
+    @patch("pulumi.terraform_ibm_modules.object_storage.PREFIX", "test")
+    @patch("pulumi.terraform_ibm_modules.object_storage.REGION", "us-south")
+    @patch("pulumi.terraform_ibm_modules.object_storage.BUCKET_NAME", "bucket")
+    @patch("pulumi.terraform_ibm_modules.object_storage.COS_INSTANCE_NAME", "cos")
+    @patch(
+        "pulumi.terraform_ibm_modules.object_storage.BUCKET_STORAGE_CLASS", "standard"
+    )
+    @patch("pulumi.terraform_ibm_modules.object_storage.KMS_KEY_RING_NAME", "my-ring")
+    @patch("pulumi.terraform_ibm_modules.object_storage.KMS_KEY_NAME", "my-key")
+    def test_create_cos_instance_with_key_protect_enabled(self, mock_module, *_):
+        rg = MagicMock()
+        rg.resource_group_id = "rg-id"
+        kms_instance = MagicMock()
+        kms_instance.kms_guid = "kms-guid"
+        kms_instance.keys.apply.return_value = "key-crn"
+
+        cos = create_cos_instance_with_key_protect_enabled(rg, kms_instance)
+
+        mock_module.assert_called_once()
+        call_kwargs = mock_module.call_args.kwargs
+        self.assertEqual(call_kwargs["existing_kms_instance_guid"], "kms-guid")
+        self.assertEqual(cos, mock_module.return_value)
+
+    @patch(
         "pulumi.terraform_ibm_modules.object_storage.os.path.isdir", return_value=False
     )
     @patch("pulumi.terraform_ibm_modules.object_storage.pulumi.log.warn")
     def test_upload_static_files_no_dir(self, mock_warn, _):
         upload_static_files(MagicMock())
         mock_warn.assert_called_once()
+
+    @patch(
+        "pulumi.terraform_ibm_modules.object_storage.ibm.cos_bucket_object.CosBucketObject"
+    )
+    @patch(
+        "pulumi.terraform_ibm_modules.object_storage.glob.glob",
+        return_value=["/fake/dir/index.html"],
+    )
+    @patch(
+        "pulumi.terraform_ibm_modules.object_storage.os.path.isfile", return_value=True
+    )
+    @patch(
+        "pulumi.terraform_ibm_modules.object_storage.os.path.isdir", return_value=True
+    )
+    @patch("pulumi.terraform_ibm_modules.object_storage.REGION", "us-south")
+    def test_upload_static_files_with_files(
+        self, _isdir, _isfile, _glob, mock_cos_object
+    ):
+        cos = MagicMock()
+        upload_static_files(cos)
+        mock_cos_object.assert_called_once_with(
+            "file-index.html",
+            bucket_crn=cos.bucket_crn.apply.return_value,
+            bucket_location="us-south",
+            content_file="/fake/dir/index.html",
+            key="index.html",
+        )
 
     @patch("pulumi.terraform_ibm_modules.object_storage.ibm.IamAccessGroupPolicy")
     @patch("pulumi.terraform_ibm_modules.object_storage.ibm.get_iam_access_group")
@@ -222,6 +297,26 @@ class TestCOSInstance(unittest.TestCase):
         configure_public_access(cos)
 
         mock_policy.assert_called_once()
+
+    @patch(
+        "pulumi.terraform_ibm_modules.object_storage.ibm.CosBucketWebsiteConfiguration"
+    )
+    @patch("pulumi.terraform_ibm_modules.object_storage.REGION", "us-south")
+    def test_configure_bucket_website(self, mock_website_config):
+        cos = MagicMock()
+        cos.bucket_crn.apply = MagicMock(return_value="test-crn")
+
+        configure_bucket_website(cos)
+
+        mock_website_config.assert_called_once_with(
+            "website-config",
+            bucket_crn=cos.bucket_crn.apply.return_value,
+            bucket_location="us-south",
+            website_configuration={
+                "index_document": {"suffix": "index.html"},
+                "error_document": {"key": "error.html"},
+            },
+        )
 
 
 class TestWatsonDiscovery(unittest.TestCase):
