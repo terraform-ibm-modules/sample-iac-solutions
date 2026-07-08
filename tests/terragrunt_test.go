@@ -200,7 +200,7 @@ func cleanupModule(t *testing.T, modulePath string, moduleName string) {
 	output, err := runTerragruntCommand(t, modulePath, "--non-interactive", "destroy", "--", "-auto-approve")
 
 	if err != nil {
-		t.Logf("WARNING: Failed to destroy %s", moduleName)
+		t.Errorf("WARNING: Failed to destroy %s", moduleName)
 		t.Logf("Destroy output:\n%s", output)
 		return
 	}
