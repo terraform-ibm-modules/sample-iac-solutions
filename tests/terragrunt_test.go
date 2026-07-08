@@ -123,7 +123,6 @@ func setupTerragruntBinary(t *testing.T) {
 	setupOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: setupDir,
 		Vars: map[string]interface{}{
-			"ibmcloud_api_key":   os.Getenv("TF_VAR_ibmcloud_api_key"),
 			"install_terragrunt": true,
 		},
 		Upgrade: true,
