@@ -19,6 +19,7 @@ const secureInfraAIAppDir = "secure-infra-ai-app"
 var IgnoreUpdates = []string{
 	"module.logs_agent.helm_release.logs_agent",
 	"module.logs_agent.terraform_data.install_required_binaries[0]",
+	"module.monitoring_agent.helm_release.cloud_monitoring_agent",
 }
 
 var IgnoreDestroys = []string{
