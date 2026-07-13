@@ -37,7 +37,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | 3.2.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 2.2.2 |
 | <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 3.2.0 |
-| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | 3.0.0 |
+| <a name="requirement_restapi"></a> [restapi](#requirement\_restapi) | >= 2.0.1, < 3.0.0 |
 | <a name="requirement_time"></a> [time](#requirement\_time) | 0.14.0 |
 
 ### Modules
@@ -147,7 +147,6 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 | <a name="output_vpe_crn"></a> [vpe\_crn](#output\_vpe\_crn) | The CRN of the endpoint gateway. |
 | <a name="output_vpe_ips"></a> [vpe\_ips](#output\_vpe\_ips) | The reserved IPs for endpoint gateways. |
 | <a name="output_vpn_gateways_data"></a> [vpn\_gateways\_data](#output\_vpn\_gateways\_data) | Details of VPN gateways data. |
-| <a name="output_vpn_gateways_name"></a> [vpn\_gateways\_name](#output\_vpn\_gateways\_name) | List of names of VPN gateways. |
 | <a name="output_workerpools"></a> [workerpools](#output\_workerpools) | A list of worker pools associated with the provisioned cluster |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

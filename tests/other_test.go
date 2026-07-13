@@ -19,6 +19,7 @@ const secureInfraAIAppDir = "secure-infra-ai-app"
 var IgnoreUpdates = []string{
 	"module.logs_agent.helm_release.logs_agent",
 	"module.logs_agent.terraform_data.install_required_binaries[0]",
+	"module.monitoring_agent.helm_release.cloud_monitoring_agent",
 }
 
 var IgnoreDestroys = []string{
@@ -96,6 +97,18 @@ func TestRunLandingZoneExample(t *testing.T) {
 	assert.NotNil(t, output, "Expected some output")
 }
 
+// Upgrade test for the containerized app landing zone
+func TestUpgradeLandingZoneExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "app-lz", landingZoneExampleDir)
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected  some output")
+	}
+}
+
 // Consistency test for hub-and-spoke solution
 func TestRunHubAndSpokeExample(t *testing.T) {
 	t.Parallel()
@@ -122,6 +135,7 @@ func TestUpgradeRunHubAndSpokeExample(t *testing.T) {
 // Consistency test for the secure infra AI app
 func TestRunSecureInfraAIAppExample(t *testing.T) {
 	t.Parallel()
+
 	options := setupSecureInfraAIAppOptions(t)
 
 	output, err := options.RunTestConsistency()
@@ -130,8 +144,10 @@ func TestRunSecureInfraAIAppExample(t *testing.T) {
 }
 
 // Upgrade test for secure infra AI app solution
+// Note: Removed t.Parallel() because the Code Engine build module uses ibmcloud CLI
+// which maintains global state. Running in parallel with TestRunSecureInfraAIAppExample
+// causes CLI context conflicts.
 func TestUpgradeSecureInfraAIAppExample(t *testing.T) {
-	t.Parallel()
 	options := setupSecureInfraAIAppOptions(t)
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
