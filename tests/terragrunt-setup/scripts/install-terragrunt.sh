@@ -6,10 +6,9 @@ set -o pipefail
 DIRECTORY=${1:-"/tmp"}
 
 # renovate: datasource=github-tags depName=terraform-ibm-modules/common-bash-library
-# TAG="v0.2.0"  # Commented out for testing with branch
-BRANCH="tg"  # Testing branch
+TAG="v0.5.0"
 
-# Download common-bash-library from branch
+# Download common-bash-library from tag
 curl --silent \
     --connect-timeout 5 \
     --max-time 10 \
@@ -20,7 +19,7 @@ curl --silent \
     --show-error \
     --location \
     --output "${DIRECTORY}/common-bash.tar.gz" \
-    "https://github.com/terraform-ibm-modules/common-bash-library/archive/refs/heads/${BRANCH}.tar.gz" >&2
+    "https://github.com/terraform-ibm-modules/common-bash-library/archive/refs/tags/${TAG}.tar.gz" >&2
 
 mkdir -p "${DIRECTORY}/common-bash-library"
 tar -xzf "${DIRECTORY}/common-bash.tar.gz" --strip-components=1 -C "${DIRECTORY}/common-bash-library" 2>&1 >&2
