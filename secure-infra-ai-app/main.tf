@@ -10,7 +10,7 @@
 
 module "resource_group" {
   source              = "terraform-ibm-modules/resource-group/ibm"
-  version             = "1.6.0"
+  version             = "1.6.1"
   resource_group_name = "${var.prefix}-resource-group"
 }
 
@@ -51,7 +51,7 @@ module "code_engine_secret" {
 
 module "namespace" {
   source            = "terraform-ibm-modules/container-registry/ibm"
-  version           = "2.7.2"
+  version           = "2.7.6"
   namespace_name    = "${var.prefix}-crn"
   resource_group_id = module.resource_group.resource_group_id
 }
@@ -127,7 +127,7 @@ module "key_protect_all_inclusive" {
 
 module "cos" {
   source                 = "terraform-ibm-modules/cos/ibm"
-  version                = "10.16.0"
+  version                = "10.16.5"
   resource_group_id      = module.resource_group.resource_group_id
   region                 = var.region
   cos_instance_name      = "${var.prefix}-my-cos"
@@ -152,7 +152,7 @@ data "ibm_iam_auth_token" "restapi" {
 
 module "watsonx_ai" {
   source                        = "terraform-ibm-modules/watsonx-ai/ibm"
-  version                       = "2.17.3"
+  version                       = "2.17.6"
   region                        = var.region
   resource_group_id             = module.resource_group.resource_group_id
   watsonx_ai_studio_plan        = "professional-v1"
