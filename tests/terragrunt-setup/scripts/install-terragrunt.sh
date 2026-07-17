@@ -5,6 +5,8 @@ set -o pipefail
 
 DIRECTORY=${1:-"/tmp"}
 
+trap 'rm -rf "${DIRECTORY}/common-bash-library" "${DIRECTORY}/common-bash.tar.gz"' EXIT
+
 # renovate: datasource=github-tags depName=terraform-ibm-modules/common-bash-library
 TAG="v0.5.0"
 

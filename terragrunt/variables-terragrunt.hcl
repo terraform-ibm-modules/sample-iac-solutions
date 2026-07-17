@@ -7,7 +7,7 @@
 
 locals {
   prefix = get_env("TG_PREFIX", "ocp-tg")
-  region = get_env("TG_REGION", "eu-de")
+  region = get_env("TG_REGION", "us-south")
 }
 
 generate "variables" {
