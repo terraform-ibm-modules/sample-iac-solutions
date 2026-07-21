@@ -54,6 +54,7 @@ module "namespace" {
   version           = "2.7.6"
   namespace_name    = "${var.prefix}-crn"
   resource_group_id = module.resource_group.resource_group_id
+  images_per_repo   = var.cr_retention_images_per_repo
 }
 
 ##############################################################################
