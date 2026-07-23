@@ -39,6 +39,6 @@ variable "region" {
 
 variable "cr_retention_images_per_repo" {
   type        = number
-  description = "Number of images to retain per repository in the IBM Container Registry namespace. Use -1 for unlimited. Set to a low value (e.g. 1) in CI to avoid exceeding the ICR storage quota."
-  default     = -1
+  description = "(Optional, Integer) Determines how many images are retained in each repository when the retention policy is processed. The value -1 denotes Unlimited (all images are retained). The value 0 denotes no retention policy will be created (default)"
+  default     = 1
 }

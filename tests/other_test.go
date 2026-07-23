@@ -80,9 +80,8 @@ func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
 		},
 	})
 	options.TerraformVars = map[string]interface{}{
-		"prefix":                       options.Prefix,
-		"region":                       options.Region,
-		"cr_retention_images_per_repo": 1, // Keep only the latest image per repo to avoid exceeding ICR storage quota in CI
+		"prefix": options.Prefix,
+		"region": options.Region,
 	}
 	return options
 }
