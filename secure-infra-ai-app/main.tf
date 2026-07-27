@@ -62,19 +62,21 @@ module "namespace" {
 ##############################################################################
 
 locals {
-  # Derive the private Container Registry hostname from the region.
-  # ICR regional endpoints follow the pattern: private.<geo>.icr.io
-  # e.g. us-south / us-east -> private.us.icr.io, eu-de / eu-gb -> private.de.icr.io
+  # Maps IBM Cloud region to the ICR private domain prefix.
+  # Source: https://cloud.ibm.com/docs/Registry?topic=Registry-registry_overview#registry_regions_local
   icr_region_map = {
     "us-south" = "us"
     "us-east"  = "us"
     "eu-de"    = "de"
-    "eu-gb"    = "de"
+    "eu-gb"    = "uk"
+    "eu-es"    = "es"
     "jp-tok"   = "jp"
-    "jp-osa"   = "jp"
-    "au-syd"   = "au-syd"
-    "br-sao"   = "br-sao"
-    "ca-tor"   = "ca-tor"
+    "jp-osa"   = "jp2"
+    "au-syd"   = "au"
+    "br-sao"   = "br"
+    "ca-tor"   = "ca"
+    "ca-mon"   = "ca2"
+    "in-che"   = "in"
   }
   icr_geo          = lookup(local.icr_region_map, var.region, "us")
   icr_private_host = "private.${local.icr_geo}.icr.io"
