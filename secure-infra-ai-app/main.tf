@@ -38,7 +38,7 @@ module "code_engine_secret" {
   project_id = module.code_engine_project.id
   format     = "registry"
   data = {
-    "server"   = "private.us.icr.io",
+    "server"   = local.icr_private_host,
     "username" = "iamapikey",
     "password" = var.ibmcloud_api_key,
   }
@@ -62,8 +62,25 @@ module "namespace" {
 ##############################################################################
 
 locals {
+  # Derive the private Container Registry hostname from the region.
+  # ICR regional endpoints follow the pattern: private.<geo>.icr.io
+  # e.g. us-south / us-east -> private.us.icr.io, eu-de / eu-gb -> private.de.icr.io
+  icr_region_map = {
+    "us-south" = "us"
+    "us-east"  = "us"
+    "eu-de"    = "de"
+    "eu-gb"    = "de"
+    "jp-tok"   = "jp"
+    "jp-osa"   = "jp"
+    "au-syd"   = "au-syd"
+    "br-sao"   = "br-sao"
+    "ca-tor"   = "ca-tor"
+  }
+  icr_geo          = lookup(local.icr_region_map, var.region, "us")
+  icr_private_host = "private.${local.icr_geo}.icr.io"
+
   # Path where the built container image will be stored
-  output_image = "private.us.icr.io/${module.namespace.namespace_name}/ai-agent-for-loan-risk"
+  output_image = "${local.icr_private_host}/${module.namespace.namespace_name}/ai-agent-for-loan-risk"
 }
 
 ##############################################################################

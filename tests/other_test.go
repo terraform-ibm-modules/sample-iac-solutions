@@ -72,7 +72,7 @@ func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
 		Testing:      t,
 		TerraformDir: secureInfraAIAppDir,
 		Prefix:       "sec-ai",
-		Region:       "us-south",
+		Region:       "eu-de",
 		IgnoreUpdates: testhelper.Exemptions{
 			List: []string{
 				"module.code_engine_app.ibm_code_engine_app.ce_app", // Added to resolve probe_liveness idempotency test failure —  Refer Issue - https://github.ibm.com/GoldenEye/issues/issues/17145
