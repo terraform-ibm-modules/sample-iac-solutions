@@ -38,7 +38,7 @@ module "code_engine_secret" {
   project_id = module.code_engine_project.id
   format     = "registry"
   data = {
-    "server"   = "private.us.icr.io",
+    "server"   = local.icr_private_host,
     "username" = "iamapikey",
     "password" = var.ibmcloud_api_key,
   }
@@ -54,6 +54,7 @@ module "namespace" {
   version           = "2.7.6"
   namespace_name    = "${var.prefix}-crn"
   resource_group_id = module.resource_group.resource_group_id
+  images_per_repo   = var.cr_retention_images_per_repo
 }
 
 ##############################################################################
@@ -61,8 +62,27 @@ module "namespace" {
 ##############################################################################
 
 locals {
+  # Maps IBM Cloud region to the ICR private domain prefix.
+  # Source: https://cloud.ibm.com/docs/Registry?topic=Registry-registry_overview#registry_regions_local
+  icr_region_map = {
+    "us-south" = "us"
+    "us-east"  = "us"
+    "eu-de"    = "de"
+    "eu-gb"    = "uk"
+    "eu-es"    = "es"
+    "jp-tok"   = "jp"
+    "jp-osa"   = "jp2"
+    "au-syd"   = "au"
+    "br-sao"   = "br"
+    "ca-tor"   = "ca"
+    "ca-mon"   = "ca2"
+    "in-che"   = "in"
+  }
+  icr_geo          = lookup(local.icr_region_map, var.region, "us")
+  icr_private_host = "private.${local.icr_geo}.icr.io"
+
   # Path where the built container image will be stored
-  output_image = "private.us.icr.io/${module.namespace.namespace_name}/ai-agent-for-loan-risk"
+  output_image = "${local.icr_private_host}/${module.namespace.namespace_name}/ai-agent-for-loan-risk"
 }
 
 ##############################################################################

@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
@@ -17,6 +18,14 @@ const landingZoneExampleDir = "containerized_app_landing_zone"
 const hubAndSpokeSolutionDir = "hub-and-spoke"
 const pulumiScriptDir = "pulumi/run_tests.sh"
 const secureInfraAIAppDir = "secure-infra-ai-app"
+
+var validRegions = []string{
+	"au-syd",
+	"ca-tor",
+	"eu-de",
+	"eu-gb",
+	"jp-tok",
+}
 
 var IgnoreUpdates = []string{
 	"module.logs_agent.helm_release.logs_agent",
@@ -70,11 +79,12 @@ func setupHubAndSpokeOptions(t *testing.T) *testhelper.TestOptions {
 }
 
 func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
+	region := validRegions[common.CryptoIntn(len(validRegions))]
 	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
 		Testing:      t,
 		TerraformDir: secureInfraAIAppDir,
 		Prefix:       "sec-ai",
-		Region:       "us-south",
+		Region:       region,
 		IgnoreUpdates: testhelper.Exemptions{
 			List: []string{
 				"module.code_engine_app.ibm_code_engine_app.ce_app", // Added to resolve probe_liveness idempotency test failure —  Refer Issue - https://github.ibm.com/GoldenEye/issues/issues/17145
