@@ -36,3 +36,9 @@ variable "region" {
   description = "The IBM Cloud region to deploy resources in."
   default     = "us-south" # Change to your preferred region (e.g., "eu-de", "jp-tok")
 }
+
+variable "cr_retention_images_per_repo" {
+  type        = number
+  description = "(Optional, Integer) Determines how many images are retained in each repository when the retention policy is processed. The value -1 denotes Unlimited (all images are retained). The value 0 denotes no retention policy will be created (default). For more details, refer [here](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/cr_retention_policy)."
+  default     = 1
+}
