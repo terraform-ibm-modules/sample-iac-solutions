@@ -16,7 +16,7 @@
     "@langchain/community": "1.1.29",
     "@langchain/core": "1.1.49",
     "@langchain/langgraph": "1.4.2",
-    "axios": "1.16.1",
+    "axios": "1.18.0",
     "express": "5.2.1",
     "json-server": "1.0.0-beta.15"
   },
