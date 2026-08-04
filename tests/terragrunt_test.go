@@ -122,11 +122,8 @@ func setupTerragruntBinary(t *testing.T) {
 
 	setupOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: setupDir,
-		Vars: map[string]interface{}{
-			"install_terragrunt": true,
-		},
-		Upgrade: true,
-		Logger:  logger.TestingT,
+		Upgrade:      true,
+		Logger:       logger.TestingT,
 	})
 
 	_, applyErr := terraform.InitAndApplyContextE(t, context.Background(), setupOptions)
