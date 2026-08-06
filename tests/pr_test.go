@@ -1,0 +1,161 @@
+// Tests in this file are run in the PR pipeline.
+package test
+
+import (
+	"os/exec"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
+)
+
+// Use existing resource group
+const resourceGroup = "geretain-test-resources"
+
+// Ensure every example directory has a corresponding test
+const landingZoneExampleDir = "containerized_app_landing_zone"
+const hubAndSpokeSolutionDir = "hub-and-spoke"
+const secureInfraAIAppDir = "secure-infra-ai-app"
+const pulumiScriptDir = "pulumi/run_tests.sh"
+
+var validRegions = []string{
+	"au-syd",
+	"ca-tor",
+	"eu-de",
+	"eu-gb",
+	"jp-tok",
+}
+
+var IgnoreUpdates = []string{
+	"module.logs_agent.helm_release.logs_agent",
+	"module.logs_agent.terraform_data.install_required_binaries[0]",
+	"module.monitoring_agent.helm_release.cloud_monitoring_agent",
+}
+
+var IgnoreDestroys = []string{
+	"module.logs_agent.terraform_data.install_required_binaries[0]",
+}
+
+var IgnoreAdds = []string{
+	"module.scc_wp.restapi_object.cspm",
+	"module.app_config.ibm_config_aggregator_settings.config_aggregator_settings[0]",
+}
+
+func setupOptions(t *testing.T, prefix string, dir string) *testhelper.TestOptions {
+	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: dir,
+		Prefix:       prefix,
+		Region:       "eu-de",
+		IgnoreUpdates: testhelper.Exemptions{ // Ignore for consistency check
+			List: IgnoreUpdates,
+		},
+		IgnoreDestroys: testhelper.Exemptions{ // Ignore destroy/recreate actions
+			List: IgnoreDestroys,
+		},
+		IgnoreAdds: testhelper.Exemptions{
+			List: IgnoreAdds,
+		},
+		TerraformVars: map[string]interface{}{
+			"existing_resource_group_name": resourceGroup,
+		},
+	})
+	return options
+}
+
+func setupHubAndSpokeOptions(t *testing.T) *testhelper.TestOptions {
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: hubAndSpokeSolutionDir,
+		Prefix:       "hs",
+		Region:       "us-south",
+	})
+	options.TerraformVars = map[string]interface{}{
+		"prefix": options.Prefix,
+		"region": options.Region,
+	}
+	return options
+}
+
+func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
+	region := validRegions[common.CryptoIntn(len(validRegions))]
+	options := testhelper.TestOptionsDefault(&testhelper.TestOptions{
+		Testing:      t,
+		TerraformDir: secureInfraAIAppDir,
+		Prefix:       "sec-ai",
+		Region:       region,
+		IgnoreUpdates: testhelper.Exemptions{
+			List: []string{
+				"module.code_engine_app.ibm_code_engine_app.ce_app", // Added to resolve probe_liveness idempotency test failure —  Refer Issue - https://github.ibm.com/GoldenEye/issues/issues/17145
+			},
+		},
+	})
+	options.TerraformVars = map[string]interface{}{
+		"prefix": options.Prefix,
+		"region": options.Region,
+	}
+	return options
+}
+
+// Consistency test for the containerized app landing zone
+func TestRunLandingZoneExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "app-lz", landingZoneExampleDir)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+// Upgrade test for the containerized app landing zone
+func TestUpgradeLandingZoneExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "app-lz", landingZoneExampleDir)
+	output, err := options.RunTestUpgrade()
+	if !options.UpgradeTestSkipped {
+		assert.Nil(t, err, "This should not have errored")
+		assert.NotNil(t, output, "Expected  some output")
+	}
+}
+
+// Consistency test for hub-and-spoke solution
+func TestRunHubAndSpokeExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupHubAndSpokeOptions(t)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+// Consistency test for the secure infra AI app
+func TestRunSecureInfraAIAppExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupSecureInfraAIAppOptions(t)
+
+	output, err := options.RunTestConsistency()
+	assert.Nil(t, err, "This should not have errored")
+	assert.NotNil(t, output, "Expected some output")
+}
+
+// Test for Pulumi Python tests
+func TestRunPulumiPythonTests(t *testing.T) {
+	t.Parallel()
+
+	// Execute the Python test script
+	cmd := exec.Command("bash", pulumiScriptDir)
+	output, err := cmd.CombinedOutput()
+
+	// Print output for debugging
+	t.Logf("Pulumi Python Test Output:\n%s", string(output))
+
+	// Assert that the tests passed
+	assert.Nil(t, err, "Pulumi Python tests should not have errored")
+	assert.Contains(t, string(output), "passed", "Expected tests to pass")
+	assert.NotContains(t, string(output), "FAILED", "Should not contain any failures")
+}
