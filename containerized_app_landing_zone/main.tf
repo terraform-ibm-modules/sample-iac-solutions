@@ -783,7 +783,7 @@ module "vpc" {
   create_authorization_policy_vpc_to_cos = true
   existing_cos_instance_guid             = module.cos.cos_instance_guid
   existing_storage_bucket_name           = module.vpc_cos_buckets.buckets[local.vpc_flow_logs_bucket_name].bucket_name
-  tags                                   = var.resource_tags
+  resource_tags                          = var.resource_tags
 }
 
 #########################################################################################################
@@ -861,7 +861,7 @@ module "ocp_base" {
   kms_config                            = local.kms_config
   existing_secrets_manager_instance_crn = module.secrets_manager.secrets_manager_crn
   secrets_manager_secret_group_id       = module.secret_group.secret_group_id
-  tags                                  = var.resource_tags
+  resource_tags                         = var.resource_tags
 }
 
 resource "terraform_data" "delete_secrets" {
