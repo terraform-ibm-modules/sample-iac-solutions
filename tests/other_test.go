@@ -2,8 +2,9 @@
 package test
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 // Upgrade test for hub-and-spoke solution
