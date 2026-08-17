@@ -174,9 +174,9 @@ func TestRunPulumiPythonTests(t *testing.T) {
 	assert.NotContains(t, string(output), "FAILED", "Should not contain any failures")
 }
 
-// ---------------------------------------------------------------------------
-// Terragrunt tests — run in the PR pipeline alongside the Terraform tests
-// ---------------------------------------------------------------------------
+// ############################################################################
+// Terragrunt tests
+// ############################################################################
 
 const (
 	terragruntDir  = "terragrunt"
