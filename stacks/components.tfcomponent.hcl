@@ -19,7 +19,7 @@ component "resource_group" {
 
 component "postgres" {
   source  = "terraform-ibm-modules/icd-postgresql/ibm"
-  version = "4.15.3"
+  version = "4.15.6"
 
   inputs = {
     resource_group_id = component.resource_group.resource_group_id
