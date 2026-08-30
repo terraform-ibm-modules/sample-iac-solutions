@@ -18,7 +18,7 @@ module "latest_ubuntu_image" {
 # Each subnet gets a `/22` block (e.g., `10.0.0.0/22`, `10.0.4.0/22`, `10.0.8.0/22`)
 module "management_vpc" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "9.2.3"
+  version           = "10.0.1"
   resource_group_id = module.resource_group.resource_group_id
   region            = "us-south"
   name              = "${var.prefix}-management-vpc"
@@ -100,7 +100,7 @@ module "management_vpc" {
 # All other traffic is implicitly denied by default, creating a secure, isolated environment for your application servers.
 module "workload_vpc" {
   source            = "terraform-ibm-modules/landing-zone-vpc/ibm"
-  version           = "9.2.3"
+  version           = "10.0.1"
   resource_group_id = module.resource_group.resource_group_id
   region            = "us-south"
   name              = "${var.prefix}-workload-vpc"
@@ -431,7 +431,7 @@ module "workload_vpe_security_group" {
 
 module "workload_vpes" {
   source             = "terraform-ibm-modules/vpe-gateway/ibm"
-  version            = "5.3.7"
+  version            = "5.4.0"
   region             = "us-south"
   prefix             = "${var.prefix}-workload-vpe"
   vpc_name           = module.workload_vpc.vpc_name
@@ -450,7 +450,7 @@ module "workload_vpes" {
 
 module "cos_storage" {
   source                 = "terraform-ibm-modules/cos/ibm"
-  version                = "10.17.7"
+  version                = "10.17.8"
   resource_group_id      = module.resource_group.resource_group_id
   region                 = "us-south"
   cos_instance_name      = "${var.prefix}-cos-storage"
