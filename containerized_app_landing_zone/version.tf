@@ -3,11 +3,11 @@ terraform {
   required_providers {
     restapi = {
       source  = "Mastercard/restapi"
-      version = ">= 2.0.1, < 3.0.0"
+      version = ">= 3.0.0, < 4.0.0"
     }
     time = {
       source  = "hashicorp/time"
-      version = "0.14.0"
+      version = "0.14.1"
     }
     ibm = {
       source  = "IBM-Cloud/ibm"
