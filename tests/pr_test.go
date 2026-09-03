@@ -45,10 +45,12 @@ var IgnoreUpdates = []string{
 	"module.logs_agent.helm_release.logs_agent",
 	"module.logs_agent.terraform_data.install_required_binaries[0]",
 	"module.monitoring_agent.helm_release.cloud_monitoring_agent",
+	"module.monitoring_agent.terraform_data.install_required_binaries[0]",
 }
 
 var IgnoreDestroys = []string{
 	"module.logs_agent.terraform_data.install_required_binaries[0]",
+	"module.monitoring_agent.terraform_data.install_required_binaries[0]",
 }
 
 var IgnoreAdds = []string{
