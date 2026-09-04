@@ -8,7 +8,7 @@ include "variables" {
 }
 
 terraform {
-  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v9.2.3"
+  source = "git::https://github.com/terraform-ibm-modules/terraform-ibm-landing-zone-vpc.git?ref=v10.0.1"
 }
 
 dependency "resource_group" {
