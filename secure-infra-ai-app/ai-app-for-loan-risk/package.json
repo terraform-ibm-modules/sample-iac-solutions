@@ -12,13 +12,13 @@
   "license": "ISC",
   "dependencies": {
     "@ibm-cloud/watsonx-ai": "1.7.16",
-    "@langchain/anthropic": "1.5.8",
+    "@langchain/anthropic": "1.5.9",
     "@langchain/community": "1.1.29",
     "@langchain/core": "1.2.9",
-    "@langchain/langgraph": "1.4.13",
+    "@langchain/langgraph": "1.4.14",
     "axios": "1.20.0",
     "express": "5.2.1",
-    "js-yaml": "4.3.1",
+    "js-yaml": "5.4.1",
     "json-server": "1.0.0-beta.15"
   },
   "devDependencies": {
@@ -29,7 +29,7 @@
     "typescript": "7.0.2"
   },
   "overrides": {
-    "langsmith": "0.9.0",
+    "langsmith": "0.10.1",
     "form-data": "4.0.6",
     "ws": "8.21.3"
   },
