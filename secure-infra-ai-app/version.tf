@@ -15,7 +15,7 @@ terraform {
     # REST API provider for making API calls to IBM Cloud services
     restapi = {
       source  = "Mastercard/restapi"
-      version = ">= 1.19.1"
+      version = ">= 2.0.1, < 3.0.0"
     }
   }
 }

@@ -10,7 +10,7 @@
 
 module "resource_group" {
   source              = "terraform-ibm-modules/resource-group/ibm"
-  version             = "1.6.0"
+  version             = "1.6.1"
   resource_group_name = "${var.prefix}-resource-group"
 }
 
@@ -21,7 +21,7 @@ module "resource_group" {
 
 module "code_engine_project" {
   source            = "terraform-ibm-modules/code-engine/ibm//modules/project"
-  version           = "4.9.6"
+  version           = "4.9.9"
   name              = "${var.prefix}-ce-project"
   resource_group_id = module.resource_group.resource_group_id
 }
@@ -33,12 +33,12 @@ module "code_engine_project" {
 
 module "code_engine_secret" {
   source     = "terraform-ibm-modules/code-engine/ibm//modules/secret"
-  version    = "4.9.6"
+  version    = "4.9.9"
   name       = "${var.prefix}-registry-access-secret"
   project_id = module.code_engine_project.id
   format     = "registry"
   data = {
-    "server"   = "private.us.icr.io",
+    "server"   = local.icr_private_host,
     "username" = "iamapikey",
     "password" = var.ibmcloud_api_key,
   }
@@ -51,9 +51,10 @@ module "code_engine_secret" {
 
 module "namespace" {
   source            = "terraform-ibm-modules/container-registry/ibm"
-  version           = "2.7.2"
+  version           = "2.8.6"
   namespace_name    = "${var.prefix}-crn"
   resource_group_id = module.resource_group.resource_group_id
+  images_per_repo   = var.cr_retention_images_per_repo
 }
 
 ##############################################################################
@@ -61,8 +62,27 @@ module "namespace" {
 ##############################################################################
 
 locals {
+  # Maps IBM Cloud region to the ICR private domain prefix.
+  # Source: https://cloud.ibm.com/docs/Registry?topic=Registry-registry_overview#registry_regions_local
+  icr_region_map = {
+    "us-south" = "us"
+    "us-east"  = "us"
+    "eu-de"    = "de"
+    "eu-gb"    = "uk"
+    "eu-es"    = "es"
+    "jp-tok"   = "jp"
+    "jp-osa"   = "jp2"
+    "au-syd"   = "au"
+    "br-sao"   = "br"
+    "ca-tor"   = "ca"
+    "ca-mon"   = "ca2"
+    "in-che"   = "in"
+  }
+  icr_geo          = lookup(local.icr_region_map, var.region, "us")
+  icr_private_host = "private.${local.icr_geo}.icr.io"
+
   # Path where the built container image will be stored
-  output_image = "private.us.icr.io/${module.namespace.namespace_name}/ai-agent-for-loan-risk"
+  output_image = "${local.icr_private_host}/${module.namespace.namespace_name}/ai-agent-for-loan-risk"
 }
 
 ##############################################################################
@@ -73,7 +93,7 @@ locals {
 
 module "code_engine_build" {
   source                     = "terraform-ibm-modules/code-engine/ibm//modules/build"
-  version                    = "4.9.6"
+  version                    = "4.9.9"
   name                       = "${var.prefix}-ce-build"
   region                     = var.region
   ibmcloud_api_key           = var.ibmcloud_api_key
@@ -102,7 +122,7 @@ locals {
 
 module "key_protect_all_inclusive" {
   source                    = "terraform-ibm-modules/kms-all-inclusive/ibm"
-  version                   = "5.6.5"
+  version                   = "5.6.7"
   key_protect_instance_name = "${var.prefix}-kp"
   resource_group_id         = module.resource_group.resource_group_id
   enable_metrics            = false
@@ -127,7 +147,7 @@ module "key_protect_all_inclusive" {
 
 module "cos" {
   source                 = "terraform-ibm-modules/cos/ibm"
-  version                = "10.16.0"
+  version                = "10.17.9"
   resource_group_id      = module.resource_group.resource_group_id
   region                 = var.region
   cos_instance_name      = "${var.prefix}-my-cos"
@@ -152,7 +172,7 @@ data "ibm_iam_auth_token" "restapi" {
 
 module "watsonx_ai" {
   source                        = "terraform-ibm-modules/watsonx-ai/ibm"
-  version                       = "2.17.3"
+  version                       = "2.17.11"
   region                        = var.region
   resource_group_id             = module.resource_group.resource_group_id
   watsonx_ai_studio_plan        = "professional-v1"
@@ -172,7 +192,7 @@ module "watsonx_ai" {
 module "code_engine_app" {
   depends_on      = [module.code_engine_build] # Wait for image to be built
   source          = "terraform-ibm-modules/code-engine/ibm//modules/app"
-  version         = "4.9.6"
+  version         = "4.9.9"
   project_id      = module.code_engine_project.id
   name            = "${var.prefix}-ai-agent-for-loan-risk"
   image_reference = module.code_engine_build.output_image # Use the built container image
