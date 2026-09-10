@@ -32,6 +32,7 @@ const landingZoneExampleDir = "containerized_app_landing_zone"
 const hubAndSpokeSolutionDir = "hub-and-spoke"
 const secureInfraAIAppDir = "secure-infra-ai-app"
 const pulumiScriptDir = "pulumi/run_tests.sh"
+const stacksDir = "stacks"
 
 var validRegions = []string{
 	"au-syd",
