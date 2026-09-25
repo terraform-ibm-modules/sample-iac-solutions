@@ -192,7 +192,7 @@ resource "ibm_is_ssh_key" "ssh_key" {
 # The assigned IP is available in the jumpbox_public_ip output.
 module "jumpbox_server" {
   source                = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version               = "7.0.3"
+  version               = "8.0.0"
   create_security_group = true
   image_id              = module.latest_ubuntu_image.latest_image_id # Dynamically fetched latest Ubuntu image
   enable_floating_ip    = true
@@ -244,7 +244,7 @@ module "jumpbox_server" {
 
 module "workload_servers" {
   source                = "terraform-ibm-modules/landing-zone-vsi/ibm"
-  version               = "7.0.3"
+  version               = "8.0.0"
   create_security_group = true
   image_id              = module.latest_ubuntu_image.latest_image_id # Dynamically fetched latest Ubuntu image
   security_group = {
