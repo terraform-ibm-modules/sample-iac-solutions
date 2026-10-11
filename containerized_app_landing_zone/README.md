@@ -32,7 +32,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | 3.2.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 2.5.0 |
@@ -43,34 +43,34 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 ### Modules
 
 | Name | Source | Version |
-|------|--------|---------|
-| <a name="module_activity_tracker"></a> [activity\_tracker](#module\_activity\_tracker) | terraform-ibm-modules/activity-tracker/ibm | 1.8.31 |
-| <a name="module_app_config"></a> [app\_config](#module\_app\_config) | terraform-ibm-modules/app-configuration/ibm | 1.19.0 |
-| <a name="module_at_cos_bucket"></a> [at\_cos\_bucket](#module\_at\_cos\_bucket) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.17.19 |
-| <a name="module_cloud_logs"></a> [cloud\_logs](#module\_cloud\_logs) | terraform-ibm-modules/cloud-logs/ibm | 1.15.13 |
-| <a name="module_cloud_logs_buckets"></a> [cloud\_logs\_buckets](#module\_cloud\_logs\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.17.19 |
+| ---- | ------ | ------- |
+| <a name="module_activity_tracker"></a> [activity\_tracker](#module\_activity\_tracker) | terraform-ibm-modules/activity-tracker/ibm | 2.1.0 |
+| <a name="module_app_config"></a> [app\_config](#module\_app\_config) | terraform-ibm-modules/app-configuration/ibm | 1.19.3 |
+| <a name="module_at_cos_bucket"></a> [at\_cos\_bucket](#module\_at\_cos\_bucket) | terraform-ibm-modules/cos/ibm//modules/buckets | 11.0.0 |
+| <a name="module_cloud_logs"></a> [cloud\_logs](#module\_cloud\_logs) | terraform-ibm-modules/cloud-logs/ibm | 2.1.2 |
+| <a name="module_cloud_logs_buckets"></a> [cloud\_logs\_buckets](#module\_cloud\_logs\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 11.0.0 |
 | <a name="module_cloud_monitoring"></a> [cloud\_monitoring](#module\_cloud\_monitoring) | terraform-ibm-modules/cloud-monitoring/ibm | 1.15.16 |
-| <a name="module_cos"></a> [cos](#module\_cos) | terraform-ibm-modules/cos/ibm//modules/fscloud | 10.17.19 |
-| <a name="module_en_cos_buckets"></a> [en\_cos\_buckets](#module\_en\_cos\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.17.19 |
-| <a name="module_event_notifications"></a> [event\_notifications](#module\_event\_notifications) | terraform-ibm-modules/event-notifications/ibm | 2.12.44 |
-| <a name="module_kms"></a> [kms](#module\_kms) | terraform-ibm-modules/kms-all-inclusive/ibm | 5.6.10 |
+| <a name="module_cos"></a> [cos](#module\_cos) | terraform-ibm-modules/cos/ibm//modules/fscloud | 11.0.0 |
+| <a name="module_en_cos_buckets"></a> [en\_cos\_buckets](#module\_en\_cos\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 11.0.0 |
+| <a name="module_event_notifications"></a> [event\_notifications](#module\_event\_notifications) | terraform-ibm-modules/event-notifications/ibm | 3.0.2 |
+| <a name="module_kms"></a> [kms](#module\_kms) | terraform-ibm-modules/kms-all-inclusive/ibm | 5.6.11 |
 | <a name="module_logs_agent"></a> [logs\_agent](#module\_logs\_agent) | terraform-ibm-modules/logs-agent/ibm | 1.26.4 |
 | <a name="module_metrics_routing"></a> [metrics\_routing](#module\_metrics\_routing) | terraform-ibm-modules/cloud-monitoring/ibm//modules/metrics_routing | 1.15.16 |
-| <a name="module_monitoring_agent"></a> [monitoring\_agent](#module\_monitoring\_agent) | terraform-ibm-modules/monitoring-agent/ibm | 1.25.5 |
-| <a name="module_ocp_base"></a> [ocp\_base](#module\_ocp\_base) | terraform-ibm-modules/base-ocp-vpc/ibm | 3.91.6 |
+| <a name="module_monitoring_agent"></a> [monitoring\_agent](#module\_monitoring\_agent) | terraform-ibm-modules/monitoring-agent/ibm | 1.25.9 |
+| <a name="module_ocp_base"></a> [ocp\_base](#module\_ocp\_base) | terraform-ibm-modules/base-ocp-vpc/ibm | 4.0.3 |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.6.1 |
-| <a name="module_scc_wp"></a> [scc\_wp](#module\_scc\_wp) | terraform-ibm-modules/scc-workload-protection/ibm | 1.22.12 |
-| <a name="module_secret_group"></a> [secret\_group](#module\_secret\_group) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.5.7 |
-| <a name="module_secrets_manager"></a> [secrets\_manager](#module\_secrets\_manager) | terraform-ibm-modules/secrets-manager/ibm | 2.15.22 |
+| <a name="module_scc_wp"></a> [scc\_wp](#module\_scc\_wp) | terraform-ibm-modules/scc-workload-protection/ibm | 1.22.14 |
+| <a name="module_secret_group"></a> [secret\_group](#module\_secret\_group) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.5.8 |
+| <a name="module_secrets_manager"></a> [secrets\_manager](#module\_secrets\_manager) | terraform-ibm-modules/secrets-manager/ibm | 3.0.1 |
 | <a name="module_trusted_profile"></a> [trusted\_profile](#module\_trusted\_profile) | terraform-ibm-modules/trusted-profile/ibm | 4.2.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 10.0.10 |
-| <a name="module_vpc_cos_buckets"></a> [vpc\_cos\_buckets](#module\_vpc\_cos\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.17.19 |
-| <a name="module_vpe_gateway"></a> [vpe\_gateway](#module\_vpe\_gateway) | terraform-ibm-modules/vpe-gateway/ibm | 5.4.2 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-ibm-modules/landing-zone-vpc/ibm | 10.1.0 |
+| <a name="module_vpc_cos_buckets"></a> [vpc\_cos\_buckets](#module\_vpc\_cos\_buckets) | terraform-ibm-modules/cos/ibm//modules/buckets | 11.0.0 |
+| <a name="module_vpe_gateway"></a> [vpe\_gateway](#module\_vpe\_gateway) | terraform-ibm-modules/vpe-gateway/ibm | 5.5.1 |
 
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [ibm_en_subscription_email.apprapp_email_subscription](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.5.0/docs/resources/en_subscription_email) | resource |
 | [ibm_en_subscription_email.en_email_subscription](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.5.0/docs/resources/en_subscription_email) | resource |
 | [ibm_en_topic.en_apprapp_topic](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.5.0/docs/resources/en_topic) | resource |
@@ -89,7 +89,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_event_notifications_email_list"></a> [event\_notifications\_email\_list](#input\_event\_notifications\_email\_list) | The list of email address to target out when an event is triggered | `list(string)` | `[]` | no |
 | <a name="input_existing_resource_group_name"></a> [existing\_resource\_group\_name](#input\_existing\_resource\_group\_name) | The name of an existing resource group to provision the resources. | `string` | `"Default"` | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud api token | `string` | n/a | yes |
@@ -102,7 +102,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_activity_tracker_cos_target_bucket_name"></a> [activity\_tracker\_cos\_target\_bucket\_name](#output\_activity\_tracker\_cos\_target\_bucket\_name) | he name of the object storage bucket which is set as activity tracker event routing target to collect audit events. |
 | <a name="output_activity_tracker_routes"></a> [activity\_tracker\_routes](#output\_activity\_tracker\_routes) | The map of created Activity Tracker Event Routing routes |
 | <a name="output_activity_tracker_targets"></a> [activity\_tracker\_targets](#output\_activity\_tracker\_targets) | The map of created Activity Tracker Event Routing targets |
