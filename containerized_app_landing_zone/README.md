@@ -32,7 +32,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.9.0 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | 3.2.0 |
 | <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 2.5.0 |
@@ -43,7 +43,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 ### Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_activity_tracker"></a> [activity\_tracker](#module\_activity\_tracker) | terraform-ibm-modules/activity-tracker/ibm | 1.8.31 |
 | <a name="module_app_config"></a> [app\_config](#module\_app\_config) | terraform-ibm-modules/app-configuration/ibm | 1.19.0 |
 | <a name="module_at_cos_bucket"></a> [at\_cos\_bucket](#module\_at\_cos\_bucket) | terraform-ibm-modules/cos/ibm//modules/buckets | 10.17.19 |
@@ -70,7 +70,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [ibm_en_subscription_email.apprapp_email_subscription](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.5.0/docs/resources/en_subscription_email) | resource |
 | [ibm_en_subscription_email.en_email_subscription](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.5.0/docs/resources/en_subscription_email) | resource |
 | [ibm_en_topic.en_apprapp_topic](https://registry.terraform.io/providers/IBM-Cloud/ibm/2.5.0/docs/resources/en_topic) | resource |
@@ -89,7 +89,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_event_notifications_email_list"></a> [event\_notifications\_email\_list](#input\_event\_notifications\_email\_list) | The list of email address to target out when an event is triggered | `list(string)` | `[]` | no |
 | <a name="input_existing_resource_group_name"></a> [existing\_resource\_group\_name](#input\_existing\_resource\_group\_name) | The name of an existing resource group to provision the resources. | `string` | `"Default"` | no |
 | <a name="input_ibmcloud_api_key"></a> [ibmcloud\_api\_key](#input\_ibmcloud\_api\_key) | The IBM Cloud api token | `string` | n/a | yes |
@@ -102,7 +102,7 @@ The primary goal of this example is to provision an OpenShift cluster on VPC and
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_activity_tracker_cos_target_bucket_name"></a> [activity\_tracker\_cos\_target\_bucket\_name](#output\_activity\_tracker\_cos\_target\_bucket\_name) | he name of the object storage bucket which is set as activity tracker event routing target to collect audit events. |
 | <a name="output_activity_tracker_routes"></a> [activity\_tracker\_routes](#output\_activity\_tracker\_routes) | The map of created Activity Tracker Event Routing routes |
 | <a name="output_activity_tracker_targets"></a> [activity\_tracker\_targets](#output\_activity\_tracker\_targets) | The map of created Activity Tracker Event Routing targets |
