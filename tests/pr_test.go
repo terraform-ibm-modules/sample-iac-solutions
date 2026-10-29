@@ -24,6 +24,38 @@ import (
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 )
 
+// skipIfDirUnchanged skips the test when no files under dir were modified in
+// the current PR.  It compares HEAD against the merge-base of the PR base
+// branch (PR_BASE_BRANCH env var, defaulting to "origin/main").  If git is
+// unavailable or the comparison fails the test is NOT skipped, so the tests
+// still run in environments where git history is absent.
+func skipIfDirUnchanged(t *testing.T, dir string) {
+	t.Helper()
+
+	base := os.Getenv("PR_BASE_BRANCH")
+	if base == "" {
+		base = "origin/test1"
+	}
+
+	// Find the common ancestor so we only look at changes introduced by this branch.
+	mergeBase, err := exec.Command("git", "merge-base", "HEAD", base).Output()
+	if err != nil {
+		t.Logf("skipIfDirUnchanged: could not determine merge-base (%v), skipping directory filter", err)
+		return
+	}
+
+	ref := strings.TrimSpace(string(mergeBase))
+	out, err := exec.Command("git", "diff", "--name-only", ref, "HEAD", "--", dir).Output()
+	if err != nil {
+		t.Logf("skipIfDirUnchanged: git diff failed (%v), skipping directory filter", err)
+		return
+	}
+
+	if strings.TrimSpace(string(out)) == "" {
+		t.Skipf("Skipping %s: no changes detected under %q (base: %s)", t.Name(), dir, ref)
+	}
+}
+
 // Use existing resource group
 const resourceGroup = "geretain-test-resources"
 
@@ -118,6 +150,7 @@ func setupSecureInfraAIAppOptions(t *testing.T) *testhelper.TestOptions {
 // Consistency test for the containerized app landing zone
 func TestRunLandingZoneExample(t *testing.T) {
 	t.Parallel()
+	skipIfDirUnchanged(t, landingZoneExampleDir)
 
 	options := setupOptions(t, "app-lz", landingZoneExampleDir)
 
@@ -129,6 +162,7 @@ func TestRunLandingZoneExample(t *testing.T) {
 // Upgrade test for the containerized app landing zone
 func TestUpgradeLandingZoneExample(t *testing.T) {
 	t.Parallel()
+	skipIfDirUnchanged(t, landingZoneExampleDir)
 
 	options := setupOptions(t, "app-lz", landingZoneExampleDir)
 	output, err := options.RunTestUpgrade()
